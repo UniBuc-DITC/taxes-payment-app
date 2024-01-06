@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "types:check": "tsc --noEmit --incremental"
   },
   "dependencies": {
     "next": "14.0.4",

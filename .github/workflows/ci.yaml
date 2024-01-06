@@ -1,0 +1,29 @@
+name: ci
+
+run-name: Continuous integration
+
+on: [push]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js and npm
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies using npm
+        run: npm ci
+
+      - name: Check the formatting
+        run: npm run format:check
+
+      - name: Check the types
+        run: npm run types:check
+
+      - name: Run the linter
+        run: npm run lint
