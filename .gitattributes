@@ -1,0 +1,4 @@
+# This file is used to tell Git how to store certain objects.
+
+# Automatically detect text files and store them with the LF character as line terminator.
+* text=auto eol=lf

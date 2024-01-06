@@ -1,0 +1,18 @@
+# EditorConfig is awesome: https://EditorConfig.org
+# It allows us to enforce a consistent coding style across IDEs and text editors.
+
+# This is the project's root EditorConfig file.
+root = true
+
+[*]
+# Encode all files using UTF-8.
+charset = utf-8
+
+# Use the LF character as line terminator.
+end_of_line = lf
+
+# Ensure every file ends with a newline.
+insert_final_newline = true
+
+# Remove extraneous whitespace at the end of lines.
+trim_trailing_whitespace = true
