@@ -17,6 +17,14 @@ You need to have the latest stable versions of [Node.js](https://nodejs.org/en) 
 
 If it is the first time you're running the app, you will have to install all of the required package dependencies by running `npm install` in the root directory.
 
+The app requires a [PostgreSQL](https://www.postgresql.org/) database to be available. The easiest way to spin up one locally is by installing [Docker](https://www.docker.com/) and then running:
+
+```bash
+docker compose up
+```
+
+in this directory.
+
 To start a local development server, use:
 
 ```bash
