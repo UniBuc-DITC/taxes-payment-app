@@ -1,0 +1,9 @@
+services:
+  postgres:
+    image: "postgres:16.1"
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: taxes_app
+      POSTGRES_PASSWORD: dev_pwd
+      POSTGRES_DB: taxes
