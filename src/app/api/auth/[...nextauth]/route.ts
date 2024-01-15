@@ -13,8 +13,8 @@ export const authOptions: NextAuthOptions = {
         params: {
           // i dont think the redirect link its ok, i cant test it (see whatsup), the docs say to use
           // http://localhost:3000/api/auth/callback/azure-ad
-          // if i use it next-auth doesnt work 
-          //   redirect_uri: "http://localhost:3000/api/auth/microsoft365",
+          // if i use it next-auth doesnt work
+          // redirect_uri: "http://localhost:3000/api/auth/microsoft365",
         },
       },
       profile(profile) {
