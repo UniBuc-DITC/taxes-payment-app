@@ -12,6 +12,7 @@
     "types:check": "tsc --noEmit --incremental"
   },
   "dependencies": {
+    "@prisma/client": "^5.8.0",
     "next": "14.0.4",
     "next-intl": "^3.4.2",
     "react": "^18",
@@ -26,6 +27,7 @@
     "eslint-config-next": "14.0.4",
     "postcss": "^8",
     "prettier": "^3.1.1",
+    "prisma": "^5.8.0",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }
