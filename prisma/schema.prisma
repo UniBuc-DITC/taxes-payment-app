@@ -71,7 +71,7 @@ enum FacultyTaxType {
 
 model FacultyTaxValue {
   id               Int            @id @default(autoincrement())
-  value            Float          
+  value            Decimal          
   studyCycle       StudyCycle     @map("study_cycle")
   facultyId        Int            @map("faculty_id")
   facultyTaxType   FacultyTaxType @map("faculty_tax_type")
@@ -84,7 +84,7 @@ model FacultyTaxValue {
 
 model StudentDormTaxValue {
   id              Int         @id @default(autoincrement())
-  value           Float       
+  value           Decimal       
   studentDormId   Int         @map("student_dorm_id")
   remarksRo       String      @map("remarks_ro")
   remarksEn       String      @map("remarks_en")
