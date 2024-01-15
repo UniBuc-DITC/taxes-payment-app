@@ -33,6 +33,27 @@ AZURE_AD_CLIENT_ID=<client ID of app registration>
 AZURE_AD_CLIENT_SECRET<client secret created for app>
 ```
 
+To run run prisma, you have two steps:
+
+- First is to generate the schema in the database:
+
+  - To just generate the database and not create a migration:
+
+    ```bash
+    npx prisma db push
+    ```
+
+  - To generate the database and also create a migration:
+    ```bash
+    npx prisma migrate dev --name init
+    ```
+
+- Second is to generate the prisma client. This step is required also after every pull because prisma client is stored in the `node_modules` folder which is in the `.gitignore`
+
+```bash
+npx prisma generate
+```
+
 To start a local development server, use:
 
 ```bash
