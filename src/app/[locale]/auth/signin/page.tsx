@@ -1,31 +1,16 @@
-"use client";
+import { useTranslations } from "next-intl";
+import SignInButton from "./SignInButton";
 
-import { signIn } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
+export default function SignInPage() {
+  const t = useTranslations("Auth.SignIn");
 
-function SinginPage() {
-  const params = useSearchParams();
-  const error = params.get("error");
   return (
-    <div className="m-auto space-y-7 flex items-center justify-center mt-20">
-      <button
-        onClick={() => {
-          signIn("azure-ad");
-        }}
-      >
-        Sing in
-      </button>
-      {error &&
-        (error === "Callback" ? (
-          <p>
-            Please make sure you have access, if you requested access talk to
-            the admin
-          </p>
-        ) : (
-          <p>Ooops, something went wrong :(</p>
-        ))}
+    <div>
+      <SignInButton
+        btn={t("btn")}
+        callbackError={t("callbackError")}
+        otherErros={t("otherErros")}
+      />
     </div>
   );
 }
-
-export default SinginPage;

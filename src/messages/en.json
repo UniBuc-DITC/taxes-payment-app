@@ -2,5 +2,12 @@
   "Index": {
     "getStarted": "Get started by editing",
     "by": "By"
+  },
+  "Auth": {
+    "SignIn": {
+      "btn": "SignIn",
+      "callbackError": "Only authorized users are allowed to log into the admin interface of the app",
+      "otherErros": "Ooops, something went wrong :("
+    }
   }
 }
