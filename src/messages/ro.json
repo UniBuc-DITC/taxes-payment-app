@@ -2,5 +2,12 @@
   "Index": {
     "getStarted": "Începe prin a edita fișierul",
     "by": "De"
+  },
+  "Auth": {
+    "SignIn": {
+      "buttonLabel": "Conectare",
+      "callbackError": "Doar utilizatorii autorizați au permisiunea de a se conecta la interfața de administrare a aplicației",
+      "otherError": "Hopa, ceva nu a funcționat corect :("
+    }
   }
 }

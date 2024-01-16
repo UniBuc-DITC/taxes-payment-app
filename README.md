@@ -25,6 +25,14 @@ docker compose up
 
 in this directory.
 
+The app uses [NextAuth.js](https://next-auth.js.org/) to provide support for authentication using [Microsoft Entra ID (formerly Azure AD)](https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id). In development, you have to create a `.env.local` file in the root directory and define the following environment variables:
+
+```
+AZURE_AD_TENANT_ID=<ID of tenant in which app resides>
+AZURE_AD_CLIENT_ID=<client ID of app registration>
+AZURE_AD_CLIENT_SECRET<client secret created for app>
+```
+
 To start a local development server, use:
 
 ```bash
@@ -41,4 +49,16 @@ To check for code issues using [ESLint](https://eslint.org/), run:
 
 ```bash
 npm run lint
+```
+
+## Deployment instructions
+
+The following environment variables must be defined for the app to function properly:
+
+```
+NEXTAUTH_URL=<app's canonical base URL>
+NEXTAUTH_SECRET=<cryptographically secure secret key, to be used for encryption>
+AZURE_AD_TENANT_ID=<ID of tenant in which app resides>
+AZURE_AD_CLIENT_ID=<client ID of app registration>
+AZURE_AD_CLIENT_SECRET<client secret created for app>
 ```
