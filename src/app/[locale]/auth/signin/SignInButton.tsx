@@ -1,15 +1,12 @@
 "use client";
 
-import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { signIn } from "next-auth/react";
 
-interface Props {
-  btn: string;
-  callbackError: string;
-  otherErros: string;
-}
+function SignInButton() {
+  const t = useTranslations("Auth.SignIn");
 
-function SignInButton({ btn, callbackError, otherErros }: Props) {
   const params = useSearchParams();
   const error = params.get("error");
   return (
@@ -19,10 +16,14 @@ function SignInButton({ btn, callbackError, otherErros }: Props) {
           signIn("azure-ad");
         }}
       >
-        {btn}
+        {t("buttonLabel")}
       </button>
       {error &&
-        (error === "Callback" ? <p>{callbackError}</p> : <p>{otherErros}</p>)}
+        (error === "Callback" ? (
+          <p>{t("callbackError")}</p>
+        ) : (
+          <p>{t("otherError")}</p>
+        ))}
     </div>
   );
 }

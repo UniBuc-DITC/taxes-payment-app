@@ -5,9 +5,9 @@
   },
   "Auth": {
     "SignIn": {
-      "btn": "SignIn",
+      "buttonLabel": "Sign in",
       "callbackError": "Only authorized users are allowed to log into the admin interface of the app",
-      "otherErros": "Ooops, something went wrong :("
+      "otherError": "Ooops, something went wrong :("
     }
   }
 }

@@ -5,9 +5,9 @@
   },
   "Auth": {
     "SignIn": {
-      "btn": "Conectare",
+      "buttonLabel": "Conectare",
       "callbackError": "Doar utilizatorii autorizați au permisiunea de a se conecta la interfața de administrare a aplicației",
-      "otherErros": "Hopa, ceva nu a funcționat corect :("
+      "otherError": "Hopa, ceva nu a funcționat corect :("
     }
   }
 }
