@@ -1,0 +1,94 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  appAdmin @map("app_admin")
+  taxesAdmin @map("taxes_admin")
+}
+
+model User {
+  id                Int    @id @default(autoincrement())
+  azureAdObjectId   String @unique @map("azure_ad_object_id")
+  role              Role
+
+  @@map("users")
+}
+
+model EuPlatescAccount {
+  id                         Int      @id @default(autoincrement())
+  name                       String
+  description                String?
+  merchantId                 Int      @unique @map("merchant_id")
+  secretKey                  String   @map("secret_key")
+  didacticPremiumCardOnly    Boolean  @map("didactic_premium_card_only")
+  faculties                  Faculty[]
+  studentDorms               StudentDorm[]
+
+  @@map("euplatesc_accounts")
+}
+
+model Faculty {
+  id                  Int              @id @default(autoincrement())
+  nameRo              String           @map("name_ro")
+  nameEn              String           @map("name_en")
+  euplatescAccountId  Int?             @map("euplatesc_account_id")
+  euPlatescAccount    EuPlatescAccount? @relation(fields: [euplatescAccountId], references: [id])
+  facultyTaxValues    FacultyTaxValue[]
+
+  @@map("faculties")
+}
+
+model StudentDorm {
+  id                  Int              @id @default(autoincrement())
+  name                String
+  euplatescAccountId  Int?             @map("euplatesc_account_id")
+  euPlatescAccount    EuPlatescAccount? @relation(fields: [euplatescAccountId], references: [id])
+  studentDormTaxValues StudentDormTaxValue[]
+
+  @@map("student_dorms")
+}
+
+enum StudyCycle {
+  bachelors
+  masters
+  doctorate
+  postuniversitary
+}
+
+enum FacultyTaxType {
+  admission
+  tuition
+}
+
+model FacultyTaxValue {
+  id               Int            @id @default(autoincrement())
+  value            Decimal          
+  studyCycle       StudyCycle     @map("study_cycle")
+  facultyId        Int            @map("faculty_id")
+  facultyTaxType   FacultyTaxType @map("faculty_tax_type")
+  remarksRo        String?        @map("remarks_ro")
+  remarksEn        String?        @map("remarks_en")
+  faculty          Faculty        @relation(fields: [facultyId], references: [id])
+
+  @@map("faculty_tax_values")
+}
+
+model StudentDormTaxValue {
+  id              Int         @id @default(autoincrement())
+  value           Decimal       
+  studentDormId   Int         @map("student_dorm_id")
+  remarksRo       String      @map("remarks_ro")
+  remarksEn       String      @map("remarks_en")
+  studentDorm     StudentDorm @relation(fields: [studentDormId], references: [id])
+
+  @@map("student_dorm_tax_values")
+}
