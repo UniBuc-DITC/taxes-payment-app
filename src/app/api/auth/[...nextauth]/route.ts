@@ -40,10 +40,13 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user, account, profile }) {
       if (account) {
         token.accessToken = account.access_token;
-        token.id_token = account.id_token;
+      } else {
+        throw new Error("Access Token was not present");
       }
       if (user) {
         token.azureAdObjectId = user.azureAdObjectId;
+      } else {
+        throw new Error("Azure Active Directory id of was not present");
       }
 
       return token;
