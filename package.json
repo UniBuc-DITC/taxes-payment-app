@@ -9,7 +9,11 @@
     "lint": "next lint",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "types:check": "tsc --noEmit --incremental"
+    "types:check": "tsc --noEmit --incremental",
+    "prisma": "dotenv -e .env.development -- npx prisma",
+    "prisma:push": "dotenv -e .env.development -- npx prisma db push",
+    "prisma:migrate": "dotenv -e .env.development -- npx prisma migrate dev",
+    "prisma:generate": "dotenv -e .env.development -- npx prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^5.8.0",
@@ -24,6 +28,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
+    "dotenv-cli": "^7.3.0",
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
     "postcss": "^8",
