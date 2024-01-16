@@ -33,7 +33,7 @@ AZURE_AD_CLIENT_ID=<client ID of app registration>
 AZURE_AD_CLIENT_SECRET<client secret created for app>
 ```
 
-To run run prisma, you have two steps:
+To run [Primsa](https://www.prisma.io/), you have two steps:
 
 - First is to generate the schema in the database:
 
