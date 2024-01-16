@@ -41,12 +41,14 @@ export const authOptions: NextAuthOptions = {
       if (account) {
         token.accessToken = account.access_token;
       } else {
-        throw new Error("Access Token was not present");
+        throw new Error("Access Token was not present in the account");
       }
       if (user) {
         token.azureAdObjectId = user.azureAdObjectId;
       } else {
-        throw new Error("Azure Active Directory id of was not present");
+        throw new Error(
+          "Azure Active Directory id of was not present in the user",
+        );
       }
 
       return token;
@@ -54,10 +56,17 @@ export const authOptions: NextAuthOptions = {
     session({ session, token }) {
       if (token.accessToken && typeof token.accessToken === "string") {
         session.accessToken = token.accessToken;
+      } else {
+        throw new Error("Access Token was not present in the token");
       }
       if (token.azureAdObjectId && typeof token.azureAdObjectId === "string") {
         session.user.azureAdObjectId = token.azureAdObjectId;
+      } else {
+        throw new Error(
+          "Azure Active Directory id of was not present in the token",
+        );
       }
+
       return session;
     },
   },
