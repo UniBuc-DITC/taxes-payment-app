@@ -42,3 +42,11 @@ To check for code issues using [ESLint](https://eslint.org/), run:
 ```bash
 npm run lint
 ```
+
+To be able to run the authentication flow in the application, using [Next-Auth](https://next-auth.js.org/) and [Entra Id (Azure Active Directory Proivder)](https://next-auth.js.org/providers/azure-ad) , create and `.env.local` file and add these 5 keys:
+
+1. `NEXTAUTH_SECRET`
+2. `NEXTAUTH_URL`
+3. `AZURE_AD_CLIENT_ID`
+4. `AZURE_AD_CLIENT_SECRET`
+5. `AZURE_AD_TENANT_ID`
