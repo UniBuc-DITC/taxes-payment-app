@@ -30,8 +30,8 @@ model EuPlatescAccount {
   merchantId                 Int      @unique @map("merchant_id")
   secretKey                  String   @map("secret_key")
   didacticPremiumCardOnly    Boolean  @map("didactic_premium_card_only")
-  Faculties                  Faculty[]
-  StudentDorms               StudentDorm[]
+  faculties                  Faculty[]
+  studentDorms               StudentDorm[]
 
   @@map("euplatesc_accounts")
 }
@@ -41,8 +41,8 @@ model Faculty {
   nameRo              String           @map("name_ro")
   nameEn              String           @map("name_en")
   euplatescAccountId  Int?             @map("euplatesc_account_id")
-  EuPlatescAccount    EuPlatescAccount? @relation(fields: [euplatescAccountId], references: [id])
-  FacultyTaxValues    FacultyTaxValue[]
+  euPlatescAccount    EuPlatescAccount? @relation(fields: [euplatescAccountId], references: [id])
+  facultyTaxValues    FacultyTaxValue[]
 
   @@map("faculties")
 }
@@ -51,8 +51,8 @@ model StudentDorm {
   id                  Int              @id @default(autoincrement())
   name                String
   euplatescAccountId  Int?             @map("euplatesc_account_id")
-  EuPlatescAccount    EuPlatescAccount? @relation(fields: [euplatescAccountId], references: [id])
-  StudentDormTaxValues StudentDormTaxValue[]
+  euPlatescAccount    EuPlatescAccount? @relation(fields: [euplatescAccountId], references: [id])
+  studentDormTaxValues StudentDormTaxValue[]
 
   @@map("student_dorms")
 }
@@ -77,7 +77,7 @@ model FacultyTaxValue {
   facultyTaxType   FacultyTaxType @map("faculty_tax_type")
   remarksRo        String?        @map("remarks_ro")
   remarksEn        String?        @map("remarks_en")
-  Faculty          Faculty        @relation(fields: [facultyId], references: [id])
+  faculty          Faculty        @relation(fields: [facultyId], references: [id])
 
   @@map("faculty_tax_values")
 }
@@ -88,7 +88,7 @@ model StudentDormTaxValue {
   studentDormId   Int         @map("student_dorm_id")
   remarksRo       String      @map("remarks_ro")
   remarksEn       String      @map("remarks_en")
-  StudentDorm     StudentDorm @relation(fields: [studentDormId], references: [id])
+  studentDorm     StudentDorm @relation(fields: [studentDormId], references: [id])
 
   @@map("student_dorm_tax_values")
 }
