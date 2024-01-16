@@ -1,28 +1,54 @@
 import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import AzureAD from "next-auth/providers/azure-ad";
+import type { Provider } from "next-auth/providers/index";
 // import prisma from "@/db/prisma";
 
+const providers: Provider[] = [];
+
+const tenantId = process.env.AZURE_AD_TENANT_ID;
+if (typeof tenantId !== "string" || !tenantId) {
+  throw Error(
+    "Required environment variable `AZURE_AD_TENANT_ID` is not defined",
+  );
+}
+
+const clientId = process.env.AZURE_AD_CLIENT_ID;
+if (typeof clientId !== "string" || !clientId) {
+  throw Error(
+    "Required environment variable `AZURE_AD_CLIENT_ID` is not defined",
+  );
+}
+
+const clientSecret = process.env.AZURE_AD_CLIENT_SECRET;
+if (typeof clientSecret !== "string" || !clientSecret) {
+  throw Error(
+    "Required environment variable `AZURE_AD_CLIENT_SECRET` is not defined",
+  );
+}
+
+providers.push(
+  AzureAD({
+    tenantId,
+    clientId,
+    clientSecret,
+    authorization: {
+      params: {},
+    },
+    profile(profile) {
+      return {
+        id: profile.sub,
+        azureAdObjectId: profile.oid,
+        name: profile.name,
+        email: profile.email,
+        image: profile.picture ?? null,
+      };
+    },
+  }),
+);
+
 export const authOptions: NextAuthOptions = {
-  providers: [
-    AzureAD({
-      clientId: process.env.AZURE_AD_CLIENT_ID as string,
-      clientSecret: process.env.AZURE_AD_CLIENT_SECRET as string,
-      tenantId: process.env.AZURE_AD_TENANT_ID as string,
-      authorization: {
-        params: {},
-      },
-      profile(profile) {
-        return {
-          id: profile.sub,
-          azureAdObjectId: profile.oid,
-          name: profile.name,
-          email: profile.email,
-          image: profile.picture ?? null,
-        };
-      },
-    }),
-  ],
+  providers,
 
   callbacks: {
     async signIn({ user }) {
@@ -37,35 +63,23 @@ export const authOptions: NextAuthOptions = {
 
       return true;
     },
-    async jwt({ token, user, account, profile }) {
-      if (account) {
-        token.accessToken = account.access_token;
-      } else {
-        throw new Error("Access Token was not present in the account");
+    jwt({ token, user, account }) {
+      if (!account) {
+        throw new Error("Cannot create JWT, received account object is null");
       }
-      if (user) {
-        token.azureAdObjectId = user.azureAdObjectId;
-      } else {
-        throw new Error(
-          "Azure Active Directory id of was not present in the user",
-        );
+
+      if (!account.access_token) {
+        throw new Error("Access token was not present in account object");
       }
+
+      token.accessToken = account.access_token;
+      token.azureAdObjectId = user.azureAdObjectId;
 
       return token;
     },
     session({ session, token }) {
-      if (token.accessToken && typeof token.accessToken === "string") {
-        session.accessToken = token.accessToken;
-      } else {
-        throw new Error("Access Token was not present in the token");
-      }
-      if (token.azureAdObjectId && typeof token.azureAdObjectId === "string") {
-        session.user.azureAdObjectId = token.azureAdObjectId;
-      } else {
-        throw new Error(
-          "Azure Active Directory id of was not present in the token",
-        );
-      }
+      session.accessToken = token.accessToken;
+      session.user.azureAdObjectId = token.azureAdObjectId;
 
       return session;
     },
@@ -74,5 +88,7 @@ export const authOptions: NextAuthOptions = {
     signIn: "/auth/signin",
   },
 };
+
 const handler = NextAuth(authOptions);
+
 export { handler as GET, handler as POST };
