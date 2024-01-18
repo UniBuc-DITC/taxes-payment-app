@@ -1,8 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/nextjs,visualstudiocode,webstorm,dotenv
-# Edit at https://www.toptal.com/developers/gitignore?templates=nextjs,visualstudiocode,webstorm,dotenv
-
-### dotenv ###
-.env
+# Created by https://www.toptal.com/developers/gitignore/api/nextjs,webstorm,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=nextjs,webstorm,visualstudiocode
 
 ### NextJS ###
 # dependencies
@@ -172,4 +169,4 @@ fabric.properties
 # https://plugins.jetbrains.com/plugin/8053-azure-toolkit-for-intellij
 .idea/**/azureSettings.xml
 
-# End of https://www.toptal.com/developers/gitignore/api/nextjs,visualstudiocode,webstorm,dotenv
+# End of https://www.toptal.com/developers/gitignore/api/nextjs,webstorm,visualstudiocode
