@@ -14,6 +14,7 @@ import PersonalDetailsForm from "../reusable/PersonalDetailsForm";
 import AgreeToTermsForm from "../reusable/AgreeToTermsForm";
 import AgreeEuPlatescForm from "../reusable/AgreeEuPlatesc";
 import SubmitButton from "../reusable/SubmitButton";
+import { sumbitDorm } from "@/actions/forms";
 
 /**
  * `DormsForm` is a React component for handling the studnent dorm form.
@@ -74,7 +75,8 @@ export default function DormsForm({
   } = methods;
 
   const onSubmit: SubmitHandler<DormFormInput> = useCallback(async (data) => {
-    console.log(data);
+    const r = await sumbitDorm(data);
+    console.log(r);
   }, []);
 
   return (
