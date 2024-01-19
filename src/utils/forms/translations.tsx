@@ -1,6 +1,10 @@
 import { RequiredCheckboxTexts } from "@/types/forms/agreements";
 import { AmountTexts } from "@/types/forms/amount";
-import { DormTaxesFields, DormTaxesTexts, DormsFormTexts } from "@/types/forms/dorms";
+import {
+  DormTaxesFields,
+  DormTaxesTexts,
+  DormsFormTexts,
+} from "@/types/forms/dorms";
 import {
   AdmissionFormTexts,
   DidacticPremiumCardTexts,

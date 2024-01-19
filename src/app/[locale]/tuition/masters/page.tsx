@@ -12,14 +12,14 @@ export default async function TuitionMastersPage({
   params: { locale },
 }: Props) {
   unstable_setRequestLocale(locale);
-    const [faculties, tuitionTexts] = await Promise.all([
-      getFacultiesWithTax("tuition", "masters"),
-      getTuitionFormTexts(),
-    ]);
-    const formTaxesOptions = createFacultyTaxOptions(faculties, locale);
-    return (
-      <div>
-        <TuitionForm {...formTaxesOptions} {...tuitionTexts} />
-      </div>
-    );
+  const [faculties, tuitionTexts] = await Promise.all([
+    getFacultiesWithTax("tuition", "masters"),
+    getTuitionFormTexts(),
+  ]);
+  const formTaxesOptions = createFacultyTaxOptions(faculties, locale);
+  return (
+    <div>
+      <TuitionForm {...formTaxesOptions} {...tuitionTexts} />
+    </div>
+  );
 }
