@@ -40,3 +40,14 @@ export const admissionSchema = z
   .and(personalSchema)
   .and(agreeSchema)
   .and(taxAmountSchema);
+
+/**
+ * @param didacticPremiumCardOnly -  true if the user selected that he wants to pay with the didactic card
+ * @param partialPay - true if it is a partial pay ie amount selected by user is less the the amount of the tax
+ */
+export const tuitionSchema = z
+  .object({
+    didacticPremiumCardOnly: z.boolean(),
+    partialPay: z.boolean(),
+  })
+  .and(admissionSchema);
