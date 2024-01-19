@@ -20,3 +20,12 @@ export const agreeSchema = z.object({
     .boolean()
     .refine((val) => val, "You must agree to the euplt"),
 });
+
+/**
+ * @param tax - the tax id that is selected for that form (FacultyTaxValue or StudentDormTaxValue)
+ * @param the - amount that the user selected
+ */
+export const taxAmountSchema = z.object({
+  tax: z.coerce.number().int("Tax must be an integer"),
+  amount: z.number().min(100, "Minimum amount value is 100"),
+});
