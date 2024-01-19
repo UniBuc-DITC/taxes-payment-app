@@ -29,3 +29,14 @@ export const taxAmountSchema = z.object({
   tax: z.coerce.number().int("Tax must be an integer"),
   amount: z.number().min(100, "Minimum amount value is 100"),
 });
+
+/**
+ * @param faculty -  the faculty id that is selected from the form
+ */
+export const admissionSchema = z
+  .object({
+    faculty: z.coerce.number().int("Faculty must be an integer"), // selected faculty id
+  })
+  .and(personalSchema)
+  .and(agreeSchema)
+  .and(taxAmountSchema);
