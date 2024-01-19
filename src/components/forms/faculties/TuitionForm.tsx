@@ -16,6 +16,7 @@ import PersonalDetailsForm from "../reusable/PersonalDetailsForm";
 import AgreeEuPlatescForm from "../reusable/AgreeEuPlatesc";
 import AgreeToTermsForm from "../reusable/AgreeToTermsForm";
 import SubmitButton from "../reusable/SubmitButton";
+import { submitTuition } from "@/actions/forms";
 
 /**
  * `TuitionForm` is a React component for managing and submitting admission forms.
@@ -99,7 +100,8 @@ export default function TuitionForm({
         data.partialPay = false;
       }
       try {
-        console.log(data);
+        const r = await submitTuition(data);
+        console.log(r);
       } catch (error) {
         console.log(error);
       }

@@ -1,5 +1,8 @@
-import { AdmissionFormInput } from "@/types/forms/faculties";
-import { admissionSchema } from "@/utils/forms/validationSchemas";
+import { AdmissionFormInput, TuitionFormInput } from "@/types/forms/faculties";
+import {
+  admissionSchema,
+  tuitionSchema,
+} from "@/utils/forms/validationSchemas";
 
 /**
  * @remarks - These are just palceholders to ilustrate the use of zod and the submit from the forms
@@ -19,6 +22,23 @@ export async function submitAdmission(
     return { success: false };
   }
   console.log(validate.data);
+  // revalidate admin path
+  // redirect to success page
+  return { success: true };
+}
+
+export async function submitTuition(
+  formData: TuitionFormInput,
+): Promise<FormActionResponse> {
+  const validate = tuitionSchema.safeParse(formData);
+
+  if (!validate.success) {
+    console.log(validate.error);
+    //redirect to error page
+    return { success: false };
+  }
+  console.log(validate.data);
+
   // revalidate admin path
   // redirect to success page
   return { success: true };
