@@ -5,6 +5,7 @@ import { unstable_setRequestLocale } from "next-intl/server";
 import { locales } from "@/i18n";
 
 import "./globals.css";
+import Navbar from "@/components/reusable/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,7 +35,10 @@ export default function RootLayout({
 
   return (
     <html lang={locale}>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Navbar />
+        <main className="max-w-7xl mx-auto">{children}</main>
+      </body>
     </html>
   );
 }
