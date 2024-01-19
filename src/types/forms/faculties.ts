@@ -1,5 +1,8 @@
 import { Prisma, StudyCycle } from "@prisma/client";
 import { Option } from "./reusable";
+import { PersonalFormFields, PersonalFormTexts } from "./personalFormTypes";
+import { SubmitButtonTexts } from "./submitBtnTypes";
+import { AgreeFormFiles, RequiredCheckboxTexts } from "./agreementsFormTypes";
 
 /**
  * Extended Faculty type including associated faculty tax values.
@@ -51,5 +54,36 @@ export type FacultyTaxesTexts = {
  * Type definition for faculty taxes amount fields in forms.
  */
 export interface FacultyTaxesAmountFields extends FacultyTaxesFields {
+  amount: number;
+}
+
+// ---------- Admission Form Types ----------
+
+/**
+ * Type definition for faculty taxes amount fields in forms.
+ */
+export interface FacultyTaxesAmountFields extends FacultyTaxesFields {
+  amount: number;
+}
+
+/**
+ * Text properties and options for the admission form.
+ */
+export interface AdmissionFormTexts {
+  personalTexts: PersonalFormTexts;
+  facultyTaxesTexts: FacultyTaxesTexts;
+  submitTexts: SubmitButtonTexts;
+  agreeTexts: RequiredCheckboxTexts;
+  // variableAmountTexts?: AmountTexts;
+  acceptEuPlatescTexts: RequiredCheckboxTexts;
+}
+
+/**
+ * Input fields for the admission form.
+ */
+export interface AdmissionFormInput
+  extends PersonalFormFields,
+    AgreeFormFiles,
+    FacultyTaxesFields {
   amount: number;
 }
