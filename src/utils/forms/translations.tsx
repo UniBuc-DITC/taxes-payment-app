@@ -1,5 +1,6 @@
 import { RequiredCheckboxTexts } from "@/types/forms/agreements";
 import { AmountTexts } from "@/types/forms/amount";
+import { DidacticPremiumCardTexts } from "@/types/forms/faculties";
 import {
   PersonalFormFields,
   PersonalFormPatternFields,
@@ -95,5 +96,12 @@ export async function getAmountFormTexts(): Promise<AmountTexts> {
     required: { amount: t("required.amount") },
     labels: { amount: t("labels.amount") },
     validate: { amount: t("validate.amount") },
+  };
+}
+
+export async function getDidiacticPremiumCardTexts(): Promise<DidacticPremiumCardTexts> {
+  const t = await getTranslations("Forms.Faculties.DidacticPremiumCard");
+  return {
+    text: t("text"),
   };
 }
