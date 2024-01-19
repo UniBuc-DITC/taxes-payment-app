@@ -51,6 +51,10 @@
     "AgreeTerms": {
       "terms": "Sunt de acord cu <link>termenii și condițiile</link>",
       "required": "Trebuie să fii de acord cu termenii și condițiile"
+    },
+    "AcceptEuPlatesc": {
+      "terms": "Sunt de acord cu <link>termenii și condițiile</link> pentru Eu Platesc",
+      "required": "Trebuie să accepți Eu Platesc"
     }
   }
 }

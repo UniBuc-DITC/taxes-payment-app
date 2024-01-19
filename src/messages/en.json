@@ -51,6 +51,10 @@
     "AgreeTerms": {
       "terms": "I agree with the <link>terms and conditions</link>",
       "required": "You must aceept the payment terms and conditions"
+    },
+    "AcceptEuPlatesc": {
+      "terms": "I accept Eu Platesc <link>terms and conditions</link>",
+      "required": "You must aceept Eu Platesc"
     }
   }
 }
