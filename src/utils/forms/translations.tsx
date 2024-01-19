@@ -1,6 +1,7 @@
 import { RequiredCheckboxTexts } from "@/types/forms/agreements";
 import { AmountTexts } from "@/types/forms/amount";
 import { DidacticPremiumCardTexts } from "@/types/forms/faculties";
+import { MonthOption, MonthTexts } from "@/types/forms/month";
 import {
   PersonalFormFields,
   PersonalFormPatternFields,
@@ -103,5 +104,42 @@ export async function getDidiacticPremiumCardTexts(): Promise<DidacticPremiumCar
   const t = await getTranslations("Forms.Faculties.DidacticPremiumCard");
   return {
     text: t("text"),
+  };
+}
+
+const monthKeys = [
+  "month_january",
+  "month_february",
+  "month_march",
+  "month_april",
+  "month_may",
+  "month_june",
+  "month_july",
+  "month_august",
+  "month_september",
+  "month_october",
+  "month_november",
+  "month_december",
+] as const;
+
+export async function getMonthOptions(): Promise<MonthOption[]> {
+  const t = await getTranslations("Forms.Dorms.MonthOptions");
+  return monthKeys.map((k) => ({
+    id: parseInt(t(`${k}.id`)),
+    label: t(`${k}.label`),
+  }));
+}
+
+export async function getMonthsTexts(): Promise<MonthTexts> {
+  const t = await getTranslations("Forms.Dorms.MonthTexts");
+  return {
+    label: t("label"),
+    extra: t("extra") || "",
+    noMonth: t("noMonth"),
+    required: t("required"),
+    monthOptions: monthKeys.map((k) => ({
+      id: parseInt(t(`MonthOptions.${k}.id`)),
+      label: t(`MonthOptions.${k}.label`),
+    })),
   };
 }
