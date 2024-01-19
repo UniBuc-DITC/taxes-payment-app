@@ -4,6 +4,7 @@ import {
   PersonalFormPatternFields,
   PersonalFormTexts,
 } from "@/types/forms/personalDetails";
+import { SubmitButtonTexts } from "@/types/forms/submitBtn";
 import { getTranslations } from "next-intl/server";
 
 const fullCategory = ["required", "placeholders", "labels"] as const;
@@ -75,5 +76,13 @@ export async function getEuPlatescText(): Promise<RequiredCheckboxTexts> {
         </a>
       ),
     }),
+  };
+}
+
+export async function getSubmitButtonTexts(): Promise<SubmitButtonTexts> {
+  const t = await getTranslations("Forms.Btn");
+  return {
+    text: t("text"),
+    loadingText: t("loadingText"),
   };
 }
