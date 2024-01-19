@@ -9,5 +9,44 @@
       "callbackError": "Doar utilizatorii autorizați au permisiunea de a se conecta la interfața de administrare a aplicației",
       "otherError": "Hopa, ceva nu a funcționat corect :("
     }
+  },
+  "Forms": {
+    "PersonalDetails": {
+      "required": {
+        "firstName": "Prenumele este necesar",
+        "lastName": "Numele de familie este necesar",
+        "city": "Orașul este necesar",
+        "country": "Țara este necesară",
+        "address": "Adresa este necesară",
+        "numericalCode": "Codul numeric este necesar",
+        "email": "Emailul este necesar",
+        "phoneNumber": "Numărul de telefon este necesar"
+      },
+      "placeholders": {
+        "firstName": "Prenume",
+        "lastName": "Nume de familie",
+        "city": "Oraș",
+        "country": "Țară",
+        "address": "Adresă",
+        "numericalCode": "Cod numeric",
+        "email": "Email",
+        "phoneNumber": "Număr de telefon"
+      },
+      "labels": {
+        "firstName": "Prenume",
+        "lastName": "Nume de familie",
+        "city": "Oraș",
+        "country": "Țară",
+        "address": "Adresă",
+        "numericalCode": "Cod numeric",
+        "email": "Email",
+        "phoneNumber": "Număr de telefon"
+      },
+      "patterns": {
+        "numericalCode": "Codul numeric trebuie să fie doar numere",
+        "email": "Introduceți un email valid",
+        "phoneNumber": "Numărul de telefon trebuie să fie doar numere"
+      }
+    }
   }
 }

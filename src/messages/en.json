@@ -9,5 +9,44 @@
       "callbackError": "Only authorized users are allowed to log into the admin interface of the app",
       "otherError": "Ooops, something went wrong :("
     }
+  },
+  "Forms": {
+    "PersonalDetails": {
+      "required": {
+        "firstName": "First name is required",
+        "lastName": "Last name is required",
+        "city": "City is required",
+        "country": "Country is required",
+        "address": "Address is required",
+        "numericalCode": "Numerical code is required",
+        "email": "Email is required",
+        "phoneNumber": "Phone number is required"
+      },
+      "placeholders": {
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "city": "City",
+        "country": "Country",
+        "address": "Address",
+        "numericalCode": "Numerical code",
+        "email": "Email",
+        "phoneNumber": "Phone Number"
+      },
+      "labels": {
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "city": "City",
+        "country": "Country",
+        "address": "Address",
+        "numericalCode": "Numerical code",
+        "email": "Email",
+        "phoneNumber": "Phone Number"
+      },
+      "patterns": {
+        "numericalCode": "Numerical code must be only numbers",
+        "email": "Enter a valid email",
+        "phoneNumber": "Phone number must be only numbers"
+      }
+    }
   }
 }
