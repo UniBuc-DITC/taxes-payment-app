@@ -47,6 +47,10 @@
         "email": "Enter a valid email",
         "phoneNumber": "Phone number must be only numbers"
       }
+    },
+    "AgreeTerms": {
+      "terms": "I agree with the <link>terms and conditions</link>",
+      "required": "You must aceept the payment terms and conditions"
     }
   }
 }
