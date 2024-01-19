@@ -1,4 +1,4 @@
-import { PersonalFormTexts } from "@/types/forms/personalFormTypes";
+import { PersonalFormTexts } from "@/types/forms/personalDetails";
 import { useFormContext } from "react-hook-form";
 
 export default function PersonalDetailsForm({

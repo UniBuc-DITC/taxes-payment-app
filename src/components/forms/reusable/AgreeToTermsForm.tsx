@@ -1,7 +1,7 @@
 import {
   AgreeTermsFormFiles,
   RequiredCheckboxTexts,
-} from "@/types/forms/agreementsFormTypes";
+} from "@/types/forms/agreements";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 

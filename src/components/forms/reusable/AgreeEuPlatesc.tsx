@@ -1,4 +1,7 @@
-import { EuPlatescFormFields, RequiredCheckboxTexts } from "@/types/forms/agreementsFormTypes";
+import {
+  EuPlatescFormFields,
+  RequiredCheckboxTexts,
+} from "@/types/forms/agreements";
 import React from "react";
 import { useFormContext } from "react-hook-form";
 

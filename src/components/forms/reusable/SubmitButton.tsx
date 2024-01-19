@@ -1,4 +1,4 @@
-import { SubmitButtonTexts } from "@/types/forms/submitBtnTypes";
+import { SubmitButtonTexts } from "@/types/forms/submitBtn";
 
 interface SubmitButtonProps extends SubmitButtonTexts {
   isSubmitting: boolean;

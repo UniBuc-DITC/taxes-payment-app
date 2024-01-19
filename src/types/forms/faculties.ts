@@ -1,8 +1,8 @@
 import { Prisma, StudyCycle } from "@prisma/client";
 import { Option } from "./reusable";
-import { PersonalFormFields, PersonalFormTexts } from "./personalFormTypes";
-import { SubmitButtonTexts } from "./submitBtnTypes";
-import { AgreeFormFiles, RequiredCheckboxTexts } from "./agreementsFormTypes";
+import { PersonalFormFields, PersonalFormTexts } from "./personalDetails";
+import { SubmitButtonTexts } from "./submitBtn";
+import { AgreeFormFiles, RequiredCheckboxTexts } from "./agreements";
 import { AmountTexts } from "./amount";
 
 /**
