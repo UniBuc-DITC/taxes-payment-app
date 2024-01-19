@@ -55,6 +55,10 @@
     "AcceptEuPlatesc": {
       "terms": "I accept Eu Platesc <link>terms and conditions</link>",
       "required": "You must aceept Eu Platesc"
+    },
+    "Btn": {
+      "text": "Submit",
+      "loadingText": "Processing..."
     }
   }
 }

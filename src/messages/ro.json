@@ -55,6 +55,10 @@
     "AcceptEuPlatesc": {
       "terms": "Sunt de acord cu <link>termenii și condițiile</link> pentru Eu Platesc",
       "required": "Trebuie să accepți Eu Platesc"
+    },
+    "Btn": {
+      "text": "Trimite",
+      "loadingText": "În procesare..."
     }
   }
 }
