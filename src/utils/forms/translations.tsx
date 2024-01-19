@@ -1,3 +1,4 @@
+import { RequiredCheckboxTexts } from "@/types/forms/agreements";
 import {
   PersonalFormFields,
   PersonalFormPatternFields,
@@ -15,6 +16,7 @@ const fullKeys = [
   "address",
   ...patternKeys,
 ] as const;
+
 /*
  * This function may be used with a key if we want different keys for each form
  */
@@ -38,4 +40,40 @@ export async function getPersonalTexts(): Promise<PersonalFormTexts> {
     personalText.patterns[k] = t(`patterns.${k}`);
   });
   return personalText;
+}
+
+export async function getAgreeTermsText(): Promise<RequiredCheckboxTexts> {
+  const t = await getTranslations(`Forms.AgreeTerms`);
+  return {
+    required: t("required"),
+    terms: t.rich("terms", {
+      link: (chunks) => (
+        <a
+          className="underline text-blue-800"
+          href="https://unibuc.ro/student-ub/regulamente-si-taxe/"
+          target="_blank"
+        >
+          {chunks}
+        </a>
+      ),
+    }),
+  };
+}
+
+export async function getEuPlatescText(): Promise<RequiredCheckboxTexts> {
+  const t = await getTranslations(`Forms.AcceptEuPlatesc`);
+  return {
+    required: t("required"),
+    terms: t.rich("terms", {
+      link: (chunks) => (
+        <a
+          className="underline text-blue-800"
+          href="https://www.euplatesc.ro/"
+          target="_blank"
+        >
+          {chunks}
+        </a>
+      ),
+    }),
+  };
 }
