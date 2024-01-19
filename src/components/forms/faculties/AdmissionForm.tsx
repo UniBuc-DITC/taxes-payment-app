@@ -16,6 +16,7 @@ import FacultyTaxesForm from "./FacultyTaxesForm";
 import PersonalDetailsForm from "../reusable/PersonalDetailsForm";
 import AgreeToTermsForm from "../reusable/AgreeToTermsForm";
 import SubmitButton from "../reusable/SubmitButton";
+import { submitAdmission } from "@/actions/forms";
 
 /**
  * `AdmissionForm` is a React component for handling the admission forms.
@@ -80,7 +81,8 @@ const AdmissionForm = ({
 
   const onSubmit: SubmitHandler<AdmissionFormInput> = useCallback(
     async (data) => {
-      console.log(data);
+      const r = await submitAdmission(data);
+      console.log(r);
     },
     [],
   );
