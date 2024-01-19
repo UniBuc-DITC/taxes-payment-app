@@ -1,3 +1,7 @@
+import AdmissionForm from "@/components/forms/faculties/AdmissionForm";
+import { getFacultiesWithTax } from "@/db/faculties";
+import { createFacultyTaxOptions } from "@/utils/forms/faculties";
+import { getAdmissionFormTexts } from "@/utils/forms/translations";
 import { unstable_setRequestLocale } from "next-intl/server";
 
 interface Props {
@@ -8,5 +12,14 @@ export default async function AdmissionBachelorsPage({
   params: { locale },
 }: Props) {
   unstable_setRequestLocale(locale);
-  return <div>AdmissionBachelorsPage</div>;
+  const [faculties, admissionTexts] = await Promise.all([
+    getFacultiesWithTax("admission", "bachelors"),
+    getAdmissionFormTexts(),
+  ]);
+  const formTaxesOptions = createFacultyTaxOptions(faculties, locale);
+  return (
+    <div>
+      <AdmissionForm {...formTaxesOptions} {...admissionTexts} />
+    </div>
+  );
 }
