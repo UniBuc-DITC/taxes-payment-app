@@ -2,6 +2,7 @@ import { RequiredCheckboxTexts } from "@/types/forms/agreements";
 import { AmountTexts } from "@/types/forms/amount";
 import { DormTaxesFields, DormTaxesTexts } from "@/types/forms/dorms";
 import {
+    AdmissionFormTexts,
   DidacticPremiumCardTexts,
   FacultyTaxesFields,
   FacultyTaxesTexts,
@@ -197,4 +198,27 @@ export async function getDormTaxesTexts(): Promise<DormTaxesTexts> {
   });
 
   return dormTaxesTexts;
+}
+
+export async function getAdmissionFormTexts(): Promise<AdmissionFormTexts> {
+  const [
+    personalTexts,
+    facultyTaxesTexts,
+    submitTexts,
+    agreeTexts,
+    acceptEuPlatescTexts,
+  ] = await Promise.all([
+    getPersonalTexts(),
+    getFacultyTaxesTexts(),
+    getSubmitButtonTexts(),
+    getAgreeTermsText(),
+    getEuPlatescText(),
+  ]);
+  return {
+    personalTexts,
+    facultyTaxesTexts,
+    submitTexts,
+    agreeTexts,
+    acceptEuPlatescTexts,
+  };
 }
