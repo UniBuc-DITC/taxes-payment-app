@@ -1,6 +1,11 @@
 import { RequiredCheckboxTexts } from "@/types/forms/agreements";
 import { AmountTexts } from "@/types/forms/amount";
-import { DidacticPremiumCardTexts, FacultyTaxesFields, FacultyTaxesTexts } from "@/types/forms/faculties";
+import { DormTaxesFields, DormTaxesTexts } from "@/types/forms/dorms";
+import {
+  DidacticPremiumCardTexts,
+  FacultyTaxesFields,
+  FacultyTaxesTexts,
+} from "@/types/forms/faculties";
 import { MonthOption, MonthTexts } from "@/types/forms/month";
 import {
   PersonalFormFields,
@@ -167,4 +172,29 @@ export async function getFacultyTaxesTexts(): Promise<FacultyTaxesTexts> {
   });
 
   return facultyTaxesTexts;
+}
+
+const dormTaxesFields = ["dorm", "tax"] as const;
+const dormTaxesCategory = ["required", "labels"] as const;
+
+export async function getDormTaxesTexts(): Promise<DormTaxesTexts> {
+  const t = await getTranslations("Forms.Dorms.DromsTaxes");
+  let dormTaxesTexts: DormTaxesTexts = {
+    extraTaxOptions: {
+      dorm: t("extraTaxOptions.dorm"),
+      noDormTaxes: t("extraTaxOptions.tax"),
+      tax: t("extraTaxOptions.noDormTaxes"),
+    },
+  } as DormTaxesTexts;
+
+  dormTaxesCategory.forEach((c) => {
+    if (!dormTaxesTexts[c]) {
+      dormTaxesTexts[c] = {} as DormTaxesFields;
+    }
+    dormTaxesFields.forEach((k) => {
+      dormTaxesTexts[c][k] = t(`${c}.${k}`);
+    });
+  });
+
+  return dormTaxesTexts;
 }
