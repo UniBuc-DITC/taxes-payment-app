@@ -1,4 +1,5 @@
 import { RequiredCheckboxTexts } from "@/types/forms/agreements";
+import { AmountTexts } from "@/types/forms/amount";
 import {
   PersonalFormFields,
   PersonalFormPatternFields,
@@ -84,5 +85,15 @@ export async function getSubmitButtonTexts(): Promise<SubmitButtonTexts> {
   return {
     text: t("text"),
     loadingText: t("loadingText"),
+  };
+}
+
+export async function getAmountFormTexts(): Promise<AmountTexts> {
+  const t = await getTranslations("Forms.Faculties.Amount");
+  console.log(t("required.amount"));
+  return {
+    required: { amount: t("required.amount") },
+    labels: { amount: t("labels.amount") },
+    validate: { amount: t("validate.amount") },
   };
 }
