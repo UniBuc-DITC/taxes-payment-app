@@ -3,6 +3,7 @@ import { Option } from "./reusable";
 import { PersonalFormFields, PersonalFormTexts } from "./personalFormTypes";
 import { SubmitButtonTexts } from "./submitBtnTypes";
 import { AgreeFormFiles, RequiredCheckboxTexts } from "./agreementsFormTypes";
+import { AmountTexts } from "./amount";
 
 /**
  * Extended Faculty type including associated faculty tax values.
@@ -74,7 +75,6 @@ export interface AdmissionFormTexts {
   facultyTaxesTexts: FacultyTaxesTexts;
   submitTexts: SubmitButtonTexts;
   agreeTexts: RequiredCheckboxTexts;
-  // variableAmountTexts?: AmountTexts;
   acceptEuPlatescTexts: RequiredCheckboxTexts;
 }
 
@@ -86,4 +86,32 @@ export interface AdmissionFormInput
     AgreeFormFiles,
     FacultyTaxesFields {
   amount: number;
+}
+
+// ---------- Tuition Form Types ----------
+
+/**
+ * Text properties for the didactic premium card section in tuition forms.
+ */
+export interface DidacticPremiumCardTexts {
+  text: string;
+}
+export interface DidacticFormFields {
+  didacticPremiumCardOnly: string;
+}
+
+/**
+ * Text properties and options for the tuition form.
+ */
+export interface TuitionFormTexts extends AdmissionFormTexts {
+  didacticPremiumCardText: DidacticPremiumCardTexts;
+  variableAmountTexts: AmountTexts;
+}
+
+/**
+ * Input fields for the tuition form.
+ */
+export interface TuitionFormInput extends AdmissionFormInput {
+  didacticPremiumCardOnly: boolean;
+  partialPay: boolean;
 }
