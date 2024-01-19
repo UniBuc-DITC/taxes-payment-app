@@ -51,3 +51,20 @@ export const tuitionSchema = z
     partialPay: z.boolean(),
   })
   .and(admissionSchema);
+
+/**
+ * @param drom -  the student dorm id that is selected from the form
+ * @param month - the month number selected in the form in the range of [1,12]
+ */
+export const dormsSchema = z
+  .object({
+    dorm: z.coerce.number().int("Dorm must be an integer"), // selected dorm id
+    month: z.coerce
+      .number()
+      .int("Month must be an integer")
+      .min(1, "Month shoul be at least 1")
+      .max(12, "Month should be at most 12"),
+  })
+  .and(personalSchema)
+  .and(agreeSchema)
+  .and(taxAmountSchema);
