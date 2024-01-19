@@ -1,6 +1,6 @@
 import { RequiredCheckboxTexts } from "@/types/forms/agreements";
 import { AmountTexts } from "@/types/forms/amount";
-import { DidacticPremiumCardTexts } from "@/types/forms/faculties";
+import { DidacticPremiumCardTexts, FacultyTaxesFields, FacultyTaxesTexts } from "@/types/forms/faculties";
 import { MonthOption, MonthTexts } from "@/types/forms/month";
 import {
   PersonalFormFields,
@@ -142,4 +142,29 @@ export async function getMonthsTexts(): Promise<MonthTexts> {
       label: t(`MonthOptions.${k}.label`),
     })),
   };
+}
+
+const facultyTaxesFields = ["faculty", "tax"] as const;
+const facultyTaxesCategory = ["required", "labels"] as const;
+
+export async function getFacultyTaxesTexts(): Promise<FacultyTaxesTexts> {
+  const t = await getTranslations("Forms.Faculties.FacultyTaxes");
+  let facultyTaxesTexts: FacultyTaxesTexts = {
+    extraTaxOptions: {
+      faculty: t("extraTaxOptions.faculty"),
+      noFacultyTaxes: t("extraTaxOptions.tax"),
+      tax: t("extraTaxOptions.noFacultyTaxes"),
+    },
+  } as FacultyTaxesTexts;
+
+  facultyTaxesCategory.forEach((c) => {
+    if (!facultyTaxesTexts[c]) {
+      facultyTaxesTexts[c] = {} as FacultyTaxesFields;
+    }
+    facultyTaxesFields.forEach((k) => {
+      facultyTaxesTexts[c][k] = t(`${c}.${k}`);
+    });
+  });
+
+  return facultyTaxesTexts;
 }
