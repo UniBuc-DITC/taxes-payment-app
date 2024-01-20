@@ -56,6 +56,10 @@
       "terms": "Sunt de acord cu <link>termenii și condițiile</link> pentru Eu Platesc",
       "required": "Trebuie să accepți Eu Platesc"
     },
+    "ReCAPTCHA": {
+      "required": "Vă rugăm să ne asigurați că nu sunteți un robot",
+      "validate": "Vă rugăm să efectuați din nou validarea reCAPTCHA"
+    },
     "Btn": {
       "text": "Trimite",
       "loadingText": "În procesare..."

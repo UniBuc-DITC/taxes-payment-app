@@ -56,6 +56,10 @@
       "terms": "I accept Eu Platesc <link>terms and conditions</link>",
       "required": "You must aceept Eu Platesc"
     },
+    "ReCAPTCHA": {
+      "required": "Please ensure us that you are not a robot",
+      "validate": "Please remake the reCAPTCHA validatio"
+    },
     "Btn": {
       "text": "Submit",
       "loadingText": "Processing..."
