@@ -2,7 +2,7 @@ import { Prisma, StudyCycle } from "@prisma/client";
 import { Option } from "./reusable";
 import { PersonalFormFields, PersonalFormTexts } from "./personalDetails";
 import { SubmitButtonTexts } from "./submitBtn";
-import { AgreeFormFiles, RequiredCheckboxTexts } from "./agreements";
+import { AgreeFormFiles, ReCAPTCHAInput, ReCAPTCHATexts, RequiredCheckboxTexts } from "./agreements";
 import { AmountTexts } from "./amount";
 
 /**
@@ -76,6 +76,7 @@ export interface AdmissionFormTexts {
   submitTexts: SubmitButtonTexts;
   agreeTexts: RequiredCheckboxTexts;
   acceptEuPlatescTexts: RequiredCheckboxTexts;
+  recaptchaTexts: ReCAPTCHATexts;
 }
 
 /**
@@ -84,7 +85,8 @@ export interface AdmissionFormTexts {
 export interface AdmissionFormInput
   extends PersonalFormFields,
     AgreeFormFiles,
-    FacultyTaxesFields {
+    FacultyTaxesFields,
+    ReCAPTCHAInput {
   amount: number;
 }
 

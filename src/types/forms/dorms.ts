@@ -3,7 +3,12 @@ import { Option } from "./reusable";
 import { PersonalFormFields, PersonalFormTexts } from "./personalDetails";
 import { MonthTexts } from "./month";
 import { SubmitButtonTexts } from "./submitBtn";
-import { AgreeFormFiles, RequiredCheckboxTexts } from "./agreements";
+import {
+  AgreeFormFiles,
+  ReCAPTCHAInput,
+  ReCAPTCHATexts,
+  RequiredCheckboxTexts,
+} from "./agreements";
 
 /**
  * Extended Studnet Dorms type including associated student dorm tax values.
@@ -63,6 +68,7 @@ export interface DormsFormTexts {
   submitTexts: SubmitButtonTexts;
   agreeTexts: RequiredCheckboxTexts;
   acceptEuPlatescTexts: RequiredCheckboxTexts;
+  recaptchaTexts: ReCAPTCHATexts;
 }
 
 /**
@@ -71,7 +77,8 @@ export interface DormsFormTexts {
 export interface DormFormInput
   extends PersonalFormFields,
     DormTaxesFields,
-    AgreeFormFiles {
+    AgreeFormFiles,
+    ReCAPTCHAInput {
   month: string;
   amount: number;
 }
