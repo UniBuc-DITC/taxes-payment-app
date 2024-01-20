@@ -13,12 +13,15 @@ export const personalSchema = z.object({
     .string()
     .regex(/^\d+$/, "Phone number must contain only numbers"),
 });
-
+/**
+ * @param recaptcha - the reCAPTCHA token
+ */
 export const agreeSchema = z.object({
   agreeToTerms: z.boolean().refine((val) => val, "You must agree to the terms"),
   acceptEuPlatesc: z
     .boolean()
     .refine((val) => val, "You must agree to the euplt"),
+  recaptcha: z.string().min(1, "Recaptcha string is missing"),
 });
 
 /**
