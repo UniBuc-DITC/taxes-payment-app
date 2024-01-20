@@ -65,6 +65,15 @@ AZURE_AD_CLIENT_ID=<client ID of app registration>
 AZURE_AD_CLIENT_SECRET<client secret created for app>
 ```
 
+### ReCAPTCHA config
+
+The app utilizes [Google ReCAPTCHA v2 Checkbox](https://developers.google.com/recaptcha/docs/display). In development, please add the following keys to your `.env.local` file:
+
+```
+NEXT_PUBLIC_RECAPTCHA=<The site/public key
+NEXT_RECAPTCHA_SERVER=<Your private key for verifying the reCAPTCHA token>
+```
+
 ### Useful development commands
 
 To start a local development server, use:
@@ -95,4 +104,6 @@ NEXTAUTH_SECRET=<cryptographically secure secret key, to be used for encryption>
 AZURE_AD_TENANT_ID=<ID of tenant in which app resides>
 AZURE_AD_CLIENT_ID=<client ID of app registration>
 AZURE_AD_CLIENT_SECRET<client secret created for app>
+NEXT_PUBLIC_RECAPTCHA=<The site/public key
+NEXT_RECAPTCHA_SERVER=<Your private key for verifying the reCAPTCHA token>
 ```
