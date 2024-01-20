@@ -17,6 +17,7 @@ import PersonalDetailsForm from "../reusable/PersonalDetailsForm";
 import AgreeToTermsForm from "../reusable/AgreeToTermsForm";
 import SubmitButton from "../reusable/SubmitButton";
 import { submitAdmission } from "@/actions/forms";
+import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
 
 /**
  * `AdmissionForm` is a React component for handling the admission forms.
@@ -51,6 +52,7 @@ const AdmissionForm = ({
   facultyTaxesTexts,
   submitTexts,
   acceptEuPlatescTexts,
+  recaptchaTexts,
 }: Props) => {
   const methods = useForm<AdmissionFormInput>({
     defaultValues: {
@@ -67,6 +69,7 @@ const AdmissionForm = ({
       tax: "",
       amount: 0,
       acceptEuPlatesc: false,
+      recaptcha: "",
     },
   });
 
@@ -105,7 +108,10 @@ const AdmissionForm = ({
 
           <AgreeToTermsForm {...agreeTexts} />
           <AgreeToTermsForm {...acceptEuPlatescTexts} />
-
+          <ReCAPTCHAForm<AdmissionFormInput>
+            control={control}
+            {...recaptchaTexts}
+          />
           <div className="col-span-2 w-full text-center flex items-center justify-center">
             <SubmitButton isSubmitting={isSubmitting} {...submitTexts} />
           </div>
