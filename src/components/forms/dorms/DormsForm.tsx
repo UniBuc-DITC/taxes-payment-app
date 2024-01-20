@@ -15,6 +15,7 @@ import AgreeToTermsForm from "../reusable/AgreeToTermsForm";
 import AgreeEuPlatescForm from "../reusable/AgreeEuPlatesc";
 import SubmitButton from "../reusable/SubmitButton";
 import { sumbitDorm } from "@/actions/forms";
+import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
 
 /**
  * `DormsForm` is a React component for handling the studnent dorm form.
@@ -49,6 +50,7 @@ export default function DormsForm({
   submitTexts,
   acceptEuPlatescTexts,
   monthTexts,
+  recaptchaTexts,
 }: Props) {
   const methods = useForm<DormFormInput>({
     defaultValues: {
@@ -66,6 +68,7 @@ export default function DormsForm({
       tax: "",
       month: "",
       amount: 0,
+      recaptcha: "",
     },
   });
   const {
@@ -98,6 +101,7 @@ export default function DormsForm({
           <PersonalDetailsForm {...personalTexts} />
           <AgreeToTermsForm {...agreeTexts} />
           <AgreeEuPlatescForm {...acceptEuPlatescTexts} />
+          <ReCAPTCHAForm<DormFormInput> control={control} {...recaptchaTexts} />
           <div className="col-span-2 w-full text-center flex items-center justify-center">
             <SubmitButton isSubmitting={isSubmitting} {...submitTexts} />
           </div>
