@@ -1,4 +1,7 @@
-import { RequiredCheckboxTexts } from "@/types/forms/agreements";
+import {
+  ReCAPTCHATexts,
+  RequiredCheckboxTexts,
+} from "@/types/forms/agreements";
 import { AmountTexts } from "@/types/forms/amount";
 import {
   DormTaxesFields,
@@ -133,6 +136,14 @@ const monthKeys = [
   "month_december",
 ] as const;
 
+export async function getReCAPTCHAText(): Promise<ReCAPTCHATexts> {
+  const t = await getTranslations("Forms.ReCAPTCHA");
+  return {
+    required: t("required"),
+    validate: t("validate"),
+  };
+}
+
 export async function getMonthOptions(): Promise<MonthOption[]> {
   const t = await getTranslations("Forms.Dorms.MonthOptions");
   return monthKeys.map((k) => ({
@@ -212,12 +223,14 @@ export async function getAdmissionFormTexts(): Promise<AdmissionFormTexts> {
     submitTexts,
     agreeTexts,
     acceptEuPlatescTexts,
+    recaptchaTexts,
   ] = await Promise.all([
     getPersonalTexts(),
     getFacultyTaxesTexts(),
     getSubmitButtonTexts(),
     getAgreeTermsText(),
     getEuPlatescText(),
+    getReCAPTCHAText(),
   ]);
   return {
     personalTexts,
@@ -225,6 +238,7 @@ export async function getAdmissionFormTexts(): Promise<AdmissionFormTexts> {
     submitTexts,
     agreeTexts,
     acceptEuPlatescTexts,
+    recaptchaTexts,
   };
 }
 
@@ -251,6 +265,7 @@ export async function getDormFormTexts(): Promise<DormsFormTexts> {
     submitTexts,
     agreeTexts,
     acceptEuPlatescTexts,
+    recaptchaTexts,
   ] = await Promise.all([
     getPersonalTexts(),
     getDormTaxesTexts(),
@@ -258,6 +273,7 @@ export async function getDormFormTexts(): Promise<DormsFormTexts> {
     getSubmitButtonTexts(),
     getAgreeTermsText(),
     getEuPlatescText(),
+    getReCAPTCHAText(),
   ]);
   return {
     personalTexts,
@@ -266,5 +282,6 @@ export async function getDormFormTexts(): Promise<DormsFormTexts> {
     submitTexts,
     agreeTexts,
     acceptEuPlatescTexts,
+    recaptchaTexts,
   };
 }
