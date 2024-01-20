@@ -2,7 +2,12 @@ import { Prisma, StudyCycle } from "@prisma/client";
 import { Option } from "./reusable";
 import { PersonalFormFields, PersonalFormTexts } from "./personalDetails";
 import { SubmitButtonTexts } from "./submitBtn";
-import { AgreeFormFiles, ReCAPTCHAInput, ReCAPTCHATexts, RequiredCheckboxTexts } from "./agreements";
+import {
+  AgreeFormFiles,
+  ReCAPTCHAInput,
+  ReCAPTCHATexts,
+  RequiredCheckboxTexts,
+} from "./agreements";
 import { AmountTexts } from "./amount";
 
 /**
