@@ -20,3 +20,22 @@ export interface AgreeTermsFormFiles {
 export interface AgreeFormFiles
   extends EuPlatescFormFields,
     AgreeTermsFormFiles {}
+
+/**
+ * Fields for reCAPTCHA
+ */
+
+export interface ReCAPTCHAInput {
+  recaptcha: string;
+}
+export interface ReCAPTCHAResponse {
+  success: boolean;
+  challenge_ts: string;
+  hostname: string;
+  "error-codes"?: string[];
+}
+
+export interface ReCAPTCHATexts {
+  required: string;
+  validate: string;
+}
