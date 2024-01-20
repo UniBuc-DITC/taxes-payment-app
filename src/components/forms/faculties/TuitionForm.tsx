@@ -17,6 +17,7 @@ import AgreeEuPlatescForm from "../reusable/AgreeEuPlatesc";
 import AgreeToTermsForm from "../reusable/AgreeToTermsForm";
 import SubmitButton from "../reusable/SubmitButton";
 import { submitTuition } from "@/actions/forms";
+import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
 
 /**
  * `TuitionForm` is a React component for managing and submitting admission forms.
@@ -56,6 +57,7 @@ export default function TuitionForm({
   variableAmountTexts,
   didacticPremiumCardText,
   acceptEuPlatescTexts,
+  recaptchaTexts,
 }: Props) {
   const methods = useForm<TuitionFormInput>({
     defaultValues: {
@@ -74,6 +76,7 @@ export default function TuitionForm({
       didacticPremiumCardOnly: false,
       partialPay: false,
       acceptEuPlatesc: false,
+      recaptcha: "",
     },
   });
 
@@ -141,7 +144,14 @@ export default function TuitionForm({
           <PersonalDetailsForm {...personalTexts} />
 
           <AgreeToTermsForm {...agreeTexts} />
+
           <AgreeEuPlatescForm {...acceptEuPlatescTexts} />
+
+          <ReCAPTCHAForm<TuitionFormInput>
+            control={control}
+            {...recaptchaTexts}
+          />
+
           <div className="col-span-2 w-full text-center flex items-center justify-center">
             <SubmitButton isSubmitting={isSubmitting} {...submitTexts} />
           </div>
