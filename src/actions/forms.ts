@@ -1,3 +1,4 @@
+"use server";
 import { ReCAPTCHAResponse } from "@/types/forms/agreements";
 import { DormFormInput } from "@/types/forms/dorms";
 import { AdmissionFormInput, TuitionFormInput } from "@/types/forms/faculties";
