@@ -7,10 +7,9 @@ import {
 import { Control, Controller, Path, useFormContext } from "react-hook-form";
 
 /**
- * `DormTaxesForm` is a generic React component for selecting student dorms options and their respective tax options.
+ * `DormTaxesForm` is a React component for selecting student dorms options and their respective tax options.
  *
  * Props:
- * @template T - Extends `DormTaxesFields` which is a generic type representing the minimun required shape of the form input data.
  *
  * @prop {Control<T>} control - Control object from `react-hook-form`, used for managing the form state.
  * @prop {DormOption[]} dormOptions - An array of `DormOption` objects for student dorm selection.
@@ -21,24 +20,23 @@ import { Control, Controller, Path, useFormContext } from "react-hook-form";
  * This component should be used within a form that is wrapped with `FormProvider` from `react-hook-form` with an input data type that can extend `DormTaxesAmountFields`.
  */
 
-type DromTaxesFormProps<T extends DormTaxesAmountFields> = {
-  control: Control<T>;
+type DromTaxesFormProps = {
   dormOptions: DormOption[];
   taxesOptions: Record<string, DormTaxOption[]>;
 } & DormTaxesTexts;
 
-export default function DormTaxesForm<T extends DormTaxesAmountFields>({
-  control,
+export default function DormTaxesForm({
   dormOptions,
   taxesOptions,
   extraTaxOptions,
   labels: lables,
   required,
-}: DromTaxesFormProps<T>) {
+}: DromTaxesFormProps) {
   const {
     watch,
     setValue,
     formState: { errors },
+    control,
   } = useFormContext<DormTaxesAmountFields>();
 
   const selectedDorm = watch("dorm");
@@ -63,7 +61,7 @@ export default function DormTaxesForm<T extends DormTaxesAmountFields>({
           {lables.dorm}
         </label>
         <Controller
-          name={"dorm" as Path<T>}
+          name={"dorm"}
           control={control}
           rules={{ required: required.dorm }}
           render={({ field }) => (
@@ -100,7 +98,7 @@ export default function DormTaxesForm<T extends DormTaxesAmountFields>({
           {lables.tax}
         </label>
         <Controller
-          name={"tax" as Path<T>}
+          name={"tax"}
           control={control}
           rules={{ required: required.tax }}
           render={({ field }) => (
