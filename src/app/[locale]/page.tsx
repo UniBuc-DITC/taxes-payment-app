@@ -11,23 +11,25 @@ export default function Home() {
       <h1>PLACEHOLDER UNTIL WE GET THE UI</h1>
       <div className="flex flex-col">
         <h2 className="text-lg font-bold">Admission</h2>
-        <Link href="/admission/bachelors">Admission bachelors</Link>
-        <Link href="/admission/masters">Admission masters</Link>
-        <Link href="/admission/doctorate">Admission doctorate</Link>
-        <Link href="/admission/postuniversitary">
+        <Link href="/admission-tax/bachelors">Admission bachelors</Link>
+        <Link href="/admission-tax/masters">Admission masters</Link>
+        <Link href="/admission-tax/doctorate">Admission doctorate</Link>
+        <Link href="/admission-tax/postuniversitary">
           Admission postuniversitary
         </Link>
       </div>
       <div className="flex flex-col">
         <h2 className="text-lg font-bold">Tuition</h2>
-        <Link href="/tuition/bachelors">Tuition bachelors</Link>
-        <Link href="/tuition/masters">Tuition masters</Link>
-        <Link href="/tuition/doctorate">Tuition doctorate</Link>
-        <Link href="/tuition/postuniversitary">Tuition postuniversitary</Link>
+        <Link href="/tuition-tax/bachelors">Tuition bachelors</Link>
+        <Link href="/tuition-tax/masters">Tuition masters</Link>
+        <Link href="/tuition-tax/doctorate">Tuition doctorate</Link>
+        <Link href="/tuition-tax/postuniversitary">
+          Tuition postuniversitary
+        </Link>
       </div>
       <div className="flex flex-col">
         <h2 className="text-lg font-bold">Student Dorms</h2>
-        <Link href="/studentDorms">Student Dorms</Link>
+        <Link href="/accommodation-tax">Student Dorms</Link>
       </div>
     </main>
   );
