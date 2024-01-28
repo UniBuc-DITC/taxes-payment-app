@@ -146,10 +146,7 @@ export default function TuitionForm({
 
           <AgreeEuPlatescForm {...acceptEuPlatescTexts} />
 
-          <ReCAPTCHAForm<TuitionFormInput>
-            control={control}
-            {...recaptchaTexts}
-          />
+          <ReCAPTCHAForm {...recaptchaTexts} />
 
           <div className="col-span-2 w-full text-center flex items-center justify-center">
             <SubmitButton isSubmitting={isSubmitting} {...submitTexts} />

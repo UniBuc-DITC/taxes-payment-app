@@ -8,28 +8,18 @@ import { Controller, Control, Path, useFormContext } from "react-hook-form";
 /**
  * `ReCAPTCHAForm` is a React component for rendering an the reCAPTCHA verifiction of the forms.
  *
- * Props:
- * @template T - Extends `ReCAPTCHAInput` which is a generic type representing the minimun required shape of the form input data.
  *
- * @prop {Control<T>} control - Control object from `react-hook-form` for managing form state.
  * @prop {ReCAPTCHATexts} - Text labels and validation messages for the reCAPTCHA form field.
  *
  * Usage:
  * This component should be used within a form that is wrapped with `FormProvider` from `react-hook-form` with an input data type that can extend `ReCAPTCHAInput`.
  */
 
-interface Props<T extends ReCAPTCHAInput> extends ReCAPTCHATexts {
-  control: Control<T>;
-}
-
-export default function ReCAPTCHAForm<T extends ReCAPTCHAInput>({
-  control,
-  required,
-  validate,
-}: Props<T>) {
+export default function ReCAPTCHAForm({ required, validate }: ReCAPTCHATexts) {
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const {
     formState: { errors },
+    control,
   } = useFormContext<ReCAPTCHAInput>();
   const locale = useLocale();
 
@@ -40,7 +30,7 @@ export default function ReCAPTCHAForm<T extends ReCAPTCHAInput>({
     <div>
       <Controller
         control={control}
-        name={"recaptcha" as Path<T>}
+        name={"recaptcha"}
         rules={{
           required,
           validate: async (value) => {

@@ -100,7 +100,7 @@ export default function DormsForm({
           <BillingDetailsForm {...billingTexts} />
           <ConsentToTermsForm {...agreeTexts} />
           <AgreeEuPlatescForm {...acceptEuPlatescTexts} />
-          <ReCAPTCHAForm<DormFormInput> control={control} {...recaptchaTexts} />
+          <ReCAPTCHAForm {...recaptchaTexts} />
           <div className="col-span-2 w-full text-center flex items-center justify-center">
             <SubmitButton isSubmitting={isSubmitting} {...submitTexts} />
           </div>
