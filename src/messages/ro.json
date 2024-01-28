@@ -117,18 +117,18 @@
         "required": "Luna este necesară",
         "extra": "Luna pentru care efectuați plata",
         "MonthOptions": {
-          "month_january": { "id": "1", "label": "Ianuarie" },
-          "month_february": { "id": "2", "label": "Februarie" },
-          "month_march": { "id": "3", "label": "Martie" },
-          "month_april": { "id": "4", "label": "Aprilie" },
-          "month_may": { "id": "5", "label": "Mai" },
-          "month_june": { "id": "6", "label": "Iunie" },
-          "month_july": { "id": "7", "label": "Iulie" },
-          "month_august": { "id": "8", "label": "August" },
-          "month_september": { "id": "9", "label": "Septembrie" },
-          "month_october": { "id": "10", "label": "Octombrie" },
-          "month_november": { "id": "11", "label": "Noiembrie" },
-          "month_december": { "id": "12", "label": "Decembrie" }
+          "january": "Ianuarie",
+          "february": "Februarie",
+          "march": "Martie",
+          "april": "Aprilie",
+          "may": "Mai",
+          "june": "Iunie",
+          "july": "Iulie",
+          "august": "August",
+          "september": "Septembrie",
+          "october": "Octombrie",
+          "november": "Noiembrie",
+          "december": "Decembrie"
         }
       }
     }

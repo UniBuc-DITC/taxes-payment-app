@@ -114,18 +114,18 @@
         "required": "Month is required",
         "extra": "The month for which you pay",
         "MonthOptions": {
-          "month_january": { "id": "1", "label": "January" },
-          "month_february": { "id": "2", "label": "February" },
-          "month_march": { "id": "3", "label": "March" },
-          "month_april": { "id": "4", "label": "April" },
-          "month_may": { "id": "5", "label": "May" },
-          "month_june": { "id": "6", "label": "June" },
-          "month_july": { "id": "7", "label": "July" },
-          "month_august": { "id": "8", "label": "August" },
-          "month_september": { "id": "9", "label": "September" },
-          "month_october": { "id": "10", "label": "October" },
-          "month_november": { "id": "11", "label": "November" },
-          "month_december": { "id": "12", "label": "December" }
+          "january": "January",
+          "february": "February",
+          "march": "March",
+          "april": "April",
+          "may": "May",
+          "june": "June",
+          "july": "July",
+          "august": "August",
+          "september": "September",
+          "october": "October",
+          "november": "November",
+          "december": "December"
         }
       }
     }
