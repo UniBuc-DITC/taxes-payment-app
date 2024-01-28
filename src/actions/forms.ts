@@ -3,9 +3,9 @@ import { ReCAPTCHAResponse } from "@/types/forms/agreements";
 import { DormFormInput } from "@/types/forms/dorms";
 import { AdmissionFormInput, TuitionFormInput } from "@/types/forms/faculties";
 import {
-  admissionSchema,
-  dormsSchema,
-  tuitionSchema,
+  admissionTaxSchema,
+  dormsTaxSchema,
+  tuitionTaxSchema,
 } from "@/utils/forms/validationSchemas";
 
 export async function validateReCAPTCHA(token: string): Promise<boolean> {
@@ -40,7 +40,7 @@ export interface FormActionResponse {
 export async function submitAdmission(
   formData: AdmissionFormInput,
 ): Promise<FormActionResponse> {
-  const validate = admissionSchema.safeParse(formData);
+  const validate = admissionTaxSchema.safeParse(formData);
 
   if (!validate.success) {
     console.log(validate.error);
@@ -56,7 +56,7 @@ export async function submitAdmission(
 export async function submitTuition(
   formData: TuitionFormInput,
 ): Promise<FormActionResponse> {
-  const validate = tuitionSchema.safeParse(formData);
+  const validate = tuitionTaxSchema.safeParse(formData);
 
   if (!validate.success) {
     console.log(validate.error);
@@ -73,7 +73,7 @@ export async function submitTuition(
 export async function submitDorm(
   formData: DormFormInput,
 ): Promise<FormActionResponse> {
-  const validate = dormsSchema.safeParse(formData);
+  const validate = dormsTaxSchema.safeParse(formData);
   if (!validate.success) {
     console.log(validate.error);
     //redirect to error page

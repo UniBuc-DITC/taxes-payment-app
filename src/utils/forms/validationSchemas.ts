@@ -38,7 +38,7 @@ export const taxAmountSchema = z.object({
 /**
  * @param faculty -  the faculty id that is selected from the form
  */
-export const admissionSchema = z
+export const admissionTaxSchema = z
   .object({
     faculty: z.coerce.number().int("Faculty must be an integer"), // selected faculty id
   })
@@ -50,18 +50,18 @@ export const admissionSchema = z
  * @param didacticPremiumCardOnly -  true if the user selected that he wants to pay with the didactic card
  * @param partialPay - true if it is a partial pay ie amount selected by user is less the the amount of the tax
  */
-export const tuitionSchema = z
+export const tuitionTaxSchema = z
   .object({
     didacticPremiumCardOnly: z.boolean(),
     partialPay: z.boolean(),
   })
-  .and(admissionSchema);
+  .and(admissionTaxSchema);
 
 /**
  * @param drom -  the student dorm id that is selected from the form
  * @param month - the month number selected in the form in the range of [1,12]
  */
-export const dormsSchema = z
+export const dormsTaxSchema = z
   .object({
     dorm: z.coerce.number().int("Dorm must be an integer"), // selected dorm id
     month: z.coerce
