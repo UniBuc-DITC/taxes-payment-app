@@ -1,26 +1,18 @@
 import { MonthField, MonthTexts } from "@/types/forms/month";
 import { useMemo } from "react";
-import { Control, Controller, Path, useFormContext } from "react-hook-form";
+import { Controller, Path, useFormContext } from "react-hook-form";
+import Select from "react-select";
 
 /**
  * `MonthsForm` is a React component for selecting a month from a list of options.
  * With the options being restricted to months up to and including the current month.
  *
- * Props:
- * @template T - Extends `MonthField`, representing the specific shape of the form's month-related data.
- *
  * @prop {MonthOption[]} monthOptions - An array of `MonthOption` objects for month selection.
- * @prop {Control<T>} control - Control object from `react-hook-form`, used for managing the form state.
  * @prop {MonthTexts} - Includes label, extra text, and required error message.
- *
  *
  * Usage:
  * This component should be used within a form that is wrapped with `FormProvider` from `react-hook-form` with an input data type that can extend `MonthField`.
  */
-
-interface Props<T extends MonthField> extends MonthTexts {
-  control: Control<T>;
-}
 
 export default function MonthsForm<T extends MonthField>({
   monthOptions,
@@ -28,15 +20,17 @@ export default function MonthsForm<T extends MonthField>({
   label,
   noMonth,
   required,
-  control,
-}: Props<T>) {
+}: MonthTexts) {
   const {
     formState: { errors },
+    control,
   } = useFormContext<MonthField>();
 
   const currentMonth = new Date().getMonth() + 1;
   const availableMonths = useMemo(() => {
-    return monthOptions.filter((month) => month.id <= currentMonth);
+    return monthOptions.filter(
+      (month) => parseInt(month.value) <= currentMonth,
+    );
   }, [monthOptions, currentMonth]);
 
   return (
@@ -47,19 +41,27 @@ export default function MonthsForm<T extends MonthField>({
           {extra && <span className="ms-1">{extra}</span>}
         </label>
         <Controller
-          name={"month" as Path<T>}
+          name={"month"}
           control={control}
           rules={{ required }}
           render={({ field }) => (
             <div>
-              <select {...field}>
-                {<option value="">{noMonth}</option>}
-                {availableMonths.map((month) => (
-                  <option key={month.id} value={month.id}>
-                    {month.label}
-                  </option>
-                ))}
-              </select>
+              <Select
+                id="month"
+                aria-label="Month"
+                {...field}
+                options={availableMonths}
+                value={availableMonths.find((c) => c.value === field.value)}
+                onChange={(val) => field?.onChange(val?.value)}
+                placeholder={noMonth}
+                styles={{
+                  control: (base, state) => ({
+                    ...base,
+                    borderColor:
+                      errors.month && !state.isFocused ? "red" : "intital",
+                  }),
+                }}
+              />
             </div>
           )}
         />

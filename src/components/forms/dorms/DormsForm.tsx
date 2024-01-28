@@ -95,7 +95,7 @@ export default function DormsForm({
             {...dormTaxesTexts}
           />
           <div className="col-span-2 w-full text-center flex items-center justify-center my-8 md:justify-start">
-            <MonthsForm<DormFormInput> control={control} {...monthTexts} />
+            <MonthsForm {...monthTexts} />
           </div>
           <BillingDetailsForm {...billingTexts} />
           <ConsentToTermsForm {...agreeTexts} />
