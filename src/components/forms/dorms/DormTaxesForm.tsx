@@ -41,7 +41,7 @@ export default function DormTaxesForm({
     control,
   } = useFormContext<DormTaxesAmountFields>();
 
-  const selectedDorm = watch("dorm");
+  const selectedDorm = watch("dormId");
 
   const setAmount = (selectedId: string) => {
     if (selectedDorm) {
@@ -76,12 +76,12 @@ export default function DormTaxesForm({
     <>
       <div className="relative ">
         <label htmlFor="dorm" className="text-sm font-medium text-gray-700">
-          {lables.dorm}
+          {lables.dormId}
         </label>
         <Controller
-          name={"dorm"}
+          name={"dormId"}
           control={control}
-          rules={{ required: required.dorm }}
+          rules={{ required: required.dormId }}
           render={({ field }) => (
             <div>
               <Select
@@ -96,17 +96,17 @@ export default function DormTaxesForm({
                   control: (base, state) => ({
                     ...base,
                     borderColor:
-                      errors.dorm && !state.isFocused ? "red" : "intital",
+                      errors.dormId && !state.isFocused ? "red" : "intital",
                   }),
                 }}
               />
-              {errors.dorm && (
+              {errors.dormId && (
                 <span
                   className={`text-xs text-red-500 ${
-                    errors.dorm ? "block" : "hidden"
+                    errors.dormId ? "block" : "hidden"
                   }`}
                 >
-                  {errors.dorm.message?.toString()}
+                  {errors.dormId.message?.toString()}
                 </span>
               )}
             </div>
@@ -115,12 +115,12 @@ export default function DormTaxesForm({
       </div>
       <div className="relative">
         <label htmlFor="tax" className="text-sm font-medium text-gray-700">
-          {lables.tax}
+          {lables.taxId}
         </label>
         <Controller
-          name={"tax"}
+          name={"taxId"}
           control={control}
-          rules={{ required: required.tax }}
+          rules={{ required: required.taxId }}
           render={({ field }) => (
             <div>
               <Select
@@ -142,17 +142,17 @@ export default function DormTaxesForm({
                   control: (base, state) => ({
                     ...base,
                     borderColor:
-                      errors.tax && !state.isFocused ? "red" : "initial",
+                      errors.taxId && !state.isFocused ? "red" : "initial",
                   }),
                 }}
               />
-              {errors.tax && (
+              {errors.taxId && (
                 <span
                   className={`text-xs text-red-500 ${
-                    errors.tax ? "block" : "hidden"
+                    errors.taxId ? "block" : "hidden"
                   }`}
                 >
-                  {errors.tax.message?.toString()}
+                  {errors.taxId.message?.toString()}
                 </span>
               )}
             </div>

@@ -35,7 +35,7 @@ export interface DormOption {
 /**
  * Keys for student dorm tax related form fields.
  */
-type DormsFormKeys = "dorm" | "tax";
+type DormsFormKeys = "dormId" | "taxId";
 
 /**
  * Type definition for student dorm taxes fields in forms.
