@@ -10,7 +10,7 @@ import { useCallback } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import DormTaxesForm from "./DormTaxesForm";
 import MonthsForm from "./MonthsForm";
-import AgreeToTermsForm from "../reusable/AgreeToTermsForm";
+import ConsentToTermsForm from "../reusable/ConsentToTermsForm";
 import AgreeEuPlatescForm from "../reusable/AgreeEuPlatesc";
 import SubmitButton from "../reusable/SubmitButton";
 import { submitDorm } from "@/actions/forms";
@@ -62,7 +62,7 @@ export default function DormsForm({
       address: "",
       email: "",
       phoneNumber: "",
-      agreeToTerms: false,
+      consentToTerms: false,
       acceptEuPlatesc: false,
       dorm: "",
       tax: "",
@@ -99,7 +99,7 @@ export default function DormsForm({
             <MonthsForm<DormFormInput> control={control} {...monthTexts} />
           </div>
           <BillingDetailsForm {...billingTexts} />
-          <AgreeToTermsForm {...agreeTexts} />
+          <ConsentToTermsForm {...agreeTexts} />
           <AgreeEuPlatescForm {...acceptEuPlatescTexts} />
           <ReCAPTCHAForm<DormFormInput> control={control} {...recaptchaTexts} />
           <div className="col-span-2 w-full text-center flex items-center justify-center">

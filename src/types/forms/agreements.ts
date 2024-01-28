@@ -14,12 +14,12 @@ export interface RequiredCheckboxTexts {
 export interface EuPlatescFormFields {
   acceptEuPlatesc: boolean;
 }
-export interface AgreeTermsFormFiles {
-  agreeToTerms: boolean;
+export interface ConsentTermsFormFields {
+  consentToTerms: boolean;
 }
 export interface AgreeFormFiles
   extends EuPlatescFormFields,
-    AgreeTermsFormFiles {}
+    ConsentTermsFormFields {}
 
 /**
  * Fields for reCAPTCHA

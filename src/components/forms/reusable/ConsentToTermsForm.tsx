@@ -1,5 +1,5 @@
 import {
-  AgreeTermsFormFiles,
+  ConsentTermsFormFields,
   RequiredCheckboxTexts,
 } from "@/types/forms/agreements";
 import React from "react";
@@ -7,7 +7,7 @@ import { useFormContext } from "react-hook-form";
 import ConsentCheckbox from "./ConsentCheckbox";
 
 /**
- * `AgreeToTermsForm` is a React component that renders a part of a form
+ * `ConsentToTermsForm` is a React component that renders a part of a form
  * for selecting if the user accepts the terms of of service (which is required to be `true`).
  *
  * Props:
@@ -17,17 +17,17 @@ import ConsentCheckbox from "./ConsentCheckbox";
  * This component should be used within a form that is wrapped with `FormProvider` from `react-hook-form` with a checkbox `agreeToTerms`.
  */
 
-function AgreeToTermsForm({ terms, required }: RequiredCheckboxTexts) {
+function ConsentToTermsForm({ terms, required }: RequiredCheckboxTexts) {
   const {
     register,
     formState: { errors },
-  } = useFormContext<AgreeTermsFormFiles>();
+  } = useFormContext<ConsentTermsFormFields>();
 
   return (
-    <ConsentCheckbox<AgreeTermsFormFiles>
+    <ConsentCheckbox<ConsentTermsFormFields>
       errors={errors}
-      id="agreeToTerms"
-      name="agreeToTerms"
+      id="consentToTerms"
+      name="consentToTerms"
       register={register}
       required={required}
       label={terms}
@@ -35,4 +35,4 @@ function AgreeToTermsForm({ terms, required }: RequiredCheckboxTexts) {
   );
 }
 
-export default AgreeToTermsForm;
+export default ConsentToTermsForm;

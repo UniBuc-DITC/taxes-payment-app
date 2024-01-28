@@ -6,14 +6,9 @@ import {
   FacultyTaxOption,
 } from "@/types/forms/faculties";
 import React, { useCallback } from "react";
-import {
-  useForm,
-  Controller,
-  SubmitHandler,
-  FormProvider,
-} from "react-hook-form";
+import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import FacultyTaxesForm from "./FacultyTaxesForm";
-import AgreeToTermsForm from "../reusable/AgreeToTermsForm";
+import ConsentToTermsForm from "../reusable/ConsentToTermsForm";
 import SubmitButton from "../reusable/SubmitButton";
 import { submitAdmission } from "@/actions/forms";
 import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
@@ -65,7 +60,7 @@ const AdmissionForm = ({
       address: "",
       email: "",
       phoneNumber: "",
-      agreeToTerms: false,
+      consentToTerms: false,
       faculty: "",
       tax: "",
       amount: 0,
@@ -107,7 +102,7 @@ const AdmissionForm = ({
 
           <BillingDetailsForm {...billingTexts} />
 
-          <AgreeToTermsForm {...agreeTexts} />
+          <ConsentToTermsForm {...agreeTexts} />
           <AgreeEuPlatescForm {...acceptEuPlatescTexts} />
 
           <ReCAPTCHAForm<AdmissionFormInput>

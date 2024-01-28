@@ -17,7 +17,9 @@ export const billingSchema = z.object({
  * @param recaptcha - the reCAPTCHA token
  */
 export const agreeSchema = z.object({
-  agreeToTerms: z.boolean().refine((val) => val, "You must agree to the terms"),
+  consentToTerms: z
+    .boolean()
+    .refine((val) => val, "You must agree to the terms"),
   acceptEuPlatesc: z
     .boolean()
     .refine((val) => val, "You must agree to the euplt"),

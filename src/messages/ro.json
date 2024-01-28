@@ -48,7 +48,7 @@
         "phoneNumber": "Numărul de telefon trebuie să fie doar numere"
       }
     },
-    "AgreeTerms": {
+    "ConsentTerms": {
       "terms": "Sunt de acord cu <link>termenii și condițiile</link>",
       "required": "Trebuie să fii de acord cu termenii și condițiile"
     },

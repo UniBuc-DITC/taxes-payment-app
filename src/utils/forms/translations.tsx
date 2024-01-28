@@ -60,8 +60,8 @@ export async function getBillingTexts(): Promise<BillingFormTexts> {
   return personalText;
 }
 
-export async function getAgreeTermsText(): Promise<RequiredCheckboxTexts> {
-  const t = await getTranslations(`Forms.AgreeTerms`);
+export async function getConsentTermsText(): Promise<RequiredCheckboxTexts> {
+  const t = await getTranslations(`Forms.ConsentTerms`);
   return {
     required: t("required"),
     terms: t.rich("terms", {
@@ -228,7 +228,7 @@ export async function getAdmissionFormTexts(): Promise<AdmissionFormTexts> {
     getBillingTexts(),
     getFacultyTaxesTexts(),
     getSubmitButtonTexts(),
-    getAgreeTermsText(),
+    getConsentTermsText(),
     getEuPlatescText(),
     getReCAPTCHAText(),
   ]);
@@ -271,7 +271,7 @@ export async function getDormFormTexts(): Promise<DormsFormTexts> {
     getDormTaxesTexts(),
     getMonthsTexts(),
     getSubmitButtonTexts(),
-    getAgreeTermsText(),
+    getConsentTermsText(),
     getEuPlatescText(),
     getReCAPTCHAText(),
   ]);

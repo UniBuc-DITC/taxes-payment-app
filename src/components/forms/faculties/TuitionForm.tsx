@@ -13,7 +13,7 @@ import { StudyCycle } from "@prisma/client";
 import DidacticCardForm from "./DidacticCardForm";
 import AmountForm from "./AmountForm";
 import AgreeEuPlatescForm from "../reusable/AgreeEuPlatesc";
-import AgreeToTermsForm from "../reusable/AgreeToTermsForm";
+import ConsentToTermsForm from "../reusable/ConsentToTermsForm";
 import SubmitButton from "../reusable/SubmitButton";
 import { submitTuition } from "@/actions/forms";
 import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
@@ -69,7 +69,7 @@ export default function TuitionForm({
       address: "",
       email: "",
       phoneNumber: "",
-      agreeToTerms: false,
+      consentToTerms: false,
       faculty: "",
       tax: "",
       amount: 0,
@@ -143,7 +143,7 @@ export default function TuitionForm({
 
           <BillingDetailsForm {...billingTexts} />
 
-          <AgreeToTermsForm {...agreeTexts} />
+          <ConsentToTermsForm {...agreeTexts} />
 
           <AgreeEuPlatescForm {...acceptEuPlatescTexts} />
 
