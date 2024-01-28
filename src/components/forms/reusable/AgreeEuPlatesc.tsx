@@ -4,6 +4,7 @@ import {
 } from "@/types/forms/agreements";
 import React from "react";
 import { useFormContext } from "react-hook-form";
+import ConsentCheckbox from "./ConsentCheckbox";
 
 /**
  * `AgreeEuPlatescForm` is a React component that renders a part of a form
@@ -23,30 +24,14 @@ function AgreeEuPlatescForm({ terms, required }: RequiredCheckboxTexts) {
   } = useFormContext<EuPlatescFormFields>();
 
   return (
-    <div className="col-span-2">
-      <label htmlFor="acceptEuPlatesc" className="flex items-center">
-        <input
-          type="checkbox"
-          {...register("acceptEuPlatesc", {
-            required,
-          })}
-          id="acceptEuPlatesc"
-          className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded accent-slate-500"
-        />
-        <span className="ml-2 text-sm text-gray-600 [&>a]:underline [&>a]:text-blue-500">
-          {terms}
-        </span>
-      </label>
-      {errors.acceptEuPlatesc && (
-        <span
-          className={`text-xs text-red-500 ${
-            errors.acceptEuPlatesc ? "block" : "hidden"
-          }`}
-        >
-          {errors.acceptEuPlatesc.message?.toString()}
-        </span>
-      )}
-    </div>
+    <ConsentCheckbox<EuPlatescFormFields>
+      errors={errors}
+      id="acceptEuPlatesc"
+      name="acceptEuPlatesc"
+      register={register}
+      required={required}
+      label={terms}
+    />
   );
 }
 
