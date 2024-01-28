@@ -12,7 +12,7 @@ export interface RequiredCheckboxTexts {
  * Fields for agreement forms agreeing to terms and Eu Platesc.
  */
 export interface EuPlatescFormFields {
-  acceptEuPlatesc: boolean;
+  consentEuPlatesc: boolean;
 }
 export interface ConsentTermsFormFields {
   consentToTerms: boolean;

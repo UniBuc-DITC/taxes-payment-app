@@ -64,7 +64,7 @@ const AdmissionForm = ({
       facultyId: "",
       taxId: "",
       amount: 0,
-      acceptEuPlatesc: false,
+      consentEuPlatesc: false,
       recaptcha: "",
     },
   });

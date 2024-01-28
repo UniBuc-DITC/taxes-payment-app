@@ -20,7 +20,7 @@ export const consentSchema = z.object({
   consentToTerms: z
     .boolean()
     .refine((val) => val, "You must agree to the terms"),
-  acceptEuPlatesc: z
+  consentEuPlatesc: z
     .boolean()
     .refine((val) => val, "You must agree to the euplt"),
   recaptcha: z.string().min(1, "Recaptcha string is missing"),

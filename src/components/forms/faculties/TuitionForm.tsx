@@ -75,7 +75,7 @@ export default function TuitionForm({
       amount: 0,
       didacticPremiumCardOnly: false,
       partialPay: false,
-      acceptEuPlatesc: false,
+      consentEuPlatesc: false,
       recaptcha: "",
     },
   });

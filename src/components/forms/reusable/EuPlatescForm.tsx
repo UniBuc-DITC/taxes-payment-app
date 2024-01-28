@@ -26,8 +26,8 @@ function EuPlatescForm({ terms, required }: RequiredCheckboxTexts) {
   return (
     <ConsentCheckbox<EuPlatescFormFields>
       errors={errors}
-      id="acceptEuPlatesc"
-      name="acceptEuPlatesc"
+      id="consentEuPlatesc"
+      name="consentEuPlatesc"
       register={register}
       required={required}
       label={terms}

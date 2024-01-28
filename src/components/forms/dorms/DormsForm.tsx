@@ -63,7 +63,7 @@ export default function DormsForm({
       email: "",
       phoneNumber: "",
       consentToTerms: false,
-      acceptEuPlatesc: false,
+      consentEuPlatesc: false,
       dormId: "",
       taxId: "",
       month: "",
