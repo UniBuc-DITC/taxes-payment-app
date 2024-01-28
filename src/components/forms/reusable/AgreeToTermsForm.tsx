@@ -4,6 +4,7 @@ import {
 } from "@/types/forms/agreements";
 import React from "react";
 import { useFormContext } from "react-hook-form";
+import ConsentCheckbox from "./ConsentCheckbox";
 
 /**
  * `AgreeToTermsForm` is a React component that renders a part of a form
@@ -23,30 +24,14 @@ function AgreeToTermsForm({ terms, required }: RequiredCheckboxTexts) {
   } = useFormContext<AgreeTermsFormFiles>();
 
   return (
-    <div className="col-span-2">
-      <label htmlFor="agreeToTerms" className="flex items-center">
-        <input
-          type="checkbox"
-          {...register("agreeToTerms", {
-            required,
-          })}
-          id="agreeToTerms"
-          className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded accent-slate-500"
-        />
-        <span className="ml-2 text-sm text-gray-600 [&>a]:underline [&>a]:text-blue-500">
-          {terms}
-        </span>
-      </label>
-      {errors.agreeToTerms && (
-        <span
-          className={`text-xs text-red-500 ${
-            errors.agreeToTerms ? "block" : "hidden"
-          }`}
-        >
-          {errors.agreeToTerms.message?.toString()}
-        </span>
-      )}
-    </div>
+    <ConsentCheckbox<AgreeTermsFormFiles>
+      errors={errors}
+      id="agreeToTerms"
+      name="agreeToTerms"
+      register={register}
+      required={required}
+      label={terms}
+    />
   );
 }
 
