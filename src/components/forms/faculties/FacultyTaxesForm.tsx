@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { Controller, Control, useFormContext, Path } from "react-hook-form";
 import {
   FacultyOption,
@@ -6,6 +6,7 @@ import {
   FacultyTaxesAmountFields,
   FacultyTaxesTexts,
 } from "@/types/forms/faculties";
+import Select from "react-select";
 
 /**
  * `FacultyTaxesForm` is a React component that renders a part of a form
@@ -90,6 +91,23 @@ function FacultyTaxesForm({
     }
   }, [selectedTax, amount, setValue, selectedFacultyTaxOption]);
 
+  const selectFacultyOptions = useMemo(
+    () =>
+      facultyOptions.map(({ id, label }) => ({ value: id.toString(), label })),
+    [facultyOptions],
+  );
+
+  const selectTaxOptions = useMemo(
+    () =>
+      !selectFacultyOptions
+        ? []
+        : taxesOptions[selectedFaculty]?.map(({ id, label }) => ({
+            value: id.toString(),
+            label,
+          })),
+    [selectFacultyOptions, selectedFaculty, taxesOptions],
+  );
+
   return (
     <>
       <div className="relative">
@@ -102,20 +120,24 @@ function FacultyTaxesForm({
           rules={{ required: required.faculty }}
           render={({ field }) => (
             <div>
-              <select
-                {...field}
+              <Select
                 id="faculty"
                 aria-label="Faculty"
-                className={`mt-1 block w-full  border-gray-300 rounded-md shadow-sm
-                   focus:ring-blue-500 focus:border-blue-500 p-2 outline-none focus:outline-blue-200`}
-              >
-                <option value="">{extraTaxOptions.faculty}</option>
-                {facultyOptions.map((option) => (
-                  <option key={option.id} value={option.id}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
+                {...field}
+                options={selectFacultyOptions}
+                value={selectFacultyOptions.find(
+                  (c) => c.value === field.value,
+                )}
+                onChange={(val) => field?.onChange(val?.value)}
+                placeholder={extraTaxOptions.faculty}
+                styles={{
+                  control: (base, state) => ({
+                    ...base,
+                    borderColor:
+                      errors.faculty && !state.isFocused ? "red" : "intital",
+                  }),
+                }}
+              />
               {errors.faculty && (
                 <span
                   className={`text-xs text-red-500 ${
@@ -139,29 +161,29 @@ function FacultyTaxesForm({
           rules={{ required: required.tax }}
           render={({ field }) => (
             <div>
-              <select
-                {...field}
-                onChange={(e) => {
-                  setTaxesOption(e.target.value);
-                  field.onChange(e);
-                }}
+              <Select
                 id="tax"
                 aria-label="Taxes"
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500
-                  p-2 outline-none focus:outline-blue-200"
-              >
-                {selectedFaculty ? (
-                  <option value="">{extraTaxOptions.tax}</option>
-                ) : (
-                  <option value="">{extraTaxOptions.noFacultyTaxes}</option>
-                )}
-                {selectedFaculty &&
-                  taxesOptions[selectedFaculty]?.map((option) => (
-                    <option key={option.id} value={option.id}>
-                      {option.label}
-                    </option>
-                  ))}
-              </select>
+                {...field}
+                options={selectTaxOptions}
+                value={selectTaxOptions?.find((c) => c.value === field.value)}
+                onChange={(val) => {
+                  if (val) setTaxesOption(val?.value);
+                  field.onChange(val?.value);
+                }}
+                placeholder={
+                  !selectedFaculty
+                    ? extraTaxOptions.tax
+                    : extraTaxOptions.noFacultyTaxes
+                }
+                styles={{
+                  control: (base, state) => ({
+                    ...base,
+                    borderColor:
+                      errors.tax && !state.isFocused ? "red" : "initial",
+                  }),
+                }}
+              />
               {errors.tax && (
                 <span
                   className={`text-xs text-red-500 ${
