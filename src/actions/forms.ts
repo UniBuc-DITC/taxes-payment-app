@@ -8,11 +8,11 @@ import {
   tuitionSchema,
 } from "@/utils/forms/validationSchemas";
 
-export async function validateReCAPTHCA(token: string): Promise<boolean> {
+export async function validateReCAPTCHA(token: string): Promise<boolean> {
   try {
     console.log("validating");
     const response = await fetch(
-      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.NEXT_RECAPTCHA_SERVER}&response=${token}`,
+      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SERVER}&response=${token}`,
       {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
