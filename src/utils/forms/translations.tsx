@@ -121,21 +121,6 @@ export async function getDidiacticPremiumCardTexts(): Promise<DidacticPremiumCar
   };
 }
 
-const monthKeys = [
-  "month_january",
-  "month_february",
-  "month_march",
-  "month_april",
-  "month_may",
-  "month_june",
-  "month_july",
-  "month_august",
-  "month_september",
-  "month_october",
-  "month_november",
-  "month_december",
-] as const;
-
 export async function getReCAPTCHAText(): Promise<ReCAPTCHATexts> {
   const t = await getTranslations("Forms.ReCAPTCHA");
   return {
@@ -144,11 +129,26 @@ export async function getReCAPTCHAText(): Promise<ReCAPTCHATexts> {
   };
 }
 
+const monthKeys = [
+  "january",
+  "february",
+  "march",
+  "april",
+  "may",
+  "june",
+  "july",
+  "august",
+  "september",
+  "october",
+  "november",
+  "december",
+] as const;
+
 export async function getMonthOptions(): Promise<MonthOption[]> {
-  const t = await getTranslations("Forms.Dorms.MonthOptions");
-  return monthKeys.map((k) => ({
-    id: parseInt(t(`${k}.id`)),
-    label: t(`${k}.label`),
+  const t = await getTranslations("Forms.Dorms.MonthTexts.MonthOptions");
+  return monthKeys.map((k, i) => ({
+    value: (i + 1).toString(),
+    label: t(`${k}`),
   }));
 }
 
@@ -159,9 +159,9 @@ export async function getMonthsTexts(): Promise<MonthTexts> {
     extra: t("extra") || "",
     noMonth: t("noMonth"),
     required: t("required"),
-    monthOptions: monthKeys.map((k) => ({
-      id: parseInt(t(`MonthOptions.${k}.id`)),
-      label: t(`MonthOptions.${k}.label`),
+    monthOptions: monthKeys.map((k, i) => ({
+      value: (i + 1).toString(),
+      label: t(`MonthOptions.${k}`),
     })),
   };
 }

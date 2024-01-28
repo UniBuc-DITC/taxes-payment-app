@@ -2,7 +2,7 @@
  * Options for selecting a month.
  */
 export type MonthOption = {
-  id: number;
+  value: string;
   label: string;
 };
 
