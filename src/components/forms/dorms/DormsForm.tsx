@@ -11,7 +11,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import DormTaxesForm from "./DormTaxesForm";
 import MonthsForm from "./MonthsForm";
 import ConsentToTermsForm from "../reusable/ConsentToTermsForm";
-import AgreeEuPlatescForm from "../reusable/AgreeEuPlatesc";
+import EuPlatescForm from "../reusable/EuPlatescForm";
 import SubmitButton from "../reusable/SubmitButton";
 import { submitDorm } from "@/actions/forms";
 import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
@@ -99,7 +99,7 @@ export default function DormsForm({
           </div>
           <BillingDetailsForm {...billingTexts} />
           <ConsentToTermsForm {...agreeTexts} />
-          <AgreeEuPlatescForm {...acceptEuPlatescTexts} />
+          <EuPlatescForm {...acceptEuPlatescTexts} />
           <ReCAPTCHAForm {...recaptchaTexts} />
           <div className="col-span-2 w-full text-center flex items-center justify-center">
             <SubmitButton isSubmitting={isSubmitting} {...submitTexts} />

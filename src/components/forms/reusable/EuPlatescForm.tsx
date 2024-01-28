@@ -17,7 +17,7 @@ import ConsentCheckbox from "./ConsentCheckbox";
  * This component should be used within a form that is wrapped with `FormProvider` from `react-hook-form` with a checkbox `acceptEuPlatesc`.
  */
 
-function AgreeEuPlatescForm({ terms, required }: RequiredCheckboxTexts) {
+function EuPlatescForm({ terms, required }: RequiredCheckboxTexts) {
   const {
     register,
     formState: { errors },
@@ -35,4 +35,4 @@ function AgreeEuPlatescForm({ terms, required }: RequiredCheckboxTexts) {
   );
 }
 
-export default AgreeEuPlatescForm;
+export default EuPlatescForm;
