@@ -14,7 +14,7 @@ import PersonalDetailsForm from "../reusable/PersonalDetailsForm";
 import AgreeToTermsForm from "../reusable/AgreeToTermsForm";
 import AgreeEuPlatescForm from "../reusable/AgreeEuPlatesc";
 import SubmitButton from "../reusable/SubmitButton";
-import { sumbitDorm } from "@/actions/forms";
+import { submitDorm } from "@/actions/forms";
 import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
 
 /**
@@ -78,7 +78,7 @@ export default function DormsForm({
   } = methods;
 
   const onSubmit: SubmitHandler<DormFormInput> = useCallback(async (data) => {
-    const r = await sumbitDorm(data);
+    const r = await submitDorm(data);
     console.log(r);
   }, []);
 

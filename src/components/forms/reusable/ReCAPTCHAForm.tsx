@@ -1,4 +1,4 @@
-import { validateReCAPTHCA } from "@/actions/forms";
+import { validateReCAPTCHA } from "@/actions/forms";
 import { ReCAPTCHAInput, ReCAPTCHATexts } from "@/types/forms/agreements";
 import { useLocale } from "next-intl";
 import React, { useRef } from "react";
@@ -47,7 +47,7 @@ export default function ReCAPTCHAForm<T extends ReCAPTCHAInput>({
             if (!value) {
               return false;
             }
-            return (await validateReCAPTHCA(value)) || validate;
+            return (await validateReCAPTCHA(value)) || validate;
           },
         }}
         render={({ field }) => (

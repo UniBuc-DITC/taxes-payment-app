@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { unstable_setRequestLocale } from "next-intl/server";
+import NavBar from "@/components/reusable/NavBar";
 
 import { locales } from "@/i18n";
 
 import "./globals.css";
-import Navbar from "@/components/reusable/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -36,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang={locale}>
       <body className={inter.className}>
-        <Navbar />
+        <NavBar />
         <main className="max-w-7xl mx-auto">{children}</main>
       </body>
     </html>

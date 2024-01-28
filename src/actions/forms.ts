@@ -70,7 +70,7 @@ export async function submitTuition(
   return { success: true };
 }
 
-export async function sumbitDorm(
+export async function submitDorm(
   formData: DormFormInput,
 ): Promise<FormActionResponse> {
   const validate = dormsSchema.safeParse(formData);
