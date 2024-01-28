@@ -79,7 +79,7 @@ export async function getConsentTermsText(): Promise<RequiredCheckboxTexts> {
 }
 
 export async function getEuPlatescText(): Promise<RequiredCheckboxTexts> {
-  const t = await getTranslations(`Forms.AcceptEuPlatesc`);
+  const t = await getTranslations(`Forms.ConsentEuPlatesc`);
   return {
     required: t("required"),
     terms: t.rich("terms", {
