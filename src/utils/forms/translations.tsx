@@ -166,7 +166,10 @@ export async function getMonthsTexts(): Promise<MonthTexts> {
   };
 }
 
-const facultyTaxesFields = ["facultyId", "taxId"] as const;
+const facultyTaxesFields = [
+  { field: "facultyId", translation: "faculty" },
+  { field: "taxId", translation: "tax" },
+] as const;
 const facultyTaxesCategory = ["required", "labels"] as const;
 
 export async function getFacultyTaxesTexts(): Promise<FacultyTaxesTexts> {
@@ -183,15 +186,18 @@ export async function getFacultyTaxesTexts(): Promise<FacultyTaxesTexts> {
     if (!facultyTaxesTexts[c]) {
       facultyTaxesTexts[c] = {} as FacultyTaxesFields;
     }
-    facultyTaxesFields.forEach((k) => {
-      facultyTaxesTexts[c][k] = t(`${c}.${k}`);
+    facultyTaxesFields.forEach(({ field, translation }) => {
+      facultyTaxesTexts[c][field] = t(`${c}.${translation}`);
     });
   });
 
   return facultyTaxesTexts;
 }
 
-const dormTaxesFields = ["dorm", "tax"] as const;
+const dormTaxesFields = [
+  { field: "dormId", translation: "dorm" },
+  { field: "taxId", translation: "tax" },
+] as const;
 const dormTaxesCategory = ["required", "labels"] as const;
 
 export async function getDormTaxesTexts(): Promise<DormTaxesTexts> {
@@ -208,8 +214,8 @@ export async function getDormTaxesTexts(): Promise<DormTaxesTexts> {
     if (!dormTaxesTexts[c]) {
       dormTaxesTexts[c] = {} as DormTaxesFields;
     }
-    dormTaxesFields.forEach((k) => {
-      dormTaxesTexts[c][k] = t(`${c}.${k}`);
+    dormTaxesFields.forEach(({ field, translation }) => {
+      dormTaxesTexts[c][field] = t(`${c}.${translation}`);
     });
   });
 
