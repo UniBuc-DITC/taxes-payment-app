@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { unstable_setRequestLocale } from "next-intl/server";
 import NavBar from "@/components/reusable/NavBar";
-
 import { locales } from "@/i18n";
 
 import "./globals.css";
