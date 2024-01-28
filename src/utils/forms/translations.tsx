@@ -166,7 +166,7 @@ export async function getMonthsTexts(): Promise<MonthTexts> {
   };
 }
 
-const facultyTaxesFields = ["faculty", "tax"] as const;
+const facultyTaxesFields = ["facultyId", "taxId"] as const;
 const facultyTaxesCategory = ["required", "labels"] as const;
 
 export async function getFacultyTaxesTexts(): Promise<FacultyTaxesTexts> {
