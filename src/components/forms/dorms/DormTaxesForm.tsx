@@ -20,7 +20,7 @@ import { Control, Controller, Path, useFormContext } from "react-hook-form";
  * This component should be used within a form that is wrapped with `FormProvider` from `react-hook-form` with an input data type that can extend `DormTaxesAmountFields`.
  */
 
-type DromTaxesFormProps = {
+type DormTaxesFormProps = {
   dormOptions: DormOption[];
   taxesOptions: Record<string, DormTaxOption[]>;
 } & DormTaxesTexts;
@@ -31,7 +31,7 @@ export default function DormTaxesForm({
   extraTaxOptions,
   labels: lables,
   required,
-}: DromTaxesFormProps) {
+}: DormTaxesFormProps) {
   const {
     watch,
     setValue,
