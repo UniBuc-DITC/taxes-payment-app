@@ -16,7 +16,7 @@ export const billingSchema = z.object({
 /**
  * @param recaptcha - the reCAPTCHA token
  */
-export const agreeSchema = z.object({
+export const consentSchema = z.object({
   consentToTerms: z
     .boolean()
     .refine((val) => val, "You must agree to the terms"),
@@ -43,7 +43,7 @@ export const admissionSchema = z
     faculty: z.coerce.number().int("Faculty must be an integer"), // selected faculty id
   })
   .and(billingSchema)
-  .and(agreeSchema)
+  .and(consentSchema)
   .and(taxAmountSchema);
 
 /**
@@ -71,5 +71,5 @@ export const dormsSchema = z
       .max(12, "Month should be at most 12"),
   })
   .and(billingSchema)
-  .and(agreeSchema)
+  .and(consentSchema)
   .and(taxAmountSchema);
