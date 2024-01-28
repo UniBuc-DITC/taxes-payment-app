@@ -78,8 +78,8 @@ function FacultyTaxesForm({
     }
   };
 
-  const selectedFaculty = watch("faculty");
-  const selectedTax = watch("tax");
+  const selectedFaculty = watch("facultyId");
+  const selectedTax = watch("taxId");
   const amount = watch("amount");
 
   useEffect(() => {
@@ -112,12 +112,12 @@ function FacultyTaxesForm({
     <>
       <div className="relative">
         <label htmlFor="faculty" className="text-sm font-medium text-gray-700">
-          {lables.faculty}
+          {lables.facultyId}
         </label>
         <Controller
-          name={"faculty"}
+          name={"facultyId"}
           control={control}
-          rules={{ required: required.faculty }}
+          rules={{ required: required.facultyId }}
           render={({ field }) => (
             <div>
               <Select
@@ -134,17 +134,17 @@ function FacultyTaxesForm({
                   control: (base, state) => ({
                     ...base,
                     borderColor:
-                      errors.faculty && !state.isFocused ? "red" : "intital",
+                      errors.facultyId && !state.isFocused ? "red" : "intital",
                   }),
                 }}
               />
-              {errors.faculty && (
+              {errors.facultyId && (
                 <span
                   className={`text-xs text-red-500 ${
-                    errors.faculty ? "block" : "hidden"
+                    errors.facultyId ? "block" : "hidden"
                   }`}
                 >
-                  {errors.faculty.message?.toString()}
+                  {errors.facultyId.message?.toString()}
                 </span>
               )}
             </div>
@@ -153,12 +153,12 @@ function FacultyTaxesForm({
       </div>
       <div className="relative">
         <label htmlFor="tax" className="text-sm font-medium text-gray-700">
-          {lables.tax}
+          {lables.taxId}
         </label>
         <Controller
-          name={"tax"}
+          name={"taxId"}
           control={control}
-          rules={{ required: required.tax }}
+          rules={{ required: required.taxId }}
           render={({ field }) => (
             <div>
               <Select
@@ -180,17 +180,17 @@ function FacultyTaxesForm({
                   control: (base, state) => ({
                     ...base,
                     borderColor:
-                      errors.tax && !state.isFocused ? "red" : "initial",
+                      errors.taxId && !state.isFocused ? "red" : "initial",
                   }),
                 }}
               />
-              {errors.tax && (
+              {errors.taxId && (
                 <span
                   className={`text-xs text-red-500 ${
-                    errors.tax ? "block" : "hidden"
+                    errors.taxId ? "block" : "hidden"
                   }`}
                 >
-                  {errors.tax.message?.toString()}
+                  {errors.taxId.message?.toString()}
                 </span>
               )}
             </div>

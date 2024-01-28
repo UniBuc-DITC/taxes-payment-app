@@ -36,7 +36,7 @@ export interface FacultyOption {
 /**
  * Keys for faculty tax related form fields.
  */
-type FacultyFormKeys = "faculty" | "tax";
+type FacultyFormKeys = "facultyId" | "taxId";
 
 /**
  * Type definition for faculty taxes fields in forms.
