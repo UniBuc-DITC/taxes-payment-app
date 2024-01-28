@@ -93,8 +93,7 @@ const AdmissionForm = ({
         className="max-w-5xl mx-auto mt-12 bg-white p-10 shadow-lg rounded-lg space-y-6"
       >
         <div className="md:grid md:grid-cols-2 gap-6 flex flex-col items-center justify-center">
-          <FacultyTaxesForm<AdmissionFormInput>
-            control={control}
+          <FacultyTaxesForm
             facultyOptions={facultyOptions}
             taxesOptions={taxesOptions}
             {...facultyTaxesTexts}

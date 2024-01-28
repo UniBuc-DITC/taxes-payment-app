@@ -8,11 +8,10 @@ import {
 } from "@/types/forms/faculties";
 
 /**
- * `FacultyTaxesForm` is a generic React component that renders a part of a form
+ * `FacultyTaxesForm` is a React component that renders a part of a form
  * for selecting faculties and their respective tax options.
  *
  * Props:
- * @template T - Extends `FacultyTaxesFields` which is a generic type representing the minimun required shape of the form input data.
  *
  * @prop {Control<T>} control - Control object from `react-hook-form`, used for managing the form state.
  * @prop {FacultyOption[]} facultyOptions - An array of `FacultyOption` objects for faculty selection.
@@ -26,8 +25,7 @@ import {
  * This component should be used within a form that is wrapped with `FormProvider` from `react-hook-form` with an input data type that can extend `FacultyTaxesAmountFields`.
  */
 
-type FacultyTaxesFormProps<T extends FacultyTaxesAmountFields> = {
-  control: Control<T>;
+type FacultyTaxesFormProps = {
   facultyOptions: FacultyOption[];
   taxesOptions: Record<string, FacultyTaxOption[]>;
   setTaxesOptionParent?: React.Dispatch<
@@ -36,8 +34,7 @@ type FacultyTaxesFormProps<T extends FacultyTaxesAmountFields> = {
   isAmountVariable?: boolean;
 } & FacultyTaxesTexts;
 
-function FacultyTaxesForm<T extends FacultyTaxesAmountFields>({
-  control,
+function FacultyTaxesForm({
   facultyOptions,
   taxesOptions,
   required,
@@ -45,11 +42,12 @@ function FacultyTaxesForm<T extends FacultyTaxesAmountFields>({
   extraTaxOptions,
   setTaxesOptionParent,
   isAmountVariable = false,
-}: FacultyTaxesFormProps<T>) {
+}: FacultyTaxesFormProps) {
   const {
     watch,
     setValue,
     formState: { errors },
+    control,
   } = useFormContext<FacultyTaxesAmountFields>();
 
   const [selectedFacultyTaxOption, setSelectedFacultyTaxOption] =
@@ -99,7 +97,7 @@ function FacultyTaxesForm<T extends FacultyTaxesAmountFields>({
           {lables.faculty}
         </label>
         <Controller
-          name={"faculty" as Path<T>}
+          name={"faculty"}
           control={control}
           rules={{ required: required.faculty }}
           render={({ field }) => (
@@ -136,7 +134,7 @@ function FacultyTaxesForm<T extends FacultyTaxesAmountFields>({
           {lables.tax}
         </label>
         <Controller
-          name={"tax" as Path<T>}
+          name={"tax"}
           control={control}
           rules={{ required: required.tax }}
           render={({ field }) => (
