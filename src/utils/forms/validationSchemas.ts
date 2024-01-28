@@ -27,20 +27,20 @@ export const consentSchema = z.object({
 });
 
 /**
- * @param tax - the tax id that is selected for that form (FacultyTaxValue or StudentDormTaxValue)
+ * @param taxId - the tax id that is selected for that form (FacultyTaxValue or StudentDormTaxValue)
  * @param the - amount that the user selected
  */
 export const taxAmountSchema = z.object({
-  tax: z.coerce.number().int("Tax must be an integer"),
+  taxId: z.coerce.number().int("Tax must be an integer"),
   amount: z.number().min(100, "Minimum amount value is 100"),
 });
 
 /**
- * @param faculty -  the faculty id that is selected from the form
+ * @param facultyId -  the faculty id that is selected from the form
  */
 export const admissionTaxSchema = z
   .object({
-    faculty: z.coerce.number().int("Faculty must be an integer"), // selected faculty id
+    facultyId: z.coerce.number().int("Faculty must be an integer"),
   })
   .and(billingSchema)
   .and(consentSchema)
@@ -58,12 +58,12 @@ export const tuitionTaxSchema = z
   .and(admissionTaxSchema);
 
 /**
- * @param drom -  the student dorm id that is selected from the form
+ * @param dromId -  the student dorm id that is selected from the form
  * @param month - the month number selected in the form in the range of [1,12]
  */
 export const dormsTaxSchema = z
   .object({
-    dorm: z.coerce.number().int("Dorm must be an integer"), // selected dorm id
+    dormId: z.coerce.number().int("Dorm must be an integer"),
     month: z.coerce
       .number()
       .int("Month must be an integer")
