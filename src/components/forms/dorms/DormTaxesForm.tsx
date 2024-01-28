@@ -4,7 +4,9 @@ import {
   DormTaxesAmountFields,
   DormTaxesTexts,
 } from "@/types/forms/dorms";
+import { useMemo } from "react";
 import { Control, Controller, Path, useFormContext } from "react-hook-form";
+import Select from "react-select";
 
 /**
  * `DormTaxesForm` is a React component for selecting student dorms options and their respective tax options.
@@ -54,6 +56,22 @@ export default function DormTaxesForm({
     }
   };
 
+  const selectDormOptions = useMemo(
+    () => dormOptions.map(({ id, label }) => ({ value: id.toString(), label })),
+    [dormOptions],
+  );
+
+  const selectTaxOptions = useMemo(
+    () =>
+      !selectDormOptions
+        ? []
+        : taxesOptions[selectedDorm]?.map(({ id, label }) => ({
+            value: id.toString(),
+            label,
+          })),
+    [selectDormOptions, selectedDorm, taxesOptions],
+  );
+
   return (
     <>
       <div className="relative ">
@@ -66,20 +84,22 @@ export default function DormTaxesForm({
           rules={{ required: required.dorm }}
           render={({ field }) => (
             <div>
-              <select
-                {...field}
+              <Select
                 id="dorm"
                 aria-label="Dorm"
-                className={`mt-1 block w-full  border-gray-300 rounded-md shadow-sm
-                   focus:ring-blue-500 focus:border-blue-500 p-2 outline-none focus:outline-blue-200`}
-              >
-                <option value="">{extraTaxOptions.dorm}</option>
-                {dormOptions.map((option) => (
-                  <option key={option.id} value={option.id}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
+                {...field}
+                options={selectDormOptions}
+                value={selectDormOptions.find((c) => c.value === field.value)}
+                onChange={(val) => field?.onChange(val?.value)}
+                placeholder={extraTaxOptions.dorm}
+                styles={{
+                  control: (base, state) => ({
+                    ...base,
+                    borderColor:
+                      errors.dorm && !state.isFocused ? "red" : "intital",
+                  }),
+                }}
+              />
               {errors.dorm && (
                 <span
                   className={`text-xs text-red-500 ${
@@ -103,29 +123,29 @@ export default function DormTaxesForm({
           rules={{ required: required.tax }}
           render={({ field }) => (
             <div>
-              <select
-                {...field}
-                onChange={(e) => {
-                  setAmount(e.target.value);
-                  field.onChange(e);
-                }}
+              <Select
                 id="tax"
                 aria-label="Taxes"
-                className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500
-                  p-2 outline-none focus:outline-blue-200"
-              >
-                {selectedDorm ? (
-                  <option value="">{extraTaxOptions.tax}</option>
-                ) : (
-                  <option value="">{extraTaxOptions.noDormTaxes}</option>
-                )}
-                {selectedDorm &&
-                  taxesOptions[selectedDorm]?.map((option) => (
-                    <option key={option.id} value={option.id}>
-                      {option.label}
-                    </option>
-                  ))}
-              </select>
+                {...field}
+                options={selectTaxOptions}
+                value={selectTaxOptions?.find((c) => c.value === field.value)}
+                onChange={(val) => {
+                  if (val) setAmount(val?.value);
+                  field.onChange(val?.value);
+                }}
+                placeholder={
+                  !selectedDorm
+                    ? extraTaxOptions.tax
+                    : extraTaxOptions.noDormTaxes
+                }
+                styles={{
+                  control: (base, state) => ({
+                    ...base,
+                    borderColor:
+                      errors.tax && !state.isFocused ? "red" : "initial",
+                  }),
+                }}
+              />
               {errors.tax && (
                 <span
                   className={`text-xs text-red-500 ${
