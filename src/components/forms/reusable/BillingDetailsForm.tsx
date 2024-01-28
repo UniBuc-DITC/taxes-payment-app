@@ -1,16 +1,19 @@
-import { PersonalFormTexts } from "@/types/forms/personalDetails";
+import {
+  BillingFormFields,
+  BillingFormTexts,
+} from "@/types/forms/billingDetails";
 import { useFormContext } from "react-hook-form";
 
-export default function PersonalDetailsForm({
+export default function BillingDetailsForm({
   required,
   placeholders,
   patterns,
   labels,
-}: PersonalFormTexts) {
+}: BillingFormTexts) {
   const {
     register,
     formState: { errors },
-  } = useFormContext();
+  } = useFormContext<BillingFormFields>();
 
   return (
     <>

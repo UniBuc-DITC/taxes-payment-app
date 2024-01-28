@@ -11,7 +11,7 @@
     }
   },
   "Forms": {
-    "PersonalDetails": {
+    "BillingDetails": {
       "required": {
         "firstName": "First name is required",
         "lastName": "Last name is required",

@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 import { Option } from "./reusable";
-import { PersonalFormFields, PersonalFormTexts } from "./personalDetails";
+import { BillingFormFields, BillingFormTexts } from "./billingDetails";
 import { MonthTexts } from "./month";
 import { SubmitButtonTexts } from "./submitBtn";
 import {
@@ -62,7 +62,7 @@ export type DormTaxesTexts = {
  * Text properties and options for the dorms form.
  */
 export interface DormsFormTexts {
-  personalTexts: PersonalFormTexts;
+  billingTexts: BillingFormTexts;
   dormTaxesTexts: DormTaxesTexts;
   monthTexts: MonthTexts;
   submitTexts: SubmitButtonTexts;
@@ -75,7 +75,7 @@ export interface DormsFormTexts {
  * Input fields for the dorms form.
  */
 export interface DormFormInput
-  extends PersonalFormFields,
+  extends BillingFormFields,
     DormTaxesFields,
     AgreeFormFiles,
     ReCAPTCHAInput {

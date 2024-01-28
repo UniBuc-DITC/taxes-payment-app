@@ -1,5 +1,5 @@
 import { z } from "zod";
-export const personalSchema = z.object({
+export const billingSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
   city: z.string().min(1, "City is required"),
@@ -40,7 +40,7 @@ export const admissionSchema = z
   .object({
     faculty: z.coerce.number().int("Faculty must be an integer"), // selected faculty id
   })
-  .and(personalSchema)
+  .and(billingSchema)
   .and(agreeSchema)
   .and(taxAmountSchema);
 
@@ -68,6 +68,6 @@ export const dormsSchema = z
       .min(1, "Month shoul be at least 1")
       .max(12, "Month should be at most 12"),
   })
-  .and(personalSchema)
+  .and(billingSchema)
   .and(agreeSchema)
   .and(taxAmountSchema);

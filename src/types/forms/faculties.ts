@@ -1,6 +1,6 @@
 import { Prisma, StudyCycle } from "@prisma/client";
 import { Option } from "./reusable";
-import { PersonalFormFields, PersonalFormTexts } from "./personalDetails";
+import { BillingFormFields, BillingFormTexts } from "./billingDetails";
 import { SubmitButtonTexts } from "./submitBtn";
 import {
   AgreeFormFiles,
@@ -76,7 +76,7 @@ export interface FacultyTaxesAmountFields extends FacultyTaxesFields {
  * Text properties and options for the admission form.
  */
 export interface AdmissionFormTexts {
-  personalTexts: PersonalFormTexts;
+  billingTexts: BillingFormTexts;
   facultyTaxesTexts: FacultyTaxesTexts;
   submitTexts: SubmitButtonTexts;
   agreeTexts: RequiredCheckboxTexts;
@@ -88,7 +88,7 @@ export interface AdmissionFormTexts {
  * Input fields for the admission form.
  */
 export interface AdmissionFormInput
-  extends PersonalFormFields,
+  extends BillingFormFields,
     AgreeFormFiles,
     FacultyTaxesFields,
     ReCAPTCHAInput {

@@ -13,11 +13,11 @@ import {
   FormProvider,
 } from "react-hook-form";
 import FacultyTaxesForm from "./FacultyTaxesForm";
-import PersonalDetailsForm from "../reusable/PersonalDetailsForm";
 import AgreeToTermsForm from "../reusable/AgreeToTermsForm";
 import SubmitButton from "../reusable/SubmitButton";
 import { submitAdmission } from "@/actions/forms";
 import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
+import BillingDetailsForm from "../reusable/BillingDetailsForm";
 
 /**
  * `AdmissionForm` is a React component for handling the admission forms.
@@ -26,14 +26,14 @@ import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
  * @prop {FacultyOption[]} facultyOptions - Array of options for faculty selection.
  * @prop {Record<string, FacultyTaxOption[]>} taxesOptions - Mapping of faculty IDs to their corresponding tax options.
  * @prop {RequiredCheckboxTexts} agreeTexts - Texts for the agreement to the terms section of the form.
- * @prop {PersonalFormTexts} personalTexts - Texts for the personal details section of the form.
+ * @prop {BillingFormTexts} billingTexts - Texts for the personal details section of the form.
  * @prop {FacultyTaxesTexts} facultyTaxesTexts - Texts for the faculty taxes section of the form.
  * @prop {boolean} [isAmountVariable=false] - Indicates if the amount is variable (optional, defaults to false, it's here just in case we want to allow partial paymanet in the admission form).
  * @prop {AmountTexts} variableAmountTexts - Texts related to variable amounts, required if `isAmountVariable` is true.
  * @prop {RequiredCheckboxTexts} acceptEuPlatescTexts - Texts for the Eu Platesc acceptance section.
  * @prop {AdmissionFormTexts} submitTexts - Texts for the submit button (submitting or not).
  *
- * The component integrates: `FacultyTaxesForm`, `PersonalDetailsForm`, `AgreeToTermsForm`, `AcceptEuPlatescForm`, and `SubmitButton`.
+ * The component integrates: `FacultyTaxesForm`, `BillingDetailsForm`, `AgreeToTermsForm`, `AcceptEuPlatescForm`, and `SubmitButton`.
  *
  * The component uses the `useForm` hook from `react-hook-form` for form handling and validation.
  */
@@ -48,7 +48,7 @@ const AdmissionForm = ({
   facultyOptions,
   taxesOptions,
   agreeTexts,
-  personalTexts,
+  billingTexts,
   facultyTaxesTexts,
   submitTexts,
   acceptEuPlatescTexts,
@@ -104,7 +104,7 @@ const AdmissionForm = ({
             {...facultyTaxesTexts}
           />
 
-          <PersonalDetailsForm {...personalTexts} />
+          <BillingDetailsForm {...billingTexts} />
 
           <AgreeToTermsForm {...agreeTexts} />
           <AgreeToTermsForm {...acceptEuPlatescTexts} />

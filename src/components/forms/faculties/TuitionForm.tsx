@@ -12,12 +12,12 @@ import FacultyTaxesForm from "./FacultyTaxesForm";
 import { StudyCycle } from "@prisma/client";
 import DidacticCardForm from "./DidacticCardForm";
 import AmountForm from "./AmountForm";
-import PersonalDetailsForm from "../reusable/PersonalDetailsForm";
 import AgreeEuPlatescForm from "../reusable/AgreeEuPlatesc";
 import AgreeToTermsForm from "../reusable/AgreeToTermsForm";
 import SubmitButton from "../reusable/SubmitButton";
 import { submitTuition } from "@/actions/forms";
 import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
+import BillingDetailsForm from "../reusable/BillingDetailsForm";
 
 /**
  * `TuitionForm` is a React component for managing and submitting admission forms.
@@ -26,7 +26,7 @@ import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
  * @prop {FacultyOption[]} facultyOptions - Options for selecting a faculty.
  * @prop {Record<string, FacultyTaxOption[]>} taxesOptions - Tax options for each faculty.
  * @prop {RequiredCheckboxTexts} agreeTexts - Texts for the agreement to the terms section of the form.
- * @prop {PersonalFormTexts} personalTexts - Texts for the personal details section of the form.
+ * @prop {BillingFormTexts} billingTexts - Texts for the personal details section of the form.
  * @prop {FacultyTaxesTexts} facultyTaxesTexts - Texts for the faculty taxes section of the form.
  * @prop {AmountTexts} variableAmountTexts - Texts related to variable amounts..
  * @prop {AdmissionFormTexts} acceptEuPlatescTexts - Texts for the EU Platesc acceptance section.
@@ -37,7 +37,7 @@ import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
  *
  * The possbility to pay with the didactic card will be available only if the current selected tax its not of type `StudyCycle.postuniversitary`.
  *
- * The component integrates subcomponents like `FacultyTaxesForm`,`DidacticCardForm`, `AmountForm`, `PersonalDetailsForm`, `AgreeToTermsForm`,`AcceptEuPlatescForm`, and `SubmitButton`.
+ * The component integrates subcomponents like `FacultyTaxesForm`,`DidacticCardForm`, `AmountForm`, `BillingDetailsForm`, `AgreeToTermsForm`,`AcceptEuPlatescForm`, and `SubmitButton`.
  *
  * The component uses the `useForm` hook from `react-hook-form` for form handling and validation.
  */
@@ -51,7 +51,7 @@ export default function TuitionForm({
   facultyOptions,
   taxesOptions,
   agreeTexts,
-  personalTexts,
+  billingTexts,
   facultyTaxesTexts,
   submitTexts,
   variableAmountTexts,
@@ -141,7 +141,7 @@ export default function TuitionForm({
             />
           )}
 
-          <PersonalDetailsForm {...personalTexts} />
+          <BillingDetailsForm {...billingTexts} />
 
           <AgreeToTermsForm {...agreeTexts} />
 

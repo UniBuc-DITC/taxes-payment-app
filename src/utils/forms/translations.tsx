@@ -17,10 +17,10 @@ import {
 } from "@/types/forms/faculties";
 import { MonthOption, MonthTexts } from "@/types/forms/month";
 import {
-  PersonalFormFields,
-  PersonalFormPatternFields,
-  PersonalFormTexts,
-} from "@/types/forms/personalDetails";
+  BillingFormFields,
+  BillingFormPatternFields,
+  BillingFormTexts,
+} from "@/types/forms/billingDetails";
 import { SubmitButtonTexts } from "@/types/forms/submitBtn";
 import { getTranslations } from "next-intl/server";
 
@@ -38,13 +38,13 @@ const fullKeys = [
 /*
  * This function may be used with a key if we want different keys for each form
  */
-export async function getPersonalTexts(): Promise<PersonalFormTexts> {
-  const t = await getTranslations("Forms.PersonalDetails");
+export async function getBillingTexts(): Promise<BillingFormTexts> {
+  const t = await getTranslations("Forms.BillingDetails");
 
-  let personalText: PersonalFormTexts = {} as PersonalFormTexts;
+  let personalText: BillingFormTexts = {} as BillingFormTexts;
   fullCategory.forEach((c) => {
     if (!personalText[c]) {
-      personalText[c] = {} as PersonalFormFields;
+      personalText[c] = {} as BillingFormFields;
     }
 
     fullKeys.forEach((k) => {
@@ -53,7 +53,7 @@ export async function getPersonalTexts(): Promise<PersonalFormTexts> {
   });
   patternKeys.forEach((k) => {
     if (!personalText.patterns) {
-      personalText.patterns = {} as PersonalFormPatternFields;
+      personalText.patterns = {} as BillingFormPatternFields;
     }
     personalText.patterns[k] = t(`patterns.${k}`);
   });
@@ -225,7 +225,7 @@ export async function getAdmissionFormTexts(): Promise<AdmissionFormTexts> {
     acceptEuPlatescTexts,
     recaptchaTexts,
   ] = await Promise.all([
-    getPersonalTexts(),
+    getBillingTexts(),
     getFacultyTaxesTexts(),
     getSubmitButtonTexts(),
     getAgreeTermsText(),
@@ -233,7 +233,7 @@ export async function getAdmissionFormTexts(): Promise<AdmissionFormTexts> {
     getReCAPTCHAText(),
   ]);
   return {
-    personalTexts,
+    billingTexts: personalTexts,
     facultyTaxesTexts,
     submitTexts,
     agreeTexts,
@@ -267,7 +267,7 @@ export async function getDormFormTexts(): Promise<DormsFormTexts> {
     acceptEuPlatescTexts,
     recaptchaTexts,
   ] = await Promise.all([
-    getPersonalTexts(),
+    getBillingTexts(),
     getDormTaxesTexts(),
     getMonthsTexts(),
     getSubmitButtonTexts(),
@@ -276,7 +276,7 @@ export async function getDormFormTexts(): Promise<DormsFormTexts> {
     getReCAPTCHAText(),
   ]);
   return {
-    personalTexts,
+    billingTexts: personalTexts,
     dormTaxesTexts,
     monthTexts,
     submitTexts,

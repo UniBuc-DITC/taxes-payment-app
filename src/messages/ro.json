@@ -11,7 +11,7 @@
     }
   },
   "Forms": {
-    "PersonalDetails": {
+    "BillingDetails": {
       "required": {
         "firstName": "Prenumele este necesar",
         "lastName": "Numele de familie este necesar",
