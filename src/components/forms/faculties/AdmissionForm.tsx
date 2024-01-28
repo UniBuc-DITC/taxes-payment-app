@@ -18,6 +18,7 @@ import SubmitButton from "../reusable/SubmitButton";
 import { submitAdmission } from "@/actions/forms";
 import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
 import BillingDetailsForm from "../reusable/BillingDetailsForm";
+import AgreeEuPlatescForm from "../reusable/AgreeEuPlatesc";
 
 /**
  * `AdmissionForm` is a React component for handling the admission forms.
@@ -107,7 +108,8 @@ const AdmissionForm = ({
           <BillingDetailsForm {...billingTexts} />
 
           <AgreeToTermsForm {...agreeTexts} />
-          <AgreeToTermsForm {...acceptEuPlatescTexts} />
+          <AgreeEuPlatescForm {...acceptEuPlatescTexts} />
+
           <ReCAPTCHAForm<AdmissionFormInput>
             control={control}
             {...recaptchaTexts}
