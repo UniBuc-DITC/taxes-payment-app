@@ -31,7 +31,7 @@ export async function validateReCAPTCHA(token: string): Promise<boolean> {
 }
 
 /**
- * @remarks - These are just palceholders to ilustrate the use of zod and the submit from the forms
+ * @remarks - These are just placeholders to illustrate the use of zod and the submission from the forms
  */
 
 export interface FormActionResponse {
