@@ -37,7 +37,7 @@ export async function validateReCAPTCHA(token: string): Promise<boolean> {
 export interface FormActionResponse {
   success: boolean;
 }
-export async function submitAdmission(
+export async function submitAdmissionTaxForm(
   formData: AdmissionFormInput,
 ): Promise<FormActionResponse> {
   const validate = admissionTaxSchema.safeParse(formData);
@@ -53,7 +53,7 @@ export async function submitAdmission(
   return { success: true };
 }
 
-export async function submitTuition(
+export async function submitTuitionTaxForm(
   formData: TuitionFormInput,
 ): Promise<FormActionResponse> {
   const validate = tuitionTaxSchema.safeParse(formData);

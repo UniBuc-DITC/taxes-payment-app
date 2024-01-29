@@ -15,7 +15,7 @@ import AmountForm from "./AmountForm";
 import EuPlatescForm from "../reusable/EuPlatescForm";
 import ConsentToTermsForm from "../reusable/ConsentToTermsForm";
 import SubmitButton from "../reusable/SubmitButton";
-import { submitTuition } from "@/actions/forms";
+import { submitTuitionTaxForm } from "@/actions/forms";
 import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
 import BillingDetailsForm from "../reusable/BillingDetailsForm";
 
@@ -103,7 +103,7 @@ export default function TuitionForm({
         data.partialPay = false;
       }
       try {
-        const r = await submitTuition(data);
+        const r = await submitTuitionTaxForm(data);
         console.log(r);
       } catch (error) {
         console.log(error);

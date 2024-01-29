@@ -10,7 +10,7 @@ import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
 import FacultyTaxesForm from "./FacultyTaxesForm";
 import ConsentToTermsForm from "../reusable/ConsentToTermsForm";
 import SubmitButton from "../reusable/SubmitButton";
-import { submitAdmission } from "@/actions/forms";
+import { submitAdmissionTaxForm } from "@/actions/forms";
 import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
 import BillingDetailsForm from "../reusable/BillingDetailsForm";
 import EuPlatescForm from "../reusable/EuPlatescForm";
@@ -80,7 +80,7 @@ const AdmissionForm = ({
 
   const onSubmit: SubmitHandler<AdmissionFormInput> = useCallback(
     async (data) => {
-      const r = await submitAdmission(data);
+      const r = await submitAdmissionTaxForm(data);
       console.log(r);
     },
     [],
