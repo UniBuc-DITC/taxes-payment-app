@@ -1,4 +1,4 @@
-import DormsForm from "@/components/forms/dorms/DormsForm";
+import AccommodationTaxForm from "@/components/forms/dorms/AccommodationTaxForm";
 import { getDormsWithTax } from "@/db/dorms";
 import { createDormTaxOptions } from "@/utils/forms/dorms";
 import { getDormFormTexts } from "@/utils/forms/translations";
@@ -17,7 +17,7 @@ export default async function StudentDormsPage({ params: { locale } }: Props) {
   const formTaxesOptions = createDormTaxOptions(dorms, locale);
   return (
     <div>
-      <DormsForm {...formTaxesOptions} {...dromsText} />
+      <AccommodationTaxForm {...formTaxesOptions} {...dromsText} />
     </div>
   );
 }

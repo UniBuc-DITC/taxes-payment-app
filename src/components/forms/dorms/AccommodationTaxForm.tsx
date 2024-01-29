@@ -18,21 +18,20 @@ import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
 import BillingDetailsForm from "../reusable/BillingDetailsForm";
 
 /**
- * `DormsForm` is a React component for handling the studnent dorm form.
+ * `AccommodationTaxForm` is a React component for handling the student dorm accommodation tax form.
  *
  * Props:
  * @prop {DormOption[]} dormOptions - An array of `DormOption` objects for student dorm selection.
  * @prop {Record<string, DormTaxOption[]>} taxesOptions - A record mapping student dorm IDs to their corresponding tax options.
- * @prop {MonthOption[]} monthsOptions - Options for selecting a month.
  * @prop {RequiredCheckboxTexts} agreeTexts - Texts for the agreement to the terms section of the form.
  * @prop {BillingFormTexts} billingTexts - Texts for the personal details section of the form.
  * @prop {DormsFormTexts} dormTaxesTexts - Texts for the dorm taxes section of the form.
  * @prop {RequiredCheckboxTexts} acceptEuPlatescTexts - Texts for the Eu Platesc acceptance section.
- * @prop {DormsFormTexts} monthTexts - Texts for the month selection section.
+ * @prop {MonthSelectTexts} monthTexts - Texts for the month selection section.
  * @prop {AdmissionFormTexts} submitTexts - Texts for the submit button (submitting or not).
  *
- * The component integrates: `DormTaxesForm`, `MonthsForm`, `BillingDetailsForm`, `AgreeToTermsForm`,
- * `AcceptEuPlatescForm`, and `SubmitButton`.
+ * The component integrates: `DormTaxesForm`, `MonthsForm`, `BillingDetailsForm`, `ConsentToTermsForm`,
+ * `ConsentEuPlatescForm`, and `SubmitButton`.
  *
  * The component uses the `useForm` hook from `react-hook-form` for form handling and validation.
  */
@@ -41,7 +40,7 @@ interface Props extends AccommodationTaxFormTexts {
   dormOptions: DormOption[];
   taxesOptions: Record<string, DormTaxOption[]>;
 }
-export default function DormsForm({
+export default function AccommodationTaxForm({
   dormOptions,
   taxesOptions,
   agreeTexts,
