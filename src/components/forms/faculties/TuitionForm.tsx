@@ -12,7 +12,7 @@ import FacultyTaxesForm from "./FacultyTaxesForm";
 import { StudyCycle } from "@prisma/client";
 import DidacticCardForm from "./DidacticCardForm";
 import AmountForm from "./AmountForm";
-import EuPlatescForm from "../reusable/EuPlatescForm";
+import EuPlatescConsentForm from "../reusable/EuPlatescConsentForm";
 import ConsentToTermsForm from "../reusable/ConsentToTermsForm";
 import SubmitButton from "../reusable/SubmitButton";
 import { submitTuitionTaxForm } from "@/actions/forms";
@@ -37,7 +37,7 @@ import BillingDetailsForm from "../reusable/BillingDetailsForm";
  *
  * The possbility to pay with the didactic card will be available only if the current selected tax its not of type `StudyCycle.postuniversitary`.
  *
- * The component integrates subcomponents like `FacultyTaxesForm`,`DidacticCardForm`, `AmountForm`, `BillingDetailsForm`, `ConsentToTermsForm`,`EuPlatescForm`, and `SubmitButton`.
+ * The component integrates subcomponents like `FacultyTaxesForm`,`DidacticCardForm`, `AmountForm`, `BillingDetailsForm`, `ConsentToTermsForm`,`EuPlatescConsentForm`, and `SubmitButton`.
  *
  * The component uses the `useForm` hook from `react-hook-form` for form handling and validation.
  */
@@ -144,7 +144,7 @@ export default function TuitionForm({
 
           <ConsentToTermsForm {...agreeTexts} />
 
-          <EuPlatescForm {...acceptEuPlatescTexts} />
+          <EuPlatescConsentForm {...acceptEuPlatescTexts} />
 
           <ReCAPTCHAForm {...recaptchaTexts} />
 

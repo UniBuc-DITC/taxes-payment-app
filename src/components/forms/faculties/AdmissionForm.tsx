@@ -13,7 +13,7 @@ import SubmitButton from "../reusable/SubmitButton";
 import { submitAdmissionTaxForm } from "@/actions/forms";
 import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
 import BillingDetailsForm from "../reusable/BillingDetailsForm";
-import EuPlatescForm from "../reusable/EuPlatescForm";
+import EuPlatescConsentForm from "../reusable/EuPlatescConsentForm";
 
 /**
  * `AdmissionForm` is a React component for handling the admission forms.
@@ -30,7 +30,7 @@ import EuPlatescForm from "../reusable/EuPlatescForm";
  * @prop {SubmitButtonTexts} submitTexts - Texts for the submit button (submitting or not).
  * @prop {ReCAPTCHATexts} recaptchaTexts - Texts for the reCAPTCHA form.
  *
- * The component integrates: `FacultyTaxesForm`, `BillingDetailsForm`, `ConsentToTermsForm`, `EuPlatescForm`, and `SubmitButton`.
+ * The component integrates: `FacultyTaxesForm`, `BillingDetailsForm`, `ConsentToTermsForm`, `EuPlatescConsentForm`, and `SubmitButton`.
  *
  * The component uses the `useForm` hook from `react-hook-form` for form handling and validation.
  */
@@ -103,7 +103,7 @@ const AdmissionForm = ({
           <BillingDetailsForm {...billingTexts} />
 
           <ConsentToTermsForm {...agreeTexts} />
-          <EuPlatescForm {...acceptEuPlatescTexts} />
+          <EuPlatescConsentForm {...acceptEuPlatescTexts} />
 
           <ReCAPTCHAForm {...recaptchaTexts} />
           <div className="col-span-2 w-full text-center flex items-center justify-center">

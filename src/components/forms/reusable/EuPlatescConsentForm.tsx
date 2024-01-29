@@ -7,8 +7,8 @@ import { useFormContext } from "react-hook-form";
 import ConsentCheckbox from "./ConsentCheckbox";
 
 /**
- * `EuPlatescForm` is a React component that renders a part of a form
- * for selecting if the user accepts to pay with the Eu Platesc provider (which is required to be `true`).
+ * `EuPlatescConsentForm` is a React component that renders a part of a form
+ * for selecting if the user accepts to pay with the EuPlatesc provider (which is required to be `true`).
  *
  * Props:
  * @prop {RequiredCheckboxTexts} - Text label and required erro messaage for the component`.
@@ -17,7 +17,7 @@ import ConsentCheckbox from "./ConsentCheckbox";
  * This component should be used within a form that is wrapped with `FormProvider` from `react-hook-form` with a checkbox `acceptEuPlatesc`.
  */
 
-function EuPlatescForm({ terms, required }: RequiredCheckboxTexts) {
+function EuPlatescConsentForm({ terms, required }: RequiredCheckboxTexts) {
   const {
     register,
     formState: { errors },
@@ -35,4 +35,4 @@ function EuPlatescForm({ terms, required }: RequiredCheckboxTexts) {
   );
 }
 
-export default EuPlatescForm;
+export default EuPlatescConsentForm;

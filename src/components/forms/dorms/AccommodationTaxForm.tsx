@@ -11,7 +11,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import DormTaxesForm from "./DormTaxesForm";
 import MonthsForm from "./MonthsForm";
 import ConsentToTermsForm from "../reusable/ConsentToTermsForm";
-import EuPlatescForm from "../reusable/EuPlatescForm";
+import EuPlatescConsentForm from "../reusable/EuPlatescConsentForm";
 import SubmitButton from "../reusable/SubmitButton";
 import { submitAccomodationTaxForm } from "@/actions/forms";
 import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
@@ -32,7 +32,7 @@ import BillingDetailsForm from "../reusable/BillingDetailsForm";
  * @prop {ReCAPTCHATexts} recaptchaTexts - Texts for the reCAPTCHA form.
  *
  * The component integrates: `DormTaxesForm`, `MonthsForm`, `BillingDetailsForm`, `ConsentToTermsForm`,
- * `EuPlatescForm`, and `SubmitButton`.
+ * `EuPlatescConsentForm`, and `SubmitButton`.
  *
  * The component uses the `useForm` hook from `react-hook-form` for form handling and validation.
  */
@@ -102,7 +102,7 @@ export default function AccommodationTaxForm({
           </div>
           <BillingDetailsForm {...billingTexts} />
           <ConsentToTermsForm {...agreeTexts} />
-          <EuPlatescForm {...acceptEuPlatescTexts} />
+          <EuPlatescConsentForm {...acceptEuPlatescTexts} />
           <ReCAPTCHAForm {...recaptchaTexts} />
           <div className="col-span-2 w-full text-center flex items-center justify-center">
             <SubmitButton isSubmitting={isSubmitting} {...submitTexts} />
