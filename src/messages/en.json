@@ -96,7 +96,7 @@
       }
     },
     "Dorms": {
-      "DromsTaxes": {
+      "AccommodationTaxesForm": {
         "required": {
           "dorm": "Student dorm is required",
           "tax": "Tax is required"

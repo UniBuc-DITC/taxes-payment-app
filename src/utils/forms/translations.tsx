@@ -201,7 +201,7 @@ const dormTaxesFields = [
 const dormTaxesCategory = ["required", "labels"] as const;
 
 export async function getDormTaxesTexts(): Promise<DormTaxesTexts> {
-  const t = await getTranslations("Forms.Dorms.DromsTaxes");
+  const t = await getTranslations("Forms.Dorms.AccommodationTaxesForm");
   let dormTaxesTexts: DormTaxesTexts = {
     extraTaxOptions: {
       dorm: t("extraTaxOptions.dorm"),

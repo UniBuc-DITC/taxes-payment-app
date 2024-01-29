@@ -96,7 +96,7 @@
       }
     },
     "Dorms": {
-      "DromsTaxes": {
+      "AccommodationTaxesForm": {
         "required": {
           "dorm": "Căminul studențesc este necesar",
           "tax": "Taxa este necesară"
