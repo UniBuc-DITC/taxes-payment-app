@@ -33,11 +33,11 @@ import BillingDetailsForm from "../reusable/BillingDetailsForm";
  * @prop {AdmissionFormTexts} submitTexts - Texts for the submit button (submitting or not).
  * @prop {AmountTexts} [variableAmountTexts] - Texts related to variable amounts..
  * @prop {TuitionFormTexts} didacticPremiumCardText - Texts for the didactic premium card section.
- * @prop {TuitionFormTexts} acceptEuPlatescTexts - Texts for the Eu Platesc acceptance section.
+ * @prop {ReCAPTCHATexts} recaptchaTexts - Texts for the reCAPTCHA form.
  *
  * The possbility to pay with the didactic card will be available only if the current selected tax its not of type `StudyCycle.postuniversitary`.
  *
- * The component integrates subcomponents like `FacultyTaxesForm`,`DidacticCardForm`, `AmountForm`, `BillingDetailsForm`, `AgreeToTermsForm`,`AcceptEuPlatescForm`, and `SubmitButton`.
+ * The component integrates subcomponents like `FacultyTaxesForm`,`DidacticCardForm`, `AmountForm`, `BillingDetailsForm`, `ConsentToTermsForm`,`EuPlatescForm`, and `SubmitButton`.
  *
  * The component uses the `useForm` hook from `react-hook-form` for form handling and validation.
  */

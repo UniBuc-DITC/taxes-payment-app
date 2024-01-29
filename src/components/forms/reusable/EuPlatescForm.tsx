@@ -7,7 +7,7 @@ import { useFormContext } from "react-hook-form";
 import ConsentCheckbox from "./ConsentCheckbox";
 
 /**
- * `AgreeEuPlatescForm` is a React component that renders a part of a form
+ * `EuPlatescForm` is a React component that renders a part of a form
  * for selecting if the user accepts to pay with the Eu Platesc provider (which is required to be `true`).
  *
  * Props:

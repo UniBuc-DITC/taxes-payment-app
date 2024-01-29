@@ -29,9 +29,10 @@ import BillingDetailsForm from "../reusable/BillingDetailsForm";
  * @prop {RequiredCheckboxTexts} acceptEuPlatescTexts - Texts for the Eu Platesc acceptance section.
  * @prop {MonthSelectTexts} monthTexts - Texts for the month selection section.
  * @prop {AdmissionFormTexts} submitTexts - Texts for the submit button (submitting or not).
+ * @prop {ReCAPTCHATexts} recaptchaTexts - Texts for the reCAPTCHA form.
  *
  * The component integrates: `DormTaxesForm`, `MonthsForm`, `BillingDetailsForm`, `ConsentToTermsForm`,
- * `ConsentEuPlatescForm`, and `SubmitButton`.
+ * `EuPlatescForm`, and `SubmitButton`.
  *
  * The component uses the `useForm` hook from `react-hook-form` for form handling and validation.
  */

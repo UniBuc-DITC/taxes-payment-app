@@ -27,9 +27,10 @@ import EuPlatescForm from "../reusable/EuPlatescForm";
  * @prop {boolean} [isAmountVariable=false] - Indicates if the amount is variable (optional, defaults to false, it's here just in case we want to allow partial paymanet in the admission form).
  * @prop {AmountTexts} variableAmountTexts - Texts related to variable amounts, required if `isAmountVariable` is true.
  * @prop {RequiredCheckboxTexts} acceptEuPlatescTexts - Texts for the Eu Platesc acceptance section.
- * @prop {AdmissionFormTexts} submitTexts - Texts for the submit button (submitting or not).
+ * @prop {SubmitButtonTexts} submitTexts - Texts for the submit button (submitting or not).
+ * @prop {ReCAPTCHATexts} recaptchaTexts - Texts for the reCAPTCHA form.
  *
- * The component integrates: `FacultyTaxesForm`, `BillingDetailsForm`, `AgreeToTermsForm`, `AcceptEuPlatescForm`, and `SubmitButton`.
+ * The component integrates: `FacultyTaxesForm`, `BillingDetailsForm`, `ConsentToTermsForm`, `EuPlatescForm`, and `SubmitButton`.
  *
  * The component uses the `useForm` hook from `react-hook-form` for form handling and validation.
  */
