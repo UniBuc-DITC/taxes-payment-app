@@ -1,7 +1,10 @@
 "use server";
 import { ReCAPTCHAResponse } from "@/types/forms/agreements";
 import { DormFormInput } from "@/types/forms/dorms";
-import { AdmissionFormInput, TuitionFormInput } from "@/types/forms/faculties";
+import {
+  AdmissionTaxFormData,
+  TuitionTaxFormData,
+} from "@/types/forms/faculties";
 import {
   admissionTaxSchema,
   dormsTaxSchema,
@@ -38,7 +41,7 @@ export interface FormActionResponse {
   success: boolean;
 }
 export async function submitAdmissionTaxForm(
-  formData: AdmissionFormInput,
+  formData: AdmissionTaxFormData,
 ): Promise<FormActionResponse> {
   const validate = admissionTaxSchema.safeParse(formData);
 
@@ -54,7 +57,7 @@ export async function submitAdmissionTaxForm(
 }
 
 export async function submitTuitionTaxForm(
-  formData: TuitionFormInput,
+  formData: TuitionTaxFormData,
 ): Promise<FormActionResponse> {
   const validate = tuitionTaxSchema.safeParse(formData);
 

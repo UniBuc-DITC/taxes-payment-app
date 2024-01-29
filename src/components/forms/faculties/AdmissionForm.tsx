@@ -1,6 +1,6 @@
 "use client";
 import {
-  AdmissionFormInput,
+  AdmissionTaxFormData,
   AdmissionFormTexts,
   FacultyOption,
   FacultyTaxOption,
@@ -50,7 +50,7 @@ const AdmissionForm = ({
   acceptEuPlatescTexts,
   recaptchaTexts,
 }: Props) => {
-  const methods = useForm<AdmissionFormInput>({
+  const methods = useForm<AdmissionTaxFormData>({
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -78,7 +78,7 @@ const AdmissionForm = ({
     formState: { errors, isSubmitting },
   } = methods;
 
-  const onSubmit: SubmitHandler<AdmissionFormInput> = useCallback(
+  const onSubmit: SubmitHandler<AdmissionTaxFormData> = useCallback(
     async (data) => {
       const r = await submitAdmissionTaxForm(data);
       console.log(r);

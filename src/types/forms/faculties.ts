@@ -87,7 +87,7 @@ export interface AdmissionFormTexts {
 /**
  * Input fields for the admission form.
  */
-export interface AdmissionFormInput
+export interface AdmissionTaxFormData
   extends BillingFormFields,
     AgreeFormFiles,
     FacultyTaxesFields,
@@ -118,7 +118,7 @@ export interface TuitionFormTexts extends AdmissionFormTexts {
 /**
  * Input fields for the tuition form.
  */
-export interface TuitionFormInput extends AdmissionFormInput {
+export interface TuitionTaxFormData extends AdmissionTaxFormData {
   didacticPremiumCardOnly: boolean;
   partialPay: boolean;
 }

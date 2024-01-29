@@ -3,7 +3,7 @@
 import {
   FacultyOption,
   FacultyTaxOption,
-  TuitionFormInput,
+  TuitionTaxFormData,
   TuitionFormTexts,
 } from "@/types/forms/faculties";
 import { useCallback, useState } from "react";
@@ -59,7 +59,7 @@ export default function TuitionForm({
   acceptEuPlatescTexts,
   recaptchaTexts,
 }: Props) {
-  const methods = useForm<TuitionFormInput>({
+  const methods = useForm<TuitionTaxFormData>({
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -92,7 +92,7 @@ export default function TuitionForm({
     formState: { errors, isSubmitting },
   } = methods;
 
-  const onSubmit: SubmitHandler<TuitionFormInput> = useCallback(
+  const onSubmit: SubmitHandler<TuitionTaxFormData> = useCallback(
     async (data) => {
       if (
         selectedFacultyTaxOption &&
@@ -133,7 +133,7 @@ export default function TuitionForm({
             )}
 
           {variableAmountTexts && (
-            <AmountForm<TuitionFormInput>
+            <AmountForm<TuitionTaxFormData>
               control={control}
               {...variableAmountTexts}
               selectedFacultyTaxOption={selectedFacultyTaxOption}
