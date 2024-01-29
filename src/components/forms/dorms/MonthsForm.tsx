@@ -1,4 +1,4 @@
-import { MonthField, MonthTexts } from "@/types/forms/month";
+import { MonthField, MonthSelectTexts } from "@/types/forms/month";
 import { useMemo } from "react";
 import { Controller, Path, useFormContext } from "react-hook-form";
 import Select from "react-select";
@@ -20,7 +20,7 @@ export default function MonthsForm<T extends MonthField>({
   label,
   noMonth,
   required,
-}: MonthTexts) {
+}: MonthSelectTexts) {
   const {
     formState: { errors },
     control,

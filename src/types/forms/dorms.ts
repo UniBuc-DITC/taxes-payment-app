@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { Option } from "./reusable";
 import { BillingFormFields, BillingFormTexts } from "./billingDetails";
-import { MonthTexts } from "./month";
+import { MonthSelectTexts } from "./month";
 import { SubmitButtonTexts } from "./submitBtn";
 import {
   AgreeFormFiles,
@@ -64,7 +64,7 @@ export type DormTaxesTexts = {
 export interface DormsFormTexts {
   billingTexts: BillingFormTexts;
   dormTaxesTexts: DormTaxesTexts;
-  monthTexts: MonthTexts;
+  monthTexts: MonthSelectTexts;
   submitTexts: SubmitButtonTexts;
   agreeTexts: RequiredCheckboxTexts;
   acceptEuPlatescTexts: RequiredCheckboxTexts;

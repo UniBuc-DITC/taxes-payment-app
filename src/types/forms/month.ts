@@ -9,7 +9,7 @@ export type MonthOption = {
 /**
  * Text properties for month selection form fields.
  */
-export interface MonthTexts {
+export interface MonthSelectTexts {
   label: string;
   extra?: string;
   noMonth: string;

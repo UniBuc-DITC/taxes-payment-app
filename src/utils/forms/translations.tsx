@@ -15,7 +15,7 @@ import {
   FacultyTaxesTexts,
   TuitionFormTexts,
 } from "@/types/forms/faculties";
-import { MonthOption, MonthTexts } from "@/types/forms/month";
+import { MonthOption, MonthSelectTexts } from "@/types/forms/month";
 import {
   BillingFormFields,
   BillingFormPatternFields,
@@ -152,7 +152,7 @@ export async function getMonthOptions(): Promise<MonthOption[]> {
   }));
 }
 
-export async function getMonthsTexts(): Promise<MonthTexts> {
+export async function getMonthsTexts(): Promise<MonthSelectTexts> {
   const t = await getTranslations("Forms.Dorms.MonthTexts");
   return {
     label: t("label"),
