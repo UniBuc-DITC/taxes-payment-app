@@ -3,7 +3,7 @@ import { Option } from "./reusable";
 import { BillingFormFields, BillingFormTexts } from "./billingDetails";
 import { SubmitButtonTexts } from "./submitBtn";
 import {
-  AgreeFormFiles,
+  ConsentFormFiles,
   ReCAPTCHAInput,
   ReCAPTCHATexts,
   RequiredCheckboxTexts,
@@ -89,7 +89,7 @@ export interface AdmissionFormTexts {
  */
 export interface AdmissionTaxFormData
   extends BillingFormFields,
-    AgreeFormFiles,
+    ConsentFormFiles,
     FacultyTaxesFields,
     ReCAPTCHAInput {
   amount: number;

@@ -1,5 +1,5 @@
 import {
-  ConsentFormFields,
+  ConsentTermsFormFields,
   RequiredCheckboxTexts,
 } from "@/types/forms/agreements";
 import React from "react";
@@ -21,10 +21,10 @@ function ConsentToTermsForm({ terms, required }: RequiredCheckboxTexts) {
   const {
     register,
     formState: { errors },
-  } = useFormContext<ConsentFormFields>();
+  } = useFormContext<ConsentTermsFormFields>();
 
   return (
-    <ConsentCheckbox<ConsentFormFields>
+    <ConsentCheckbox<ConsentTermsFormFields>
       errors={errors}
       id="consentToTerms"
       name="consentToTerms"

@@ -4,7 +4,7 @@ import { BillingFormFields, BillingFormTexts } from "./billingDetails";
 import { MonthSelectTexts } from "./month";
 import { SubmitButtonTexts } from "./submitBtn";
 import {
-  AgreeFormFiles,
+  ConsentFormFiles,
   ReCAPTCHAInput,
   ReCAPTCHATexts,
   RequiredCheckboxTexts,
@@ -78,7 +78,7 @@ export interface AccommodationTaxFormTexts {
 export interface AccommodationTaxFormData
   extends BillingFormFields,
     AccommodationTaxesFields,
-    AgreeFormFiles,
+    ConsentFormFiles,
     ReCAPTCHAInput {
   month: string;
   amount: number;
