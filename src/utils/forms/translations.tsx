@@ -4,7 +4,7 @@ import {
 } from "@/types/forms/agreements";
 import { AmountTexts } from "@/types/forms/amount";
 import {
-  DormTaxesFields,
+  AccommodationTaxesFields,
   DormTaxesTexts,
   DormsFormTexts,
 } from "@/types/forms/dorms";
@@ -212,7 +212,7 @@ export async function getDormTaxesTexts(): Promise<DormTaxesTexts> {
 
   dormTaxesCategory.forEach((c) => {
     if (!dormTaxesTexts[c]) {
-      dormTaxesTexts[c] = {} as DormTaxesFields;
+      dormTaxesTexts[c] = {} as AccommodationTaxesFields;
     }
     dormTaxesFields.forEach(({ field, translation }) => {
       dormTaxesTexts[c][field] = t(`${c}.${translation}`);

@@ -35,14 +35,15 @@ export interface DormOption {
 /**
  * Keys for student dorm tax related form fields.
  */
-type DormsFormKeys = "dormId" | "taxId";
+type AccommodationFormKeys = "dormId" | "taxId";
 
 /**
  * Type definition for student dorm taxes fields in forms.
  */
-export type DormTaxesFields = Record<DormsFormKeys, string>;
+export type AccommodationTaxesFields = Record<AccommodationFormKeys, string>;
 
-export interface DormTaxesAmountFields extends DormTaxesFields {
+export interface AccommodationTaxesAmountFields
+  extends AccommodationTaxesFields {
   amount: number;
 }
 
@@ -50,8 +51,8 @@ export interface DormTaxesAmountFields extends DormTaxesFields {
  * Text properties for student dorm taxes form, including labels,required messaged and extra options.
  */
 export type DormTaxesTexts = {
-  required: DormTaxesFields;
-  labels: DormTaxesFields;
+  required: AccommodationTaxesFields;
+  labels: AccommodationTaxesFields;
   extraTaxOptions: {
     dorm: string;
     tax: string;
@@ -76,7 +77,7 @@ export interface DormsFormTexts {
  */
 export interface DormFormInput
   extends BillingFormFields,
-    DormTaxesFields,
+    AccommodationTaxesFields,
     AgreeFormFiles,
     ReCAPTCHAInput {
   month: string;

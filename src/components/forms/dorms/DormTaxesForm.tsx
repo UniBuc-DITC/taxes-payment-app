@@ -1,7 +1,7 @@
 import {
   DormOption,
   DormTaxOption,
-  DormTaxesAmountFields,
+  AccommodationTaxesAmountFields,
   DormTaxesTexts,
 } from "@/types/forms/dorms";
 import { useMemo } from "react";
@@ -39,7 +39,7 @@ export default function DormTaxesForm({
     setValue,
     formState: { errors },
     control,
-  } = useFormContext<DormTaxesAmountFields>();
+  } = useFormContext<AccommodationTaxesAmountFields>();
 
   const selectedDorm = watch("dormId");
 
