@@ -8,7 +8,9 @@ interface Props {
   params: { locale: string };
 }
 
-export default async function AccommodationTaxPage({ params: { locale } }: Props) {
+export default async function AccommodationTaxPage({
+  params: { locale },
+}: Props) {
   unstable_setRequestLocale(locale);
   const [dorms, dromsText] = await Promise.all([
     getDormsWithTax(),
