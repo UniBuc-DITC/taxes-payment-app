@@ -73,7 +73,7 @@ export async function submitTuitionTaxForm(
   return { success: true };
 }
 
-export async function submitDorm(
+export async function submitAccomodationTaxForm(
   formData: DormFormInput,
 ): Promise<FormActionResponse> {
   const validate = dormsTaxSchema.safeParse(formData);

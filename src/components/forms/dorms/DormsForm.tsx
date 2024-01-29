@@ -13,7 +13,7 @@ import MonthsForm from "./MonthsForm";
 import ConsentToTermsForm from "../reusable/ConsentToTermsForm";
 import EuPlatescForm from "../reusable/EuPlatescForm";
 import SubmitButton from "../reusable/SubmitButton";
-import { submitDorm } from "@/actions/forms";
+import { submitAccomodationTaxForm } from "@/actions/forms";
 import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
 import BillingDetailsForm from "../reusable/BillingDetailsForm";
 
@@ -78,7 +78,7 @@ export default function DormsForm({
   } = methods;
 
   const onSubmit: SubmitHandler<DormFormInput> = useCallback(async (data) => {
-    const r = await submitDorm(data);
+    const r = await submitAccomodationTaxForm(data);
     console.log(r);
   }, []);
 
