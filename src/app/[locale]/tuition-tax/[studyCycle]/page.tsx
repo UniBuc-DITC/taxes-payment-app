@@ -14,7 +14,7 @@ interface Props {
   params: { locale: string; studyCycle: StudyCycle };
 }
 
-export default async function TuitionPage({
+export default async function TuitionTaxPage({
   params: { locale, studyCycle },
 }: Props) {
   unstable_setRequestLocale(locale);
