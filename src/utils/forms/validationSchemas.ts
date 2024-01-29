@@ -1,5 +1,5 @@
 import { z } from "zod";
-export const billingSchema = z.object({
+export const billingFormSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
   city: z.string().min(1, "City is required"),
@@ -16,7 +16,7 @@ export const billingSchema = z.object({
 /**
  * @param recaptcha - the reCAPTCHA token
  */
-export const consentSchema = z.object({
+export const consentFormSchema = z.object({
   consentToTerms: z
     .boolean()
     .refine((val) => val, "You must agree to the terms"),
@@ -30,7 +30,7 @@ export const consentSchema = z.object({
  * @param taxId - the tax id that is selected for that form (FacultyTaxValue or StudentDormTaxValue)
  * @param the - amount that the user selected
  */
-export const taxAmountSchema = z.object({
+export const taxAmountFormSchema = z.object({
   taxId: z.coerce.number().int("Tax must be an integer"),
   amount: z.number().min(100, "Minimum amount value is 100"),
 });
@@ -38,24 +38,24 @@ export const taxAmountSchema = z.object({
 /**
  * @param facultyId -  the faculty id that is selected from the form
  */
-export const admissionTaxSchema = z
+export const admissionTaxFormSchema = z
   .object({
     facultyId: z.coerce.number().int("Faculty must be an integer"),
   })
-  .and(billingSchema)
-  .and(consentSchema)
-  .and(taxAmountSchema);
+  .and(billingFormSchema)
+  .and(consentFormSchema)
+  .and(taxAmountFormSchema);
 
 /**
  * @param didacticPremiumCardOnly -  true if the user selected that he wants to pay with the didactic card
  * @param partialPay - true if it is a partial pay ie amount selected by user is less the the amount of the tax
  */
-export const tuitionTaxSchema = z
+export const tuitionTaxFormSchema = z
   .object({
     didacticPremiumCardOnly: z.boolean(),
     partialPay: z.boolean(),
   })
-  .and(admissionTaxSchema);
+  .and(admissionTaxFormSchema);
 
 /**
  * @param dromId -  the student dorm id that is selected from the form
@@ -70,6 +70,6 @@ export const dormsTaxSchema = z
       .min(1, "Month shoul be at least 1")
       .max(12, "Month should be at most 12"),
   })
-  .and(billingSchema)
-  .and(consentSchema)
-  .and(taxAmountSchema);
+  .and(billingFormSchema)
+  .and(consentFormSchema)
+  .and(taxAmountFormSchema);

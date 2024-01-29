@@ -6,9 +6,9 @@ import {
   TuitionTaxFormData,
 } from "@/types/forms/faculties";
 import {
-  admissionTaxSchema,
+  admissionTaxFormSchema,
   dormsTaxSchema,
-  tuitionTaxSchema,
+  tuitionTaxFormSchema,
 } from "@/utils/forms/validationSchemas";
 
 export async function validateReCAPTCHA(token: string): Promise<boolean> {
@@ -43,7 +43,7 @@ export interface FormActionResponse {
 export async function submitAdmissionTaxForm(
   formData: AdmissionTaxFormData,
 ): Promise<FormActionResponse> {
-  const validate = admissionTaxSchema.safeParse(formData);
+  const validate = admissionTaxFormSchema.safeParse(formData);
 
   if (!validate.success) {
     console.log(validate.error);
@@ -59,7 +59,7 @@ export async function submitAdmissionTaxForm(
 export async function submitTuitionTaxForm(
   formData: TuitionTaxFormData,
 ): Promise<FormActionResponse> {
-  const validate = tuitionTaxSchema.safeParse(formData);
+  const validate = tuitionTaxFormSchema.safeParse(formData);
 
   if (!validate.success) {
     console.log(validate.error);
