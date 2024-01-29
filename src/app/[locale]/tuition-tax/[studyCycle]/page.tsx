@@ -1,4 +1,4 @@
-import TuitionForm from "@/components/forms/faculties/TuitionForm";
+import TuitionForm from "@/components/forms/faculties/TuitionTaxForm";
 import { getFacultiesWithTax } from "@/db/faculties";
 import { createFacultyTaxOptions } from "@/utils/forms/faculties";
 import { getTuitionFormTexts } from "@/utils/forms/translations";

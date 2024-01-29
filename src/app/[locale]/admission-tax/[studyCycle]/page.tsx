@@ -1,4 +1,4 @@
-import AdmissionForm from "@/components/forms/faculties/AdmissionForm";
+import AdmissionForm from "@/components/forms/faculties/AdmissionTaxForm";
 import { getFacultiesWithTax } from "@/db/faculties";
 import { createFacultyTaxOptions } from "@/utils/forms/faculties";
 import { getAdmissionFormTexts } from "@/utils/forms/translations";
