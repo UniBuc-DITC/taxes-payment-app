@@ -1,10 +1,10 @@
 "use client";
 
 import {
-  DormFormInput,
+  AccommodationTaxFormData,
   DormOption,
   DormTaxOption,
-  DormsFormTexts,
+  AccommodationTaxFormTexts,
 } from "@/types/forms/dorms";
 import { useCallback } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -37,7 +37,7 @@ import BillingDetailsForm from "../reusable/BillingDetailsForm";
  * The component uses the `useForm` hook from `react-hook-form` for form handling and validation.
  */
 
-interface Props extends DormsFormTexts {
+interface Props extends AccommodationTaxFormTexts {
   dormOptions: DormOption[];
   taxesOptions: Record<string, DormTaxOption[]>;
 }
@@ -52,7 +52,7 @@ export default function DormsForm({
   monthTexts,
   recaptchaTexts,
 }: Props) {
-  const methods = useForm<DormFormInput>({
+  const methods = useForm<AccommodationTaxFormData>({
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -77,10 +77,13 @@ export default function DormsForm({
     formState: { errors, isSubmitting },
   } = methods;
 
-  const onSubmit: SubmitHandler<DormFormInput> = useCallback(async (data) => {
-    const r = await submitAccomodationTaxForm(data);
-    console.log(r);
-  }, []);
+  const onSubmit: SubmitHandler<AccommodationTaxFormData> = useCallback(
+    async (data) => {
+      const r = await submitAccomodationTaxForm(data);
+      console.log(r);
+    },
+    [],
+  );
 
   return (
     <FormProvider {...methods}>

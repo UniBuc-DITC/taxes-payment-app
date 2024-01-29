@@ -62,7 +62,7 @@ export type DormTaxesTexts = {
 /**
  * Text properties and options for the dorms form.
  */
-export interface DormsFormTexts {
+export interface AccommodationTaxFormTexts {
   billingTexts: BillingFormTexts;
   dormTaxesTexts: DormTaxesTexts;
   monthTexts: MonthSelectTexts;
@@ -75,7 +75,7 @@ export interface DormsFormTexts {
 /**
  * Input fields for the dorms form.
  */
-export interface DormFormInput
+export interface AccommodationTaxFormData
   extends BillingFormFields,
     AccommodationTaxesFields,
     AgreeFormFiles,

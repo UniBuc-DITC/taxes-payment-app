@@ -6,7 +6,7 @@ import { AmountTexts } from "@/types/forms/amount";
 import {
   AccommodationTaxesFields,
   DormTaxesTexts,
-  DormsFormTexts,
+  AccommodationTaxFormTexts,
 } from "@/types/forms/dorms";
 import {
   AdmissionFormTexts,
@@ -263,7 +263,7 @@ export async function getTuitionFormTexts(): Promise<TuitionFormTexts> {
   };
 }
 
-export async function getDormFormTexts(): Promise<DormsFormTexts> {
+export async function getDormFormTexts(): Promise<AccommodationTaxFormTexts> {
   const [
     personalTexts,
     dormTaxesTexts,
