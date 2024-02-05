@@ -3,24 +3,32 @@ import { ReCAPTCHAInput, ReCAPTCHATexts } from "@/types/forms/agreements";
 import { useLocale } from "next-intl";
 import React, { useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import { Controller, Control, Path, useFormContext } from "react-hook-form";
+import { Controller, Control, Path, FieldErrors } from "react-hook-form";
 
 /**
  * `ReCAPTCHAForm` is a React component for rendering an the reCAPTCHA verifiction of the forms.
  *
  *
  * @prop {ReCAPTCHATexts} - Text labels and validation messages for the reCAPTCHA form field.
+ * @prop {Control<T>} control - Control object from `react-hook-form`, used for managing the form state.
+ * @prop {FieldErrors<T>} errors - Error object from `react-hook-form` containing the form errors.
  *
  * Usage:
  * This component should be used within a form that is wrapped with `FormProvider` from `react-hook-form` with an input data type that can extend `ReCAPTCHAInput`.
  */
 
-export default function ReCAPTCHAForm({ required, validate }: ReCAPTCHATexts) {
+type Props<T extends ReCAPTCHAInput> = ReCAPTCHATexts & {
+  control: Control<T>;
+  errors: FieldErrors<T>;
+};
+
+export default function ReCAPTCHAForm<T extends ReCAPTCHAInput>({
+  required,
+  validate,
+  control,
+  errors,
+}: Props<T>) {
   const recaptchaRef = useRef<ReCAPTCHA>(null);
-  const {
-    formState: { errors },
-    control,
-  } = useFormContext<ReCAPTCHAInput>();
   const locale = useLocale();
 
   if (!process.env.NEXT_PUBLIC_RECAPTCHA) {
@@ -30,7 +38,7 @@ export default function ReCAPTCHAForm({ required, validate }: ReCAPTCHATexts) {
     <div>
       <Controller
         control={control}
-        name={"recaptcha"}
+        name={"recaptcha" as Path<T>}
         rules={{
           required,
           validate: async (value) => {
