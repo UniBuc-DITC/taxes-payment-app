@@ -2,76 +2,78 @@ import {
   BillingFormFields,
   BillingFormTexts,
 } from "@/types/forms/billingDetails";
-import { useFormContext } from "react-hook-form";
+import { FieldErrors, Path, UseFormRegister } from "react-hook-form";
 import Input from "./Input";
 
-export default function BillingDetailsForm({
+type Props<T extends BillingFormFields> = BillingFormTexts & {
+  register: UseFormRegister<T>;
+  errors: FieldErrors<T>;
+};
+
+export default function BillingDetailsForm<T extends BillingFormFields>({
   required,
   placeholders,
   patterns,
   labels,
-}: BillingFormTexts) {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext<BillingFormFields>();
-
+  errors,
+  register,
+}: Props<T>) {
   return (
     <>
-      <Input<BillingFormFields>
+      <Input<T>
         id="firstName"
         label={labels.firstName}
-        name={"firstName"}
+        name={"firstName" as Path<T>}
         register={register}
         required={required.firstName}
         placeholder={placeholders.firstName}
         errors={errors}
       />
 
-      <Input<BillingFormFields>
+      <Input<T>
         id="lastName"
         label={labels.lastName}
-        name={"lastName"}
+        name={"lastName" as Path<T>}
         register={register}
         required={required.lastName}
         placeholder={placeholders.lastName}
         errors={errors}
       />
 
-      <Input<BillingFormFields>
+      <Input<T>
         id="city"
         label={labels.city}
-        name={"city"}
+        name={"city" as Path<T>}
         register={register}
         required={required.city}
         placeholder={placeholders.city}
         errors={errors}
       />
 
-      <Input<BillingFormFields>
+      <Input<T>
         id="country"
         label={labels.country}
-        name={"country"}
+        name={"country" as Path<T>}
         register={register}
         required={required.country}
         placeholder={placeholders.country}
         errors={errors}
       />
 
-      <Input<BillingFormFields>
+      <Input<T>
         id="address"
         label={labels.address}
-        name={"address"}
+        name={"address" as Path<T>}
         register={register}
         required={required.address}
         placeholder={placeholders.address}
         errors={errors}
       />
 
-      <Input<BillingFormFields>
+      <Input<T>
         id="numericalCode"
         label={labels.numericalCode}
-        name={"numericalCode"}
+        name={"numericalCode" as Path<T>}
         register={register}
         required={required.numericalCode}
         placeholder={placeholders.numericalCode}
@@ -84,10 +86,10 @@ export default function BillingDetailsForm({
         }}
       />
 
-      <Input<BillingFormFields>
+      <Input<T>
         id="email"
         label={labels.email}
-        name={"email"}
+        name={"email" as Path<T>}
         register={register}
         required={required.email}
         placeholder={placeholders.email}
@@ -100,10 +102,10 @@ export default function BillingDetailsForm({
         }}
       />
 
-      <Input<BillingFormFields>
+      <Input<T>
         id="phoneNumber"
         label={labels.phoneNumber}
-        name={"phoneNumber"}
+        name={"phoneNumber" as Path<T>}
         register={register}
         required={required.phoneNumber}
         placeholder={placeholders.phoneNumber}
