@@ -51,7 +51,14 @@ const AdmissionForm = ({
   acceptEuPlatescTexts,
   recaptchaTexts,
 }: Props) => {
-  const methods = useForm<AdmissionTaxFormData>({
+  const {
+    handleSubmit,
+    watch,
+    setValue,
+    control,
+    register,
+    formState: { errors, isSubmitting },
+  } = useForm<AdmissionTaxFormData>({
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -70,15 +77,6 @@ const AdmissionForm = ({
     },
   });
 
-  const {
-    handleSubmit,
-    watch,
-    setValue,
-    control,
-    register,
-    formState: { errors, isSubmitting },
-  } = methods;
-
   const onSubmit: SubmitHandler<AdmissionTaxFormData> = useCallback(
     async (data) => {
       const r = await submitAdmissionTaxForm(data);
@@ -88,30 +86,44 @@ const AdmissionForm = ({
   );
 
   return (
-    <FormProvider {...methods}>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="max-w-5xl mx-auto mt-12 bg-white p-10 shadow-lg rounded-lg space-y-6"
-      >
-        <div className="md:grid md:grid-cols-2 gap-6 flex flex-col items-center justify-center">
-          <FacultyTaxesForm
-            facultyOptions={facultyOptions}
-            taxesOptions={taxesOptions}
-            {...facultyTaxesTexts}
-          />
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="max-w-5xl mx-auto mt-12 bg-white p-10 shadow-lg rounded-lg space-y-6"
+    >
+      <div className="md:grid md:grid-cols-2 gap-6 flex flex-col items-center justify-center">
+        <FacultyTaxesForm
+          facultyOptions={facultyOptions}
+          taxesOptions={taxesOptions}
+          {...facultyTaxesTexts}
+          control={control}
+          errors={errors}
+          watch={watch}
+          setValue={setValue}
+        />
 
-          <BillingDetailsForm {...billingTexts} />
+        <BillingDetailsForm
+          {...billingTexts}
+          errors={errors}
+          register={register}
+        />
 
-          <ConsentToTermsForm {...agreeTexts} />
-          <EuPlatescConsentForm {...acceptEuPlatescTexts} />
+        <ConsentToTermsForm
+          {...agreeTexts}
+          errors={errors}
+          register={register}
+        />
+        <EuPlatescConsentForm
+          {...acceptEuPlatescTexts}
+          errors={errors}
+          register={register}
+        />
 
-          <ReCAPTCHAForm {...recaptchaTexts} />
-          <div className="col-span-2 w-full text-center flex items-center justify-center">
-            <SubmitButton isSubmitting={isSubmitting} {...submitTexts} />
-          </div>
+        <ReCAPTCHAForm {...recaptchaTexts} control={control} errors={errors} />
+        <div className="col-span-2 w-full text-center flex items-center justify-center">
+          <SubmitButton isSubmitting={isSubmitting} {...submitTexts} />
         </div>
-      </form>
-    </FormProvider>
+      </div>
+    </form>
   );
 };
 
