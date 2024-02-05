@@ -3,7 +3,7 @@ import {
   RequiredCheckboxTexts,
 } from "@/types/forms/agreements";
 import React from "react";
-import { useFormContext } from "react-hook-form";
+import { FieldErrors, Path, UseFormRegister } from "react-hook-form";
 import ConsentCheckbox from "./ConsentCheckbox";
 
 /**
@@ -12,22 +12,29 @@ import ConsentCheckbox from "./ConsentCheckbox";
  *
  * Props:
  * @prop {RequiredCheckboxTexts} - Text label and required erro messaage for the component`.
+ * @prop {UseFormRegister<T>} register - Register function from `react-hook-form` for managing the form state.
+ * @prop {FieldErrors<T>} errors - Error object from `react-hook-form` containing the form errors.
  *
  * Usage:
  * This component should be used within a form that is wrapped with `FormProvider` from `react-hook-form` with a checkbox `acceptEuPlatesc`.
  */
 
-function EuPlatescConsentForm({ terms, required }: RequiredCheckboxTexts) {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext<EuPlatescFormFields>();
+type Props<T extends EuPlatescFormFields> = RequiredCheckboxTexts & {
+  register: UseFormRegister<T>;
+  errors: FieldErrors<T>;
+};
 
+function EuPlatescConsentForm<T extends EuPlatescFormFields>({
+  terms,
+  required,
+  errors,
+  register,
+}: Props<T>) {
   return (
-    <ConsentCheckbox<EuPlatescFormFields>
+    <ConsentCheckbox<T>
       errors={errors}
       id="consentEuPlatesc"
-      name="consentEuPlatesc"
+      name={"consentEuPlatesc" as Path<T>}
       register={register}
       required={required}
       label={terms}
