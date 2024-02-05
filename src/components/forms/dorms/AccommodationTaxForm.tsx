@@ -7,7 +7,7 @@ import {
   AccommodationTaxFormTexts,
 } from "@/types/forms/dorms";
 import { useCallback } from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import DormTaxesForm from "./DormTaxesForm";
 import MonthsForm from "./MonthsForm";
 import ConsentToTermsForm from "../reusable/ConsentToTermsForm";
@@ -52,7 +52,14 @@ export default function AccommodationTaxForm({
   monthTexts,
   recaptchaTexts,
 }: Props) {
-  const methods = useForm<AccommodationTaxFormData>({
+  const {
+    handleSubmit,
+    control,
+    formState: { errors, isSubmitting },
+    watch,
+    setValue,
+    register,
+  } = useForm<AccommodationTaxFormData>({
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -71,11 +78,6 @@ export default function AccommodationTaxForm({
       recaptcha: "",
     },
   });
-  const {
-    handleSubmit,
-    control,
-    formState: { errors, isSubmitting },
-  } = methods;
 
   const onSubmit: SubmitHandler<AccommodationTaxFormData> = useCallback(
     async (data) => {
@@ -86,29 +88,43 @@ export default function AccommodationTaxForm({
   );
 
   return (
-    <FormProvider {...methods}>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="max-w-5xl mx-auto mt-12 bg-white p-10 shadow-lg rounded-lg space-y-6"
-      >
-        <div className="md:grid md:grid-cols-2 gap-6 flex flex-col items-center justify-center">
-          <DormTaxesForm
-            dormOptions={dormOptions}
-            taxesOptions={taxesOptions}
-            {...dormTaxesTexts}
-          />
-          <div className="col-span-2 w-full text-center flex items-center justify-center my-8 md:justify-start">
-            <MonthsForm {...monthTexts} />
-          </div>
-          <BillingDetailsForm {...billingTexts} />
-          <ConsentToTermsForm {...agreeTexts} />
-          <EuPlatescConsentForm {...acceptEuPlatescTexts} />
-          <ReCAPTCHAForm {...recaptchaTexts} />
-          <div className="col-span-2 w-full text-center flex items-center justify-center">
-            <SubmitButton isSubmitting={isSubmitting} {...submitTexts} />
-          </div>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="max-w-5xl mx-auto mt-12 bg-white p-10 shadow-lg rounded-lg space-y-6"
+    >
+      <div className="md:grid md:grid-cols-2 gap-6 flex flex-col items-center justify-center">
+        <DormTaxesForm
+          dormOptions={dormOptions}
+          taxesOptions={taxesOptions}
+          {...dormTaxesTexts}
+          control={control}
+          watch={watch}
+          setValue={setValue}
+          errors={errors}
+        />
+        <div className="col-span-2 w-full text-center flex items-center justify-center my-8 md:justify-start">
+          <MonthsForm {...monthTexts} control={control} errors={errors} />
         </div>
-      </form>
-    </FormProvider>
+        <BillingDetailsForm
+          {...billingTexts}
+          errors={errors}
+          register={register}
+        />
+        <ConsentToTermsForm
+          {...agreeTexts}
+          errors={errors}
+          register={register}
+        />
+        <EuPlatescConsentForm
+          {...acceptEuPlatescTexts}
+          errors={errors}
+          register={register}
+        />
+        <ReCAPTCHAForm {...recaptchaTexts} control={control} errors={errors} />
+        <div className="col-span-2 w-full text-center flex items-center justify-center">
+          <SubmitButton isSubmitting={isSubmitting} {...submitTexts} />
+        </div>
+      </div>
+    </form>
   );
 }
