@@ -1,5 +1,14 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { Controller, Control, useFormContext, Path } from "react-hook-form";
+import {
+  Controller,
+  Control,
+  useFormContext,
+  Path,
+  UseFormWatch,
+  FieldErrors,
+  UseFormSetValue,
+  PathValue,
+} from "react-hook-form";
 import {
   FacultyOption,
   FacultyTaxOption,
@@ -20,36 +29,43 @@ import Select from "react-select";
  * @prop {React.Dispatch<React.SetStateAction<FacultyTaxOption | undefined>>} [setTaxesOptionParent] - An optional function to set the selected tax option in a parent component (nedeed when the amount is variable and it's managed by the `AmountForm` component).
  * @prop {boolean} [isAmountVariable=false] - Optional boolean to indicate if the amount is variable. Defaults to `false`.If the amount it's not variable this component will handle the amount value, if the amount is variable the amount value will be handeled by the `AmountForm` component.
  * @prop {FacultyTaxesTexts} - Text labels and validation messages for various form fields.
- *
+ * @prop {UseFormWatch<T>} watch - Function from `react-hook-form` to watch the form state.
+ * @prop {FieldErrors<T>} errors - Error object from `react-hook-form` containing the form errors.
+ * @prop {UseFormSetValue<T>} setValue - Function from `react-hook-form` to set the form state.
  *
  * Usage:
  * This component should be used within a form that is wrapped with `FormProvider` from `react-hook-form` with an input data type that can extend `FacultyTaxesAmountFields`.
  */
 
-type FacultyTaxesFormProps = {
+type FacultyTaxesFormProps<TFielValues extends FacultyTaxesAmountFields> = {
   facultyOptions: FacultyOption[];
   taxesOptions: Record<string, FacultyTaxOption[]>;
   setTaxesOptionParent?: React.Dispatch<
     React.SetStateAction<FacultyTaxOption | undefined>
   >;
   isAmountVariable?: boolean;
+  control: Control<TFielValues>;
+  watch: UseFormWatch<TFielValues>;
+  errors: FieldErrors<TFielValues>;
+  setValue: UseFormSetValue<TFielValues>;
 } & FacultyTaxesTexts;
 
-function FacultyTaxesForm({
+function FacultyTaxesForm<TFielValues extends FacultyTaxesAmountFields>({
   facultyOptions,
   taxesOptions,
   required,
-  labels: lables,
+  labels,
   extraTaxOptions,
   setTaxesOptionParent,
   isAmountVariable = false,
-}: FacultyTaxesFormProps) {
-  const {
-    watch,
-    setValue,
-    formState: { errors },
-    control,
-  } = useFormContext<FacultyTaxesAmountFields>();
+  control,
+  errors,
+  watch,
+  setValue,
+}: FacultyTaxesFormProps<TFielValues>) {
+  const facultyId = "facultyId" as Path<TFielValues>;
+  const taxId = "taxId" as Path<TFielValues>;
+  const amount = "amount" as Path<TFielValues>;
 
   const [selectedFacultyTaxOption, setSelectedFacultyTaxOption] =
     useState<FacultyTaxOption>();
@@ -65,7 +81,10 @@ function FacultyTaxesForm({
         setTaxesOptionParent(st);
       }
       if (!isAmountVariable && st) {
-        setValue("amount", st?.value);
+        setValue(
+          amount,
+          st?.value as PathValue<TFielValues, Path<TFielValues>>,
+        );
       }
     } else {
       setSelectedFacultyTaxOption(undefined);
@@ -73,23 +92,26 @@ function FacultyTaxesForm({
         setTaxesOptionParent(undefined);
       }
       if (!isAmountVariable) {
-        setValue("amount", 0);
+        setValue(amount, 0 as PathValue<TFielValues, Path<TFielValues>>);
       }
     }
   };
 
-  const selectedFaculty = watch("facultyId");
-  const selectedTax = watch("taxId");
-  const amount = watch("amount");
+  const selectedFaculty = watch(facultyId).valueOf();
+  const selectedTax = watch(taxId).valueOf();
+  const selctedAmount = watch(amount).valueOf();
 
   useEffect(() => {
     if (selectedTax && selectedFacultyTaxOption) {
       const maxAmount = selectedFacultyTaxOption?.value;
-      if (amount > maxAmount) {
-        setValue("amount", maxAmount);
+      if (Number(selctedAmount) > maxAmount) {
+        setValue(
+          amount,
+          maxAmount as PathValue<TFielValues, Path<TFielValues>>,
+        );
       }
     }
-  }, [selectedTax, amount, setValue, selectedFacultyTaxOption]);
+  }, [selectedTax, selctedAmount, setValue, selectedFacultyTaxOption, amount]);
 
   const selectFacultyOptions = useMemo(
     () =>
@@ -112,10 +134,10 @@ function FacultyTaxesForm({
     <>
       <div className="relative">
         <label htmlFor="faculty" className="text-sm font-medium text-gray-700">
-          {lables.facultyId}
+          {labels.facultyId}
         </label>
         <Controller
-          name={"facultyId"}
+          name={facultyId}
           control={control}
           rules={{ required: required.facultyId }}
           render={({ field }) => (
@@ -153,10 +175,10 @@ function FacultyTaxesForm({
       </div>
       <div className="relative">
         <label htmlFor="tax" className="text-sm font-medium text-gray-700">
-          {lables.taxId}
+          {labels.taxId}
         </label>
         <Controller
-          name={"taxId"}
+          name={taxId}
           control={control}
           rules={{ required: required.taxId }}
           render={({ field }) => (
