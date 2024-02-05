@@ -104,7 +104,7 @@ export interface DidacticPremiumCardTexts {
   text: string;
 }
 export interface DidacticFormFields {
-  didacticPremiumCardOnly: string;
+  didacticPremiumCardOnly: boolean;
 }
 
 /**
@@ -118,7 +118,8 @@ export interface TuitionFormTexts extends AdmissionFormTexts {
 /**
  * Input fields for the tuition form.
  */
-export interface TuitionTaxFormData extends AdmissionTaxFormData {
-  didacticPremiumCardOnly: boolean;
+export interface TuitionTaxFormData
+  extends AdmissionTaxFormData,
+    DidacticFormFields {
   partialPay: boolean;
 }
