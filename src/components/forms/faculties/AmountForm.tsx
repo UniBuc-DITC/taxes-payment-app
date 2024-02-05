@@ -3,7 +3,7 @@ import {
   FacultyTaxOption,
   FacultyTaxesAmountFields,
 } from "@/types/forms/faculties";
-import { Control, Controller, Path, useFormContext } from "react-hook-form";
+import { Control, Controller, FieldErrors, Path } from "react-hook-form";
 
 /**
  * `AmountForm` is a React component for rendering an input form specifically for handling the variable amount.
@@ -14,6 +14,8 @@ import { Control, Controller, Path, useFormContext } from "react-hook-form";
  * @prop {Control<T>} control - Control object from `react-hook-form` for managing form state.
  * @prop {FacultyTaxOption | undefined} selectedFacultyTaxOption - The currently selected faculty tax option, used to determine the range of acceptable values for the amount input. (This props connects the component with the `FacultyTaxesForm`)
  * @prop {AmountTexts} - Text labels and validation messages for the amount form field.
+ * @prop {FieldErrors<T>} errors - Error object from `react-hook-form` containing the form errors.
+ * @prop {AmountField} required - Required text for the amount input.
  *
  * It renders a range input and a number input for specifying the amount, with constraints based on the selected faculty tax option.It also allows the amount to be chaneg via the input number or the slider.
  *
@@ -24,26 +26,22 @@ import { Control, Controller, Path, useFormContext } from "react-hook-form";
 type AmountFormProps<T extends FacultyTaxesAmountFields> = {
   control: Control<T>;
   selectedFacultyTaxOption: FacultyTaxOption | undefined;
+  errors: FieldErrors<T>;
 } & AmountTexts;
 
 export default function AmountForm<T extends FacultyTaxesAmountFields>({
   control,
   required,
-  labels: lables,
+  labels,
   validate,
   selectedFacultyTaxOption,
+  errors,
 }: AmountFormProps<T>) {
-  const {
-    watch,
-    setValue,
-    formState: { errors },
-  } = useFormContext<FacultyTaxesAmountFields>();
-
   return (
     <div className="col-span-1 md:col-span-2 items-center justify-center flex">
       <div className="relative w-full md:w-1/2 mx-auto">
         <label htmlFor="amount" className="text-sm font-medium text-gray-700">
-          {lables.amount}
+          {labels.amount}
         </label>
         <Controller
           name={"amount" as Path<T>}
