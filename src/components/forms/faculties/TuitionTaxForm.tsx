@@ -7,7 +7,7 @@ import {
   TuitionFormTexts,
 } from "@/types/forms/faculties";
 import { useCallback, useState } from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import FacultyTaxesForm from "./FacultyTaxesForm";
 import { StudyCycle } from "@prisma/client";
 import DidacticCardForm from "./DidacticCardForm";
@@ -59,7 +59,14 @@ export default function TuitionForm({
   acceptEuPlatescTexts,
   recaptchaTexts,
 }: Props) {
-  const methods = useForm<TuitionTaxFormData>({
+  const {
+    handleSubmit,
+    watch,
+    setValue,
+    control,
+    register,
+    formState: { errors, isSubmitting },
+  } = useForm<TuitionTaxFormData>({
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -83,15 +90,6 @@ export default function TuitionForm({
   const [selectedFacultyTaxOption, setSelectedFacultyTaxOption] =
     useState<FacultyTaxOption>();
 
-  const {
-    handleSubmit,
-    watch,
-    setValue,
-    control,
-    register,
-    formState: { errors, isSubmitting },
-  } = methods;
-
   const onSubmit: SubmitHandler<TuitionTaxFormData> = useCallback(
     async (data) => {
       if (
@@ -112,47 +110,65 @@ export default function TuitionForm({
     [selectedFacultyTaxOption],
   );
   return (
-    <FormProvider {...methods}>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="max-w-5xl mx-auto mt-12 bg-white p-10 shadow-lg rounded-lg space-y-6"
-      >
-        <div className="md:grid md:grid-cols-2 gap-6 flex flex-col items-center justify-center">
-          <FacultyTaxesForm
-            facultyOptions={facultyOptions}
-            taxesOptions={taxesOptions}
-            {...facultyTaxesTexts}
-            setTaxesOptionParent={setSelectedFacultyTaxOption}
-            isAmountVariable={true}
-          />
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="max-w-5xl mx-auto mt-12 bg-white p-10 shadow-lg rounded-lg space-y-6"
+    >
+      <div className="md:grid md:grid-cols-2 gap-6 flex flex-col items-center justify-center">
+        <FacultyTaxesForm
+          facultyOptions={facultyOptions}
+          taxesOptions={taxesOptions}
+          {...facultyTaxesTexts}
+          setTaxesOptionParent={setSelectedFacultyTaxOption}
+          isAmountVariable={true}
+          control={control}
+          errors={errors}
+          watch={watch}
+          setValue={setValue}
+        />
 
-          {selectedFacultyTaxOption &&
-            selectedFacultyTaxOption.studyCycle !==
-              StudyCycle.postuniversitary && (
-              <DidacticCardForm {...didacticPremiumCardText} />
-            )}
-
-          {variableAmountTexts && (
-            <AmountForm<TuitionTaxFormData>
-              control={control}
-              {...variableAmountTexts}
-              selectedFacultyTaxOption={selectedFacultyTaxOption}
+        {selectedFacultyTaxOption &&
+          selectedFacultyTaxOption.studyCycle !==
+            StudyCycle.postuniversitary && (
+            <DidacticCardForm
+              text={didacticPremiumCardText.text}
+              errors={errors}
+              register={register}
             />
           )}
 
-          <BillingDetailsForm {...billingTexts} />
+        {variableAmountTexts && (
+          <AmountForm<TuitionTaxFormData>
+            control={control}
+            {...variableAmountTexts}
+            selectedFacultyTaxOption={selectedFacultyTaxOption}
+            errors={errors}
+          />
+        )}
 
-          <ConsentToTermsForm {...agreeTexts} />
+        <BillingDetailsForm
+          {...billingTexts}
+          errors={errors}
+          register={register}
+        />
 
-          <EuPlatescConsentForm {...acceptEuPlatescTexts} />
+        <ConsentToTermsForm
+          {...agreeTexts}
+          errors={errors}
+          register={register}
+        />
+        <EuPlatescConsentForm
+          {...acceptEuPlatescTexts}
+          errors={errors}
+          register={register}
+        />
 
-          <ReCAPTCHAForm {...recaptchaTexts} />
+        <ReCAPTCHAForm {...recaptchaTexts} control={control} errors={errors} />
 
-          <div className="col-span-2 w-full text-center flex items-center justify-center">
-            <SubmitButton isSubmitting={isSubmitting} {...submitTexts} />
-          </div>
+        <div className="col-span-2 w-full text-center flex items-center justify-center">
+          <SubmitButton isSubmitting={isSubmitting} {...submitTexts} />
         </div>
-      </form>
-    </FormProvider>
+      </div>
+    </form>
   );
 }
