@@ -5,7 +5,15 @@ import {
   DormTaxesTexts,
 } from "@/types/forms/dorms";
 import { useMemo } from "react";
-import { Control, Controller, Path, useFormContext } from "react-hook-form";
+import {
+  Control,
+  Controller,
+  FieldErrors,
+  Path,
+  PathValue,
+  UseFormSetValue,
+  UseFormWatch,
+} from "react-hook-form";
 import Select from "react-select";
 
 /**
@@ -17,31 +25,41 @@ import Select from "react-select";
  * @prop {DormOption[]} dormOptions - An array of `DormOption` objects for student dorm selection.
  * @prop {Record<string, DormTaxOption[]>} taxesOptions - A record mapping student dorm IDs to their corresponding tax options.
  * @prop {DormTaxesTexts} - Includes labels and required flags for the form fields, structured as `DormTaxesTexts`.
+ * @prop {UseFormWatch<T>} watch - Function from `react-hook-form` to watch the form state.
+ * @prop {FieldErrors<T>} errors - Error object from `react-hook-form` containing the form errors.
+ * @prop {UseFormSetValue<T>} setValue - Function from `react-hook-form` to set the form state.
  *
  * Usage:
  * This component should be used within a form that is wrapped with `FormProvider` from `react-hook-form` with an input data type that can extend `DormTaxesAmountFields`.
  */
 
-type DormTaxesFormProps = {
+type DormTaxesFormProps<T extends AccommodationTaxesAmountFields> = {
   dormOptions: DormOption[];
   taxesOptions: Record<string, DormTaxOption[]>;
+  watch: UseFormWatch<T>;
+  control: Control<T>;
+  setValue: UseFormSetValue<T>;
+  errors: FieldErrors<T>;
 } & DormTaxesTexts;
 
-export default function DormTaxesForm({
+export default function DormTaxesForm<
+  T extends AccommodationTaxesAmountFields,
+>({
   dormOptions,
   taxesOptions,
   extraTaxOptions,
-  labels: lables,
+  labels,
   required,
-}: DormTaxesFormProps) {
-  const {
-    watch,
-    setValue,
-    formState: { errors },
-    control,
-  } = useFormContext<AccommodationTaxesAmountFields>();
+  control,
+  watch,
+  setValue,
+  errors,
+}: DormTaxesFormProps<T>) {
+  const dormId = "dormId" as Path<T>;
+  const taxId = "taxId" as Path<T>;
+  const amount = "amount" as Path<T>;
 
-  const selectedDorm = watch("dormId");
+  const selectedDorm = watch(dormId).valueOf();
 
   const setAmount = (selectedId: string) => {
     if (selectedDorm) {
@@ -49,10 +67,10 @@ export default function DormTaxesForm({
         ({ id }) => id.toString() === selectedId,
       );
       if (st) {
-        setValue("amount", st?.value);
+        setValue(amount, st?.value as PathValue<T, Path<T>>);
       }
     } else {
-      setValue("amount", 0);
+      setValue(amount, 0 as PathValue<T, Path<T>>);
     }
   };
 
@@ -76,10 +94,10 @@ export default function DormTaxesForm({
     <>
       <div className="relative ">
         <label htmlFor="dorm" className="text-sm font-medium text-gray-700">
-          {lables.dormId}
+          {labels.dormId}
         </label>
         <Controller
-          name={"dormId"}
+          name={dormId}
           control={control}
           rules={{ required: required.dormId }}
           render={({ field }) => (
@@ -115,10 +133,10 @@ export default function DormTaxesForm({
       </div>
       <div className="relative">
         <label htmlFor="tax" className="text-sm font-medium text-gray-700">
-          {lables.taxId}
+          {labels.taxId}
         </label>
         <Controller
-          name={"taxId"}
+          name={taxId}
           control={control}
           rules={{ required: required.taxId }}
           render={({ field }) => (
