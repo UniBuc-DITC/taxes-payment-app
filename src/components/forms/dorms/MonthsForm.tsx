@@ -1,6 +1,12 @@
 import { MonthField, MonthSelectTexts } from "@/types/forms/month";
 import { useMemo } from "react";
-import { Controller, Path, useFormContext } from "react-hook-form";
+import {
+  Control,
+  Controller,
+  FieldErrors,
+  Path,
+  useFormContext,
+} from "react-hook-form";
 import Select from "react-select";
 
 /**
@@ -9,10 +15,17 @@ import Select from "react-select";
  *
  * @prop {MonthOption[]} monthOptions - An array of `MonthOption` objects for month selection.
  * @prop {MonthTexts} - Includes label, extra text, and required error message.
+ * @prop {Control<T>} control - Control object from `react-hook-form`, used for managing the form state.
+ * @prop {FieldErrors<T>} errors - Error object from `react-hook-form` containing the form errors.
  *
  * Usage:
  * This component should be used within a form that is wrapped with `FormProvider` from `react-hook-form` with an input data type that can extend `MonthField`.
  */
+
+type Props<T extends MonthField> = MonthSelectTexts & {
+  errors: FieldErrors<T>;
+  control: Control<T>;
+};
 
 export default function MonthsForm<T extends MonthField>({
   monthOptions,
@@ -20,12 +33,9 @@ export default function MonthsForm<T extends MonthField>({
   label,
   noMonth,
   required,
-}: MonthSelectTexts) {
-  const {
-    formState: { errors },
-    control,
-  } = useFormContext<MonthField>();
-
+  control,
+  errors,
+}: Props<T>) {
   const currentMonth = new Date().getMonth() + 1;
   const availableMonths = useMemo(() => {
     return monthOptions.filter(
@@ -41,7 +51,7 @@ export default function MonthsForm<T extends MonthField>({
           {extra && <span className="ms-1">{extra}</span>}
         </label>
         <Controller
-          name={"month"}
+          name={"month" as Path<T>}
           control={control}
           rules={{ required }}
           render={({ field }) => (
