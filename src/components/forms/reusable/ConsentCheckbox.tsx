@@ -7,14 +7,17 @@ import {
   UseFormRegister,
 } from "react-hook-form";
 
-type ConsentProps<TFieldValues extends FieldValues> = {
+type ConsentProps<TFieldValues extends FieldValues> = Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "required" | "type"
+> & {
   id: string;
   label?: string | ReactNode;
   name: Path<TFieldValues>;
   register: UseFormRegister<TFieldValues>;
   registerOptions?: RegisterOptions<TFieldValues, Path<TFieldValues>>;
   required: string | boolean;
-  errors: FieldErrors<TFieldValues>;
+  errors?: FieldErrors<TFieldValues>;
 };
 
 export default function ConsentCheckbox<TFieldValues extends FieldValues>({
@@ -25,10 +28,12 @@ export default function ConsentCheckbox<TFieldValues extends FieldValues>({
   registerOptions,
   required,
   errors,
+  ...props
 }: ConsentProps<TFieldValues>) {
   return (
     <div className="col-span-2">
       <input
+        {...props}
         type="checkbox"
         {...register(name, {
           required,
@@ -43,7 +48,7 @@ export default function ConsentCheckbox<TFieldValues extends FieldValues>({
       >
         {label}
       </label>
-      {errors[name] && (
+      {errors && errors[name] && (
         <span
           className={`text-xs text-red-500 ${
             errors[name] ? "block" : "hidden"
