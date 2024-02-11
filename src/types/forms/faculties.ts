@@ -1,5 +1,5 @@
 import { Prisma, StudyCycle } from "@prisma/client";
-import { Option } from "./reusable";
+import { InputBaseTexts, OptionWithId, TaxField } from "./reusable";
 import { BillingFormFields, BillingFormTexts } from "./billingDetails";
 import { SubmitButtonTexts } from "./submitBtn";
 import {
@@ -8,7 +8,7 @@ import {
   ReCAPTCHATexts,
   RequiredCheckboxTexts,
 } from "./agreements";
-import { AmountTexts } from "./amount";
+import { AmountFiled, AmountTexts, PartialPayField } from "./amount";
 
 /**
  * Extended Faculty type including associated faculty tax values.
@@ -20,8 +20,7 @@ export type FacultyWithTax = Prisma.FacultyGetPayload<{
 /**
  * Options for selecting faculty tax, including the study cycle.
  */
-export interface FacultyTaxOption extends Option {
-  id: number;
+export interface FacultyTaxOption extends OptionWithId {
   studyCycle: StudyCycle;
 }
 
@@ -34,14 +33,11 @@ export interface FacultyOption {
 }
 
 /**
- * Keys for faculty tax related form fields.
- */
-type FacultyFormKeys = "facultyId" | "taxId";
-
-/**
  * Type definition for faculty taxes fields in forms.
  */
-export type FacultyTaxesFields = Record<FacultyFormKeys, string>;
+export type FacultyTaxesFields = TaxField & {
+  facultyId: string;
+};
 
 /**
  * Text properties for faculty taxes form, including labels and extra options.
@@ -59,9 +55,10 @@ export type FacultyTaxesTexts = {
 /**
  * Type definition for faculty taxes amount fields in forms.
  */
-export interface FacultyTaxesAmountFields extends FacultyTaxesFields {
-  amount: number;
-}
+export interface FacultyTaxesAmountFields
+  extends FacultyTaxesFields,
+    AmountFiled,
+    PartialPayField {}
 
 // ---------- Admission Form Types ----------
 
@@ -82,6 +79,8 @@ export interface AdmissionFormTexts {
   agreeTexts: RequiredCheckboxTexts;
   acceptEuPlatescTexts: RequiredCheckboxTexts;
   recaptchaTexts: ReCAPTCHATexts;
+  variableAmountTexts: AmountTexts;
+  partialPayTexts: InputBaseTexts;
 }
 
 /**
@@ -91,9 +90,9 @@ export interface AdmissionTaxFormData
   extends BillingFormFields,
     ConsentFormFiles,
     FacultyTaxesFields,
-    ReCAPTCHAInput {
-  amount: number;
-}
+    ReCAPTCHAInput,
+    PartialPayField,
+    AmountFiled {}
 
 // ---------- Tuition Form Types ----------
 
@@ -112,7 +111,6 @@ export interface DidacticFormFields {
  */
 export interface TuitionFormTexts extends AdmissionFormTexts {
   didacticPremiumCardText: DidacticPremiumCardTexts;
-  variableAmountTexts: AmountTexts;
 }
 
 /**
@@ -120,6 +118,4 @@ export interface TuitionFormTexts extends AdmissionFormTexts {
  */
 export interface TuitionTaxFormData
   extends AdmissionTaxFormData,
-    DidacticFormFields {
-  partialPay: boolean;
-}
+    DidacticFormFields {}
