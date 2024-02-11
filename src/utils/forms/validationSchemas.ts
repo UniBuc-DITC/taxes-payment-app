@@ -13,6 +13,11 @@ export const billingFormSchema = z.object({
     .string()
     .regex(/^\d+$/, "Phone number must contain only numbers"),
 });
+
+export const billingFormSchemaWithoutAddress = billingFormSchema.omit({
+  address: true,
+});
+
 /**
  * @param recaptcha - the reCAPTCHA token
  */
@@ -35,6 +40,10 @@ export const taxAmountFormSchema = z.object({
   amount: z.number().min(100, "Minimum amount value is 100"),
 });
 
+export const partialPaySchema = z.object({
+  partialPay: z.boolean().optional(),
+});
+
 /**
  * @param facultyId -  the faculty id that is selected from the form
  */
@@ -44,6 +53,7 @@ export const admissionTaxFormSchema = z
   })
   .and(billingFormSchema)
   .and(consentFormSchema)
+  .and(partialPaySchema)
   .and(taxAmountFormSchema);
 
 /**
@@ -61,7 +71,7 @@ export const tuitionTaxFormSchema = z
  * @param dromId -  the student dorm id that is selected from the form
  * @param month - the month number selected in the form in the range of [1,12]
  */
-export const dormsTaxSchema = z
+export const accomodationTaxSchema = z
   .object({
     dormId: z.coerce.number().int("Dorm must be an integer"),
     month: z.coerce
@@ -69,7 +79,12 @@ export const dormsTaxSchema = z
       .int("Month must be an integer")
       .min(1, "Month shoul be at least 1")
       .max(12, "Month should be at most 12"),
+    dormRoomNumber: z
+      .number()
+      .int("Dorm room number must be an integer")
+      .min(1, "Dorm room number should be at least 1"),
   })
-  .and(billingFormSchema)
+  .and(billingFormSchemaWithoutAddress)
   .and(consentFormSchema)
+  .and(partialPaySchema)
   .and(taxAmountFormSchema);
