@@ -14,18 +14,14 @@ export default function Home() {
         <Link href="/admission-tax/bachelors">Admission bachelors</Link>
         <Link href="/admission-tax/masters">Admission masters</Link>
         <Link href="/admission-tax/doctorate">Admission doctorate</Link>
-        <Link href="/admission-tax/postuniversitary">
-          Admission postuniversitary
-        </Link>
+        <Link href="/admission-tax/postgraduate">Admission postgraduate</Link>
       </div>
       <div className="flex flex-col">
         <h2 className="text-lg font-bold">Tuition</h2>
         <Link href="/tuition-tax/bachelors">Tuition bachelors</Link>
         <Link href="/tuition-tax/masters">Tuition masters</Link>
         <Link href="/tuition-tax/doctorate">Tuition doctorate</Link>
-        <Link href="/tuition-tax/postuniversitary">
-          Tuition postuniversitary
-        </Link>
+        <Link href="/tuition-tax/postgraduate">Tuition postgraduate</Link>
       </div>
       <div className="flex flex-col">
         <h2 className="text-lg font-bold">Student Dorms</h2>
