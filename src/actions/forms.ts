@@ -7,7 +7,7 @@ import {
 } from "@/types/forms/faculties";
 import {
   admissionTaxFormSchema,
-  dormsTaxSchema,
+  accomodationTaxSchema,
   tuitionTaxFormSchema,
 } from "@/utils/forms/validationSchemas";
 
@@ -76,7 +76,7 @@ export async function submitTuitionTaxForm(
 export async function submitAccomodationTaxForm(
   formData: AccommodationTaxFormData,
 ): Promise<FormActionResponse> {
-  const validate = dormsTaxSchema.safeParse(formData);
+  const validate = accomodationTaxSchema.safeParse(formData);
   if (!validate.success) {
     console.log(validate.error);
     //redirect to error page
