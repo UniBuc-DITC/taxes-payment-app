@@ -11,13 +11,14 @@ export type BillingInfoKeys =
   | "firstName"
   | "lastName"
   | "city"
-  | "country"
-  | "address";
+  | "country";
 
 /**
  * Type definition for personal form fields.
  */
-export type BillingFormFields = Record<BillingInfoKeys, string>;
+export type BillingFormFields = Record<BillingInfoKeys, string> & {
+  address?: string;
+};
 
 /**
  * Type definition for pattern validation fields in personal form.
