@@ -4,13 +4,13 @@ import {
   AccommodationTaxesAmountFields,
   DormTaxesTexts,
 } from "@/types/forms/dorms";
+import useSetEntityTaxOption from "@/utils/forms/hooks/useSetEntityTaxOption";
 import { useMemo } from "react";
 import {
   Control,
   Controller,
   FieldErrors,
   Path,
-  PathValue,
   UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
@@ -40,6 +40,10 @@ type DormTaxesFormProps<T extends AccommodationTaxesAmountFields> = {
   control: Control<T>;
   setValue: UseFormSetValue<T>;
   errors: FieldErrors<T>;
+  setTaxesOptionParent?: React.Dispatch<
+    React.SetStateAction<DormTaxOption | undefined>
+  >;
+  partialPay?: boolean;
 } & DormTaxesTexts;
 
 export default function DormTaxesForm<
@@ -54,25 +58,23 @@ export default function DormTaxesForm<
   watch,
   setValue,
   errors,
+  setTaxesOptionParent,
+  partialPay = false,
 }: DormTaxesFormProps<T>) {
   const dormId = "dormId" as Path<T>;
   const taxId = "taxId" as Path<T>;
-  const amount = "amount" as Path<T>;
 
-  const selectedDorm = watch(dormId).valueOf();
+  const selectedDorm = watch(dormId)?.valueOf()?.toString();
 
-  const setAmount = (selectedId: string) => {
-    if (selectedDorm) {
-      const st = taxesOptions[selectedDorm].find(
-        ({ id }) => id.toString() === selectedId,
-      );
-      if (st) {
-        setValue(amount, st?.value as PathValue<T, Path<T>>);
-      }
-    } else {
-      setValue(amount, 0 as PathValue<T, Path<T>>);
-    }
-  };
+  const [selectedDormTaxOption, setSelectedDormTaxOption, setTaxOption] =
+    useSetEntityTaxOption<DormTaxOption, T>({
+      setValue,
+      watch,
+      selectedEntityId: selectedDorm,
+      taxesOptions,
+      setTaxesOptionParent,
+      partialPay,
+    });
 
   const selectDormOptions = useMemo(
     () => dormOptions.map(({ id, label }) => ({ value: id.toString(), label })),
@@ -139,6 +141,7 @@ export default function DormTaxesForm<
           name={taxId}
           control={control}
           rules={{ required: required.taxId }}
+          disabled={!selectedDorm}
           render={({ field }) => (
             <div>
               <Select
@@ -148,9 +151,10 @@ export default function DormTaxesForm<
                 options={selectTaxOptions}
                 value={selectTaxOptions?.find((c) => c.value === field.value)}
                 onChange={(val) => {
-                  if (val) setAmount(val?.value);
+                  if (val) setTaxOption(val?.value);
                   field.onChange(val?.value);
                 }}
+                isDisabled={!selectedDorm}
                 placeholder={
                   !selectedDorm
                     ? extraTaxOptions.tax
