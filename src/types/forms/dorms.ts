@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import { Option } from "./reusable";
+import { InputBaseTexts, Option, OptionWithId, TaxField } from "./reusable";
 import { BillingFormFields, BillingFormTexts } from "./billingDetails";
 import { MonthSelectTexts } from "./month";
 import { SubmitButtonTexts } from "./submitBtn";
@@ -9,6 +9,17 @@ import {
   ReCAPTCHATexts,
   RequiredCheckboxTexts,
 } from "./agreements";
+import { AmountFiled, AmountTexts, PartialPayField } from "./amount";
+
+export interface DormRoomNumberTexts extends InputBaseTexts {
+  required: string;
+  placeholder: string;
+  pattern: string;
+}
+
+export interface DormRoomNumberField {
+  dormRoomNumber: number;
+}
 
 /**
  * Extended Studnet Dorms type including associated student dorm tax values.
@@ -20,9 +31,7 @@ export type DormWithTax = Prisma.StudentDormGetPayload<{
 /**
  * Options for selecting student dorm tax.
  */
-export interface DormTaxOption extends Option {
-  id: number;
-}
+export interface DormTaxOption extends OptionWithId {}
 
 /**
  * Options for selecting a student dorm.
@@ -35,17 +44,18 @@ export interface DormOption {
 /**
  * Keys for student dorm tax related form fields.
  */
-type AccommodationFormKeys = "dormId" | "taxId";
 
 /**
  * Type definition for student dorm taxes fields in forms.
  */
-export type AccommodationTaxesFields = Record<AccommodationFormKeys, string>;
+export type AccommodationTaxesFields = TaxField & {
+  dormId: string;
+};
 
 export interface AccommodationTaxesAmountFields
-  extends AccommodationTaxesFields {
-  amount: number;
-}
+  extends AccommodationTaxesFields,
+    PartialPayField,
+    AmountFiled {}
 
 /**
  * Text properties for student dorm taxes form, including labels,required messaged and extra options.
@@ -70,16 +80,21 @@ export interface AccommodationTaxFormTexts {
   agreeTexts: RequiredCheckboxTexts;
   acceptEuPlatescTexts: RequiredCheckboxTexts;
   recaptchaTexts: ReCAPTCHATexts;
+  variableAmountTexts: AmountTexts;
+  partialPayTexts: InputBaseTexts;
+  dormRoomNumberTexts: DormRoomNumberTexts;
 }
 
 /**
  * Input fields for the dorms form.
  */
 export interface AccommodationTaxFormData
-  extends BillingFormFields,
+  extends Omit<BillingFormFields, "address">,
     AccommodationTaxesFields,
     ConsentFormFiles,
-    ReCAPTCHAInput {
+    ReCAPTCHAInput,
+    PartialPayField,
+    AmountFiled,
+    DormRoomNumberField {
   month: string;
-  amount: number;
 }
