@@ -2,17 +2,19 @@ import { SubmitButtonTexts } from "@/types/forms/submitBtn";
 
 interface SubmitButtonProps extends SubmitButtonTexts {
   isSubmitting: boolean;
+  disabled?: boolean;
 }
 
 export default function SubmitButton({
   isSubmitting,
   text,
   loadingText,
+  disabled,
 }: SubmitButtonProps) {
   return (
     <button
       type="submit"
-      disabled={isSubmitting}
+      disabled={isSubmitting || disabled}
       className="mt-4 w-full  bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex justify-center items-center"
     >
       {isSubmitting ? (
