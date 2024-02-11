@@ -4,6 +4,7 @@ import {
 } from "@/types/forms/faculties";
 import React from "react";
 import { FieldErrors, Path, UseFormRegister } from "react-hook-form";
+import ConsentCheckbox from "../reusable/ConsentCheckbox";
 /**
  * `DidacticCardForm` is a React component that renders a part of a form
  * for selecting if the user wants to pay with the didactic card.
@@ -20,36 +21,27 @@ import { FieldErrors, Path, UseFormRegister } from "react-hook-form";
 type Props<T extends DidacticFormFields> = {
   register: UseFormRegister<T>;
   errors: FieldErrors<T>;
+  disabled?: boolean;
 } & DidacticPremiumCardTexts;
 
 function DidacticCardForm<T extends DidacticFormFields>({
   text,
   register,
   errors,
+  disabled,
 }: Props<T>) {
-  const didacticPremiumCardOnly = "didacticPremiumCardOnly" as Path<T>;
-
   return (
-    <div className="col-span-2">
-      <label htmlFor="didacticPremiumCardOnly" className="flex items-center">
-        <input
-          type="checkbox"
-          {...register(didacticPremiumCardOnly)}
-          id="didacticPremiumCardOnly"
-          className="w-4 h-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded accent-slate-500"
-        />
-        <span className="ml-2 text-sm text-gray-600">{text}</span>
-      </label>
-      {errors.didacticPremiumCardOnly && (
-        <span
-          className={`text-xs text-red-500 ${
-            errors.didacticPremiumCardOnly ? "block" : "hidden"
-          }`}
-        >
-          {errors.didacticPremiumCardOnly.message?.toString()}
-        </span>
-      )}
-    </div>
+    <>
+      <ConsentCheckbox<T>
+        id="didacticPremiumCardOnly"
+        name={"didacticPremiumCardOnly" as Path<T>}
+        register={register}
+        required={false}
+        label={text}
+        disabled={disabled}
+        errors={errors}
+      />
+    </>
   );
 }
 
