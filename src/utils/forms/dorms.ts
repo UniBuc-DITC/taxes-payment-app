@@ -8,6 +8,7 @@ export function createDormTaxOptions(dorms: DormWithTax[], locale: string) {
   const isEnglish = locale === "en";
   return dorms.reduce(
     (acc, { id, name, studentDormTaxValues }) => {
+      if (studentDormTaxValues.length === 0) return acc;
       acc.dormOptions.push({
         id,
         label: name,

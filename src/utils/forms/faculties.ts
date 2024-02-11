@@ -16,6 +16,7 @@ export function createFacultyTaxOptions(
   const isEnglish = locale === "en";
   return faculties.reduce(
     (acc, { id, nameEn, nameRo, facultyTaxValues }) => {
+      if (facultyTaxValues.length === 0) return acc;
       acc.facultyOptions.push({
         id,
         label: isEnglish ? nameEn : nameRo,
