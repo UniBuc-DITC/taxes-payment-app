@@ -6,18 +6,19 @@ import {
   TuitionTaxFormData,
   TuitionFormTexts,
 } from "@/types/forms/faculties";
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import FacultyTaxesForm from "./FacultyTaxesForm";
-import { StudyCycle } from "@prisma/client";
 import DidacticCardForm from "./DidacticCardForm";
-import AmountForm from "./AmountForm";
+import AmountForm from "../reusable/AmountForm";
 import EuPlatescConsentForm from "../reusable/EuPlatescConsentForm";
 import ConsentToTermsForm from "../reusable/ConsentToTermsForm";
 import SubmitButton from "../reusable/SubmitButton";
 import { submitTuitionTaxForm } from "@/actions/forms";
 import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
 import BillingDetailsForm from "../reusable/BillingDetailsForm";
+import PartialPayForm from "../reusable/PartialPayForm";
+import useParentTaxOptions from "@/utils/forms/hooks/useParentTaxOptions";
 
 /**
  * `TuitionForm` is a React component for managing and submitting admission forms.
@@ -58,6 +59,7 @@ export default function TuitionForm({
   didacticPremiumCardText,
   acceptEuPlatescTexts,
   recaptchaTexts,
+  partialPayTexts,
 }: Props) {
   const {
     handleSubmit,
@@ -87,19 +89,17 @@ export default function TuitionForm({
     },
   });
 
-  const [selectedFacultyTaxOption, setSelectedFacultyTaxOption] =
-    useState<FacultyTaxOption>();
+  const partialPayValue = watch("partialPay");
+
+  const [selectedFacultyTaxOption, setSelectedFacultyTaxOption, disabled] =
+    useParentTaxOptions<FacultyTaxOption, TuitionTaxFormData>({
+      watch,
+      entityId: "facultyId",
+      setValue,
+    });
 
   const onSubmit: SubmitHandler<TuitionTaxFormData> = useCallback(
     async (data) => {
-      if (
-        selectedFacultyTaxOption &&
-        data.amount < selectedFacultyTaxOption?.value
-      ) {
-        data.partialPay = true;
-      } else {
-        data.partialPay = false;
-      }
       try {
         const r = await submitTuitionTaxForm(data);
         console.log(r);
@@ -107,8 +107,9 @@ export default function TuitionForm({
         console.log(error);
       }
     },
-    [selectedFacultyTaxOption],
+    [],
   );
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -119,29 +120,30 @@ export default function TuitionForm({
           facultyOptions={facultyOptions}
           taxesOptions={taxesOptions}
           {...facultyTaxesTexts}
-          setTaxesOptionParent={setSelectedFacultyTaxOption}
-          isAmountVariable={true}
           control={control}
           errors={errors}
           watch={watch}
           setValue={setValue}
+          setTaxesOptionParent={setSelectedFacultyTaxOption}
+          partialPay={partialPayValue}
         />
 
-        {selectedFacultyTaxOption &&
-          selectedFacultyTaxOption.studyCycle !==
-            StudyCycle.postuniversitary && (
-            <DidacticCardForm
-              text={didacticPremiumCardText.text}
-              errors={errors}
-              register={register}
-            />
-          )}
-
-        {variableAmountTexts && (
-          <AmountForm<TuitionTaxFormData>
+        <PartialPayForm
+          register={register}
+          {...partialPayTexts}
+          disabled={disabled}
+        />
+        <DidacticCardForm
+          errors={errors}
+          register={register}
+          {...didacticPremiumCardText}
+          disabled={disabled}
+        />
+        {partialPayValue && (
+          <AmountForm
             control={control}
             {...variableAmountTexts}
-            selectedFacultyTaxOption={selectedFacultyTaxOption}
+            selectedEntityTaxOption={selectedFacultyTaxOption}
             errors={errors}
           />
         )}
@@ -150,23 +152,35 @@ export default function TuitionForm({
           {...billingTexts}
           errors={errors}
           register={register}
+          disabled={disabled}
+          renderAddress={true}
         />
 
         <ConsentToTermsForm
           {...agreeTexts}
           errors={errors}
           register={register}
+          disabled={disabled}
         />
         <EuPlatescConsentForm
           {...acceptEuPlatescTexts}
           errors={errors}
           register={register}
+          disabled={disabled}
         />
 
-        <ReCAPTCHAForm {...recaptchaTexts} control={control} errors={errors} />
-
+        <ReCAPTCHAForm
+          {...recaptchaTexts}
+          control={control}
+          errors={errors}
+          disabled={disabled}
+        />
         <div className="col-span-2 w-full text-center flex items-center justify-center">
-          <SubmitButton isSubmitting={isSubmitting} {...submitTexts} />
+          <SubmitButton
+            isSubmitting={isSubmitting}
+            {...submitTexts}
+            disabled={disabled}
+          />
         </div>
       </div>
     </form>
