@@ -7,6 +7,7 @@ import {
   AccommodationTaxesFields,
   DormTaxesTexts,
   AccommodationTaxFormTexts,
+  DormRoomNumberTexts,
 } from "@/types/forms/dorms";
 import {
   AdmissionFormTexts,
@@ -23,6 +24,7 @@ import {
 } from "@/types/forms/billingDetails";
 import { SubmitButtonTexts } from "@/types/forms/submitBtn";
 import { getTranslations } from "next-intl/server";
+import { InputBaseTexts } from "@/types/forms/reusable";
 
 const fullCategory = ["required", "placeholders", "labels"] as const;
 const patternKeys = ["numericalCode", "email", "phoneNumber"] as const;
@@ -31,14 +33,13 @@ const fullKeys = [
   "lastName",
   "city",
   "country",
-  "address",
   ...patternKeys,
 ] as const;
 
 /*
  * This function may be used with a key if we want different keys for each form
  */
-export async function getBillingTexts(): Promise<BillingFormTexts> {
+export async function getBillingTextsWithoutAddress(): Promise<BillingFormTexts> {
   const t = await getTranslations("Forms.BillingDetails");
 
   let personalText: BillingFormTexts = {} as BillingFormTexts;
@@ -48,6 +49,30 @@ export async function getBillingTexts(): Promise<BillingFormTexts> {
     }
 
     fullKeys.forEach((k) => {
+      personalText[c][k] = t(`${c}.${k}`);
+    });
+  });
+  patternKeys.forEach((k) => {
+    if (!personalText.patterns) {
+      personalText.patterns = {} as BillingFormPatternFields;
+    }
+    personalText.patterns[k] = t(`patterns.${k}`);
+  });
+  return personalText;
+}
+
+const fullKeysWithAddress = [...fullKeys, "address"] as const;
+
+export async function getBillingTexts(): Promise<BillingFormTexts> {
+  const t = await getTranslations("Forms.BillingDetails");
+
+  let personalText: BillingFormTexts = {} as BillingFormTexts;
+  fullCategory.forEach((c) => {
+    if (!personalText[c]) {
+      personalText[c] = {} as BillingFormFields;
+    }
+
+    fullKeysWithAddress.forEach((k) => {
       personalText[c][k] = t(`${c}.${k}`);
     });
   });
@@ -166,6 +191,23 @@ export async function getMonthsTexts(): Promise<MonthSelectTexts> {
   };
 }
 
+export async function getPartialPayTexts(): Promise<InputBaseTexts> {
+  const t = await getTranslations("Forms.Dorms.PartialPay");
+  return {
+    label: t("label"),
+  };
+}
+
+export async function getDormRoomNumberTexts(): Promise<DormRoomNumberTexts> {
+  const t = await getTranslations("Forms.Dorms.RoomNumber");
+  return {
+    label: t("label"),
+    required: t("required"),
+    placeholder: t("placeholder"),
+    pattern: t("pattern"),
+  };
+}
+
 const facultyTaxesFields = [
   { field: "facultyId", translation: "faculty" },
   { field: "taxId", translation: "tax" },
@@ -224,12 +266,14 @@ export async function getDormTaxesTexts(): Promise<DormTaxesTexts> {
 
 export async function getAdmissionFormTexts(): Promise<AdmissionFormTexts> {
   const [
-    personalTexts,
+    billingTexts,
     facultyTaxesTexts,
     submitTexts,
     agreeTexts,
     acceptEuPlatescTexts,
     recaptchaTexts,
+    partialPayTexts,
+    variableAmountTexts,
   ] = await Promise.all([
     getBillingTexts(),
     getFacultyTaxesTexts(),
@@ -237,14 +281,18 @@ export async function getAdmissionFormTexts(): Promise<AdmissionFormTexts> {
     getConsentTermsText(),
     getEuPlatescText(),
     getReCAPTCHAText(),
+    getPartialPayTexts(),
+    getAmountFormTexts(),
   ]);
   return {
-    billingTexts: personalTexts,
+    billingTexts,
     facultyTaxesTexts,
     submitTexts,
     agreeTexts,
     acceptEuPlatescTexts,
     recaptchaTexts,
+    partialPayTexts,
+    variableAmountTexts,
   };
 }
 
@@ -265,29 +313,38 @@ export async function getTuitionFormTexts(): Promise<TuitionFormTexts> {
 
 export async function getDormFormTexts(): Promise<AccommodationTaxFormTexts> {
   const [
-    personalTexts,
+    billingTexts,
     dormTaxesTexts,
     monthTexts,
     submitTexts,
     agreeTexts,
     acceptEuPlatescTexts,
     recaptchaTexts,
+    variableAmountTexts,
+    partialPayTexts,
+    dormRoomNumberTexts,
   ] = await Promise.all([
-    getBillingTexts(),
+    getBillingTextsWithoutAddress(),
     getDormTaxesTexts(),
     getMonthsTexts(),
     getSubmitButtonTexts(),
     getConsentTermsText(),
     getEuPlatescText(),
     getReCAPTCHAText(),
+    getAmountFormTexts(),
+    getPartialPayTexts(),
+    getDormRoomNumberTexts(),
   ]);
   return {
-    billingTexts: personalTexts,
+    billingTexts,
     dormTaxesTexts,
     monthTexts,
     submitTexts,
     agreeTexts,
     acceptEuPlatescTexts,
     recaptchaTexts,
+    variableAmountTexts,
+    partialPayTexts,
+    dormRoomNumberTexts,
   };
 }
