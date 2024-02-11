@@ -96,6 +96,12 @@
       }
     },
     "Dorms": {
+      "RoomNumber": {
+        "label": "Numărul camerei",
+        "rquired": "Numărul camerei este necesar",
+        "placeholder": "Numărul camerei",
+        "pattern": "Numărul camerei trebuie să fie valid"
+      },
       "AccommodationTaxesForm": {
         "required": {
           "dorm": "Căminul studențesc este necesar",
@@ -110,6 +116,9 @@
           "dorm": "Cămine Studentești",
           "tax": "Taxe"
         }
+      },
+      "PartialPay": {
+        "label": "Vreau să optez pentru plata parțiala"
       },
       "MonthTexts": {
         "label": "Luna",

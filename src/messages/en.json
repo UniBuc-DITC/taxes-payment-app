@@ -96,6 +96,12 @@
       }
     },
     "Dorms": {
+      "RoomNumber": {
+        "label": "Room number",
+        "required": "Room number is required",
+        "placeholder": "Room number",
+        "pattern": "Room number must be valid"
+      },
       "AccommodationTaxesForm": {
         "required": {
           "dorm": "Student dorm is required",
@@ -107,6 +113,9 @@
           "tax": "Select a tax"
         },
         "labels": { "dorm": "Student Dorms", "tax": "Taxes" }
+      },
+      "PartialPay": {
+        "label": "I want to opt for partial payment"
       },
       "MonthTexts": {
         "label": "Month",
