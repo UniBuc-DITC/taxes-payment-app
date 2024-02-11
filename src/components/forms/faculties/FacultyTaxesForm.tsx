@@ -1,8 +1,7 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Controller,
   Control,
-  useFormContext,
   Path,
   UseFormWatch,
   FieldErrors,
@@ -16,6 +15,7 @@ import {
   FacultyTaxesTexts,
 } from "@/types/forms/faculties";
 import Select from "react-select";
+import useSetEntityTaxOption from "@/utils/forms/hooks/useSetEntityTaxOption";
 
 /**
  * `FacultyTaxesForm` is a React component that renders a part of a form
@@ -37,81 +37,49 @@ import Select from "react-select";
  * This component should be used within a form that is wrapped with `FormProvider` from `react-hook-form` with an input data type that can extend `FacultyTaxesAmountFields`.
  */
 
-type FacultyTaxesFormProps<TFielValues extends FacultyTaxesAmountFields> = {
+type FacultyTaxesFormProps<T extends FacultyTaxesAmountFields> = {
   facultyOptions: FacultyOption[];
   taxesOptions: Record<string, FacultyTaxOption[]>;
   setTaxesOptionParent?: React.Dispatch<
     React.SetStateAction<FacultyTaxOption | undefined>
   >;
-  isAmountVariable?: boolean;
-  control: Control<TFielValues>;
-  watch: UseFormWatch<TFielValues>;
-  errors: FieldErrors<TFielValues>;
-  setValue: UseFormSetValue<TFielValues>;
+  partialPay: boolean;
+  control: Control<T>;
+  watch: UseFormWatch<T>;
+  errors: FieldErrors<T>;
+  setValue: UseFormSetValue<T>;
 } & FacultyTaxesTexts;
 
-function FacultyTaxesForm<TFielValues extends FacultyTaxesAmountFields>({
+function FacultyTaxesForm<T extends FacultyTaxesAmountFields>({
   facultyOptions,
   taxesOptions,
   required,
   labels,
   extraTaxOptions,
   setTaxesOptionParent,
-  isAmountVariable = false,
+  partialPay,
   control,
   errors,
   watch,
   setValue,
-}: FacultyTaxesFormProps<TFielValues>) {
-  const facultyId = "facultyId" as Path<TFielValues>;
-  const taxId = "taxId" as Path<TFielValues>;
-  const amount = "amount" as Path<TFielValues>;
+}: FacultyTaxesFormProps<T>) {
+  const facultyId = "facultyId" as Path<T>;
+  const taxId = "taxId" as Path<T>;
 
-  const [selectedFacultyTaxOption, setSelectedFacultyTaxOption] =
-    useState<FacultyTaxOption>();
+  const selectedFaculty = watch(facultyId)?.valueOf()?.toString();
 
-  const setTaxesOption = (selectedId: string) => {
-    if (selectedFaculty) {
-      const st = taxesOptions[selectedFaculty].find(
-        ({ id }) => id.toString() === selectedId,
-      );
-
-      setSelectedFacultyTaxOption(st);
-      if (setTaxesOptionParent) {
-        setTaxesOptionParent(st);
-      }
-      if (!isAmountVariable && st) {
-        setValue(
-          amount,
-          st?.value as PathValue<TFielValues, Path<TFielValues>>,
-        );
-      }
-    } else {
-      setSelectedFacultyTaxOption(undefined);
-      if (setTaxesOptionParent) {
-        setTaxesOptionParent(undefined);
-      }
-      if (!isAmountVariable) {
-        setValue(amount, 0 as PathValue<TFielValues, Path<TFielValues>>);
-      }
-    }
-  };
-
-  const selectedFaculty = watch(facultyId).valueOf();
-  const selectedTax = watch(taxId).valueOf();
-  const selctedAmount = watch(amount).valueOf();
-
-  useEffect(() => {
-    if (selectedTax && selectedFacultyTaxOption) {
-      const maxAmount = selectedFacultyTaxOption?.value;
-      if (Number(selctedAmount) > maxAmount) {
-        setValue(
-          amount,
-          maxAmount as PathValue<TFielValues, Path<TFielValues>>,
-        );
-      }
-    }
-  }, [selectedTax, selctedAmount, setValue, selectedFacultyTaxOption, amount]);
+  const [
+    selectedFacultyTaxOption,
+    setSelectedFacultyTaxOption,
+    setTaxesOption,
+  ] = useSetEntityTaxOption<FacultyTaxOption, T>({
+    setValue,
+    watch,
+    selectedEntityId: selectedFaculty,
+    taxesOptions,
+    setTaxesOptionParent,
+    partialPay,
+  });
 
   const selectFacultyOptions = useMemo(
     () =>
@@ -181,6 +149,7 @@ function FacultyTaxesForm<TFielValues extends FacultyTaxesAmountFields>({
           name={taxId}
           control={control}
           rules={{ required: required.taxId }}
+          disabled={!selectedFaculty}
           render={({ field }) => (
             <div>
               <Select
@@ -198,6 +167,7 @@ function FacultyTaxesForm<TFielValues extends FacultyTaxesAmountFields>({
                     ? extraTaxOptions.tax
                     : extraTaxOptions.noFacultyTaxes
                 }
+                isDisabled={!selectedFaculty}
                 styles={{
                   control: (base, state) => ({
                     ...base,
