@@ -98,7 +98,7 @@
     "Dorms": {
       "RoomNumber": {
         "label": "Numărul camerei",
-        "rquired": "Numărul camerei este necesar",
+        "required": "Numărul camerei este necesar",
         "placeholder": "Numărul camerei",
         "pattern": "Numărul camerei trebuie să fie valid"
       },
