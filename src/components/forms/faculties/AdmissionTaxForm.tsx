@@ -6,7 +6,7 @@ import {
   FacultyTaxOption,
 } from "@/types/forms/faculties";
 import React, { useCallback } from "react";
-import { useForm, SubmitHandler, FormProvider } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import FacultyTaxesForm from "./FacultyTaxesForm";
 import ConsentToTermsForm from "../reusable/ConsentToTermsForm";
 import SubmitButton from "../reusable/SubmitButton";
@@ -14,6 +14,9 @@ import { submitAdmissionTaxForm } from "@/actions/forms";
 import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
 import BillingDetailsForm from "../reusable/BillingDetailsForm";
 import EuPlatescConsentForm from "../reusable/EuPlatescConsentForm";
+import PartialPayForm from "../reusable/PartialPayForm";
+import AmountForm from "../reusable/AmountForm";
+import useParentTaxOptions from "@/utils/forms/hooks/useParentTaxOptions";
 
 /**
  * `AdmissionForm` is a React component for handling the admission forms.
@@ -36,7 +39,6 @@ import EuPlatescConsentForm from "../reusable/EuPlatescConsentForm";
  */
 
 interface Props extends AdmissionFormTexts {
-  isAmountVariable?: boolean;
   facultyOptions: FacultyOption[];
   taxesOptions: Record<string, FacultyTaxOption[]>;
 }
@@ -50,6 +52,8 @@ const AdmissionForm = ({
   submitTexts,
   acceptEuPlatescTexts,
   recaptchaTexts,
+  partialPayTexts,
+  variableAmountTexts,
 }: Props) => {
   const {
     handleSubmit,
@@ -74,8 +78,11 @@ const AdmissionForm = ({
       amount: 0,
       consentEuPlatesc: false,
       recaptcha: "",
+      partialPay: false,
     },
   });
+
+  const partialPayValue = watch("partialPay");
 
   const onSubmit: SubmitHandler<AdmissionTaxFormData> = useCallback(
     async (data) => {
@@ -85,6 +92,12 @@ const AdmissionForm = ({
     [],
   );
 
+  const [selectedFacultyTaxOption, setSelectedFacultyTaxOption, disabled] =
+    useParentTaxOptions<FacultyTaxOption, AdmissionTaxFormData>({
+      watch,
+      entityId: "facultyId",
+      setValue,
+    });
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -99,28 +112,57 @@ const AdmissionForm = ({
           errors={errors}
           watch={watch}
           setValue={setValue}
+          setTaxesOptionParent={setSelectedFacultyTaxOption}
+          partialPay={partialPayValue}
         />
+
+        <PartialPayForm
+          register={register}
+          {...partialPayTexts}
+          disabled={disabled}
+        />
+        {partialPayValue && (
+          <AmountForm
+            control={control}
+            {...variableAmountTexts}
+            selectedEntityTaxOption={selectedFacultyTaxOption}
+            errors={errors}
+          />
+        )}
 
         <BillingDetailsForm
           {...billingTexts}
           errors={errors}
           register={register}
+          disabled={disabled}
+          renderAddress={true}
         />
 
         <ConsentToTermsForm
           {...agreeTexts}
           errors={errors}
           register={register}
+          disabled={disabled}
         />
         <EuPlatescConsentForm
           {...acceptEuPlatescTexts}
           errors={errors}
           register={register}
+          disabled={disabled}
         />
 
-        <ReCAPTCHAForm {...recaptchaTexts} control={control} errors={errors} />
+        <ReCAPTCHAForm
+          {...recaptchaTexts}
+          control={control}
+          errors={errors}
+          disabled={disabled}
+        />
         <div className="col-span-2 w-full text-center flex items-center justify-center">
-          <SubmitButton isSubmitting={isSubmitting} {...submitTexts} />
+          <SubmitButton
+            isSubmitting={isSubmitting}
+            {...submitTexts}
+            disabled={disabled}
+          />
         </div>
       </div>
     </form>
