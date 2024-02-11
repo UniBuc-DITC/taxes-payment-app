@@ -4,10 +4,13 @@ import {
 } from "@/types/forms/billingDetails";
 import { FieldErrors, Path, UseFormRegister } from "react-hook-form";
 import Input from "./Input";
+import { hasKey } from "@/utils/forms/functions";
 
 type Props<T extends BillingFormFields> = BillingFormTexts & {
   register: UseFormRegister<T>;
   errors: FieldErrors<T>;
+  renderAddress?: boolean;
+  disabled?: boolean;
 };
 
 export default function BillingDetailsForm<T extends BillingFormFields>({
@@ -17,7 +20,15 @@ export default function BillingDetailsForm<T extends BillingFormFields>({
   labels,
   errors,
   register,
+  renderAddress = false,
+  disabled,
 }: Props<T>) {
+  const shouldRenderAddress =
+    renderAddress &&
+    hasKey(required, "address") &&
+    hasKey(placeholders, "address") &&
+    hasKey(labels, "address");
+
   return (
     <>
       <Input<T>
@@ -28,6 +39,7 @@ export default function BillingDetailsForm<T extends BillingFormFields>({
         required={required.firstName}
         placeholder={placeholders.firstName}
         errors={errors}
+        disabled={disabled}
       />
 
       <Input<T>
@@ -38,6 +50,7 @@ export default function BillingDetailsForm<T extends BillingFormFields>({
         required={required.lastName}
         placeholder={placeholders.lastName}
         errors={errors}
+        disabled={disabled}
       />
 
       <Input<T>
@@ -48,6 +61,7 @@ export default function BillingDetailsForm<T extends BillingFormFields>({
         required={required.city}
         placeholder={placeholders.city}
         errors={errors}
+        disabled={disabled}
       />
 
       <Input<T>
@@ -58,17 +72,20 @@ export default function BillingDetailsForm<T extends BillingFormFields>({
         required={required.country}
         placeholder={placeholders.country}
         errors={errors}
+        disabled={disabled}
       />
-
-      <Input<T>
-        id="address"
-        label={labels.address}
-        name={"address" as Path<T>}
-        register={register}
-        required={required.address}
-        placeholder={placeholders.address}
-        errors={errors}
-      />
+      {shouldRenderAddress && (
+        <Input<T>
+          id="address"
+          label={labels.address}
+          name={"address" as Path<T>}
+          register={register}
+          required={required.address}
+          placeholder={placeholders.address}
+          errors={errors}
+          disabled={disabled}
+        />
+      )}
 
       <Input<T>
         id="numericalCode"
@@ -84,6 +101,7 @@ export default function BillingDetailsForm<T extends BillingFormFields>({
             message: patterns.numericalCode,
           },
         }}
+        disabled={disabled}
       />
 
       <Input<T>
@@ -100,6 +118,7 @@ export default function BillingDetailsForm<T extends BillingFormFields>({
             message: patterns.email,
           },
         }}
+        disabled={disabled}
       />
 
       <Input<T>
@@ -116,6 +135,7 @@ export default function BillingDetailsForm<T extends BillingFormFields>({
             message: patterns.phoneNumber,
           },
         }}
+        disabled={disabled}
       />
     </>
   );
