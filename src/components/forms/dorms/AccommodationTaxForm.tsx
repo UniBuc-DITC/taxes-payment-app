@@ -6,7 +6,7 @@ import {
   DormTaxOption,
   AccommodationTaxFormTexts,
 } from "@/types/forms/dorms";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import DormTaxesForm from "./DormTaxesForm";
 import MonthsForm from "./MonthsForm";
@@ -16,6 +16,10 @@ import SubmitButton from "../reusable/SubmitButton";
 import { submitAccomodationTaxForm } from "@/actions/forms";
 import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
 import BillingDetailsForm from "../reusable/BillingDetailsForm";
+import PartialPayForm from "../reusable/PartialPayForm";
+import AmountForm from "../reusable/AmountForm";
+import DormRoomForm from "./DormRoomForm";
+import useParentTaxOptions from "@/utils/forms/hooks/useParentTaxOptions";
 
 /**
  * `AccommodationTaxForm` is a React component for handling the student dorm accommodation tax form.
@@ -51,6 +55,9 @@ export default function AccommodationTaxForm({
   acceptEuPlatescTexts,
   monthTexts,
   recaptchaTexts,
+  variableAmountTexts,
+  partialPayTexts,
+  dormRoomNumberTexts,
 }: Props) {
   const {
     handleSubmit,
@@ -66,7 +73,6 @@ export default function AccommodationTaxForm({
       city: "",
       numericalCode: "",
       country: "",
-      address: "",
       email: "",
       phoneNumber: "",
       consentToTerms: false,
@@ -76,8 +82,11 @@ export default function AccommodationTaxForm({
       month: "",
       amount: 0,
       recaptcha: "",
+      partialPay: false,
+      dormRoomNumber: 0,
     },
   });
+  const partialPayValue = watch("partialPay");
 
   const onSubmit: SubmitHandler<AccommodationTaxFormData> = useCallback(
     async (data) => {
@@ -86,6 +95,12 @@ export default function AccommodationTaxForm({
     },
     [],
   );
+  const [selectedDormTaxOption, setSelectedDormTaxOption, disabled] =
+    useParentTaxOptions<DormTaxOption, AccommodationTaxFormData>({
+      watch,
+      entityId: "dormId",
+      setValue,
+    });
 
   return (
     <form
@@ -97,32 +112,73 @@ export default function AccommodationTaxForm({
           dormOptions={dormOptions}
           taxesOptions={taxesOptions}
           {...dormTaxesTexts}
+          setTaxesOptionParent={setSelectedDormTaxOption}
+          partialPay={partialPayValue}
           control={control}
           watch={watch}
           setValue={setValue}
           errors={errors}
         />
+        <PartialPayForm
+          register={register}
+          {...partialPayTexts}
+          disabled={disabled}
+        />
+        {partialPayValue && (
+          <AmountForm
+            control={control}
+            {...variableAmountTexts}
+            selectedEntityTaxOption={selectedDormTaxOption}
+            errors={errors}
+          />
+        )}
+        <div className="col-span-2 w-full">
+          <DormRoomForm
+            errors={errors}
+            register={register}
+            {...dormRoomNumberTexts}
+            disabled={disabled}
+          />
+        </div>
         <div className="col-span-2 w-full text-center flex items-center justify-center my-8 md:justify-start">
-          <MonthsForm {...monthTexts} control={control} errors={errors} />
+          <MonthsForm
+            {...monthTexts}
+            control={control}
+            errors={errors}
+            disabled={disabled}
+          />
         </div>
         <BillingDetailsForm
           {...billingTexts}
           errors={errors}
           register={register}
+          renderAddress={false}
+          disabled={disabled}
         />
         <ConsentToTermsForm
           {...agreeTexts}
           errors={errors}
           register={register}
+          disabled={disabled}
         />
         <EuPlatescConsentForm
           {...acceptEuPlatescTexts}
           errors={errors}
           register={register}
+          disabled={disabled}
         />
-        <ReCAPTCHAForm {...recaptchaTexts} control={control} errors={errors} />
+        <ReCAPTCHAForm
+          {...recaptchaTexts}
+          control={control}
+          errors={errors}
+          disabled={disabled}
+        />
         <div className="col-span-2 w-full text-center flex items-center justify-center">
-          <SubmitButton isSubmitting={isSubmitting} {...submitTexts} />
+          <SubmitButton
+            isSubmitting={isSubmitting}
+            {...submitTexts}
+            disabled={disabled}
+          />
         </div>
       </div>
     </form>
