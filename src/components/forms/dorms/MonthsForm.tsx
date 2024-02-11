@@ -1,12 +1,6 @@
 import { MonthField, MonthSelectTexts } from "@/types/forms/month";
 import { useMemo } from "react";
-import {
-  Control,
-  Controller,
-  FieldErrors,
-  Path,
-  useFormContext,
-} from "react-hook-form";
+import { Control, Controller, FieldErrors, Path } from "react-hook-form";
 import Select from "react-select";
 
 /**
@@ -25,6 +19,7 @@ import Select from "react-select";
 type Props<T extends MonthField> = MonthSelectTexts & {
   errors: FieldErrors<T>;
   control: Control<T>;
+  disabled?: boolean;
 };
 
 export default function MonthsForm<T extends MonthField>({
@@ -35,19 +30,35 @@ export default function MonthsForm<T extends MonthField>({
   required,
   control,
   errors,
+  disabled,
 }: Props<T>) {
   const currentMonth = new Date().getMonth() + 1;
   const availableMonths = useMemo(() => {
-    return monthOptions.filter(
-      (month) => parseInt(month.value) <= currentMonth,
-    );
+    const sortedMonths = monthOptions
+      .filter(({ value }) => {
+        const monthValue = parseInt(value);
+        const normalizedMonth =
+          monthValue > currentMonth ? monthValue - 12 : monthValue;
+        return (
+          normalizedMonth > currentMonth - 4 && normalizedMonth <= currentMonth
+        );
+      })
+      .sort((a, b) => {
+        const aValue = parseInt(a.value);
+        const bValue = parseInt(b.value);
+        const adjustedA = aValue >= 11 ? aValue - 12 : aValue;
+        const adjustedB = bValue >= 11 ? bValue - 12 : bValue;
+        return adjustedA - adjustedB;
+      });
+
+    return sortedMonths;
   }, [monthOptions, currentMonth]);
 
   return (
     <div className="relative flex-col items-start">
       <div className=" flex  flex-col md:flex-row items-center w-full gap-2">
         <label htmlFor="month" className="text-sm font-medium text-gray-700">
-          {label}
+          {`(${label})`}
           {extra && <span className="ms-1">{extra}</span>}
         </label>
         <Controller
@@ -64,6 +75,7 @@ export default function MonthsForm<T extends MonthField>({
                 value={availableMonths.find((c) => c.value === field.value)}
                 onChange={(val) => field?.onChange(val?.value)}
                 placeholder={noMonth}
+                isDisabled={disabled}
                 styles={{
                   control: (base, state) => ({
                     ...base,
