@@ -20,6 +20,7 @@ import { Controller, Control, Path, FieldErrors } from "react-hook-form";
 type Props<T extends ReCAPTCHAInput> = ReCAPTCHATexts & {
   control: Control<T>;
   errors: FieldErrors<T>;
+  disabled?: boolean;
 };
 
 export default function ReCAPTCHAForm<T extends ReCAPTCHAInput>({
@@ -27,12 +28,13 @@ export default function ReCAPTCHAForm<T extends ReCAPTCHAInput>({
   validate,
   control,
   errors,
+  disabled,
 }: Props<T>) {
   const recaptchaRef = useRef<ReCAPTCHA>(null);
   const locale = useLocale();
 
   if (!process.env.NEXT_PUBLIC_RECAPTCHA) {
-    return;
+    return null;
   }
   return (
     <div>
@@ -48,16 +50,23 @@ export default function ReCAPTCHAForm<T extends ReCAPTCHAInput>({
             return (await validateReCAPTCHA(value)) || validate;
           },
         }}
+        disabled={disabled}
         render={({ field }) => (
-          <ReCAPTCHA
-            ref={recaptchaRef}
-            size="normal"
-            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA!}
-            onChange={field.onChange}
-            hl={locale}
-          />
+          <div className="relative">
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              size="normal"
+              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA!}
+              onChange={field.onChange}
+              hl={locale}
+            />
+            {disabled && (
+              <div className="absolute inset-0 z-10 bg-white bg-opacity-50 " />
+            )}
+          </div>
         )}
       />
+
       {errors.recaptcha && (
         <span
           className={`text-xs text-red-500 ${
