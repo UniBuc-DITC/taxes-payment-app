@@ -22,6 +22,7 @@ import ConsentCheckbox from "./ConsentCheckbox";
 type Props<T extends EuPlatescFormFields> = RequiredCheckboxTexts & {
   register: UseFormRegister<T>;
   errors: FieldErrors<T>;
+  disabled?: boolean;
 };
 
 function EuPlatescConsentForm<T extends EuPlatescFormFields>({
@@ -29,6 +30,7 @@ function EuPlatescConsentForm<T extends EuPlatescFormFields>({
   required,
   errors,
   register,
+  disabled,
 }: Props<T>) {
   return (
     <ConsentCheckbox<T>
@@ -38,6 +40,7 @@ function EuPlatescConsentForm<T extends EuPlatescFormFields>({
       register={register}
       required={required}
       label={terms}
+      disabled={disabled}
     />
   );
 }
