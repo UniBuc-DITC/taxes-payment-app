@@ -55,6 +55,12 @@ docker compose up
 
   This step is required after every schema change, because the Prisma client is dynamically generated and stored in a subdirectory of the `node_modules` folder, which is not commited into version control.
 
+- To seed the database with some fake data for development purposes:
+
+  ```bash
+  npm run seed:dev
+  ```
+
 ### Authentification config
 
 The app uses [NextAuth.js](https://next-auth.js.org/) to provide support for authentication using [Microsoft Entra ID (formerly Azure AD)](https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id). In development, you have to create a `.env.local` file in the root directory and define the following environment variables:
