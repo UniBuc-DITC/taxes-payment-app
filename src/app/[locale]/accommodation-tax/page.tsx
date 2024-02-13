@@ -12,14 +12,14 @@ export default async function AccommodationTaxPage({
   params: { locale },
 }: Props) {
   unstable_setRequestLocale(locale);
-  const [dorms, dromsText] = await Promise.all([
+  const [dorms, dormsText] = await Promise.all([
     getDormsWithTax(),
     getDormFormTexts(),
   ]);
   const formTaxesOptions = createDormTaxOptions(dorms, locale);
   return (
     <div>
-      <AccommodationTaxForm {...formTaxesOptions} {...dromsText} />
+      <AccommodationTaxForm {...formTaxesOptions} {...dormsText} />
     </div>
   );
 }

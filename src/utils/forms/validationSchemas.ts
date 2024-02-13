@@ -68,7 +68,7 @@ export const tuitionTaxFormSchema = z
   .and(admissionTaxFormSchema);
 
 /**
- * @param dromId -  the student dorm id that is selected from the form
+ * @param dormId -  the student dorm id that is selected from the form
  * @param month - the month number selected in the form in the range of [1,12]
  */
 export const accomodationTaxSchema = z
