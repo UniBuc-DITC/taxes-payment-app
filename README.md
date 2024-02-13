@@ -68,7 +68,7 @@ The app uses [NextAuth.js](https://next-auth.js.org/) to provide support for aut
 ```
 AZURE_AD_TENANT_ID=<ID of tenant in which app resides>
 AZURE_AD_CLIENT_ID=<client ID of app registration>
-AZURE_AD_CLIENT_SECRET<client secret created for app>
+AZURE_AD_CLIENT_SECRET=<client secret created for app>
 ```
 
 ### ReCAPTCHA config
