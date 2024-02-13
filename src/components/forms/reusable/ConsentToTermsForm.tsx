@@ -33,7 +33,7 @@ function ConsentToTermsForm<T extends ConsentTermsFormFields>({
   disabled,
 }: Props<T>) {
   return (
-    <ConsentCheckbox<T>
+    <ConsentCheckbox
       errors={errors}
       id="consentToTerms"
       name={"consentToTerms" as Path<T>}

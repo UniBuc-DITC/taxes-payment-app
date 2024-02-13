@@ -14,7 +14,7 @@ export default function PartialPayForm<T extends PartialPayField>({
   disabled,
 }: Props<T>) {
   return (
-    <ConsentCheckbox<T>
+    <ConsentCheckbox
       id="partialPay"
       name={"partialPay" as Path<T>}
       register={register}

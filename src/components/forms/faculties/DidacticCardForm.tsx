@@ -32,7 +32,7 @@ function DidacticCardForm<T extends DidacticFormFields>({
 }: Props<T>) {
   return (
     <>
-      <ConsentCheckbox<T>
+      <ConsentCheckbox
         id="didacticPremiumCardOnly"
         name={"didacticPremiumCardOnly" as Path<T>}
         register={register}

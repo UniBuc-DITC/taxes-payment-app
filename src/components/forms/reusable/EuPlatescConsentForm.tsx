@@ -33,7 +33,7 @@ function EuPlatescConsentForm<T extends EuPlatescFormFields>({
   disabled,
 }: Props<T>) {
   return (
-    <ConsentCheckbox<T>
+    <ConsentCheckbox
       errors={errors}
       id="consentEuPlatesc"
       name={"consentEuPlatesc" as Path<T>}
