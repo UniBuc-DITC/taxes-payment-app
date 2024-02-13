@@ -31,7 +31,7 @@ export default function BillingDetailsForm<T extends BillingFormFields>({
 
   return (
     <>
-      <Input<T>
+      <Input
         id="firstName"
         label={labels.firstName}
         name={"firstName" as Path<T>}
@@ -42,7 +42,7 @@ export default function BillingDetailsForm<T extends BillingFormFields>({
         disabled={disabled}
       />
 
-      <Input<T>
+      <Input
         id="lastName"
         label={labels.lastName}
         name={"lastName" as Path<T>}
@@ -53,7 +53,7 @@ export default function BillingDetailsForm<T extends BillingFormFields>({
         disabled={disabled}
       />
 
-      <Input<T>
+      <Input
         id="city"
         label={labels.city}
         name={"city" as Path<T>}
@@ -64,7 +64,7 @@ export default function BillingDetailsForm<T extends BillingFormFields>({
         disabled={disabled}
       />
 
-      <Input<T>
+      <Input
         id="country"
         label={labels.country}
         name={"country" as Path<T>}
@@ -75,7 +75,7 @@ export default function BillingDetailsForm<T extends BillingFormFields>({
         disabled={disabled}
       />
       {shouldRenderAddress && (
-        <Input<T>
+        <Input
           id="address"
           label={labels.address}
           name={"address" as Path<T>}
@@ -87,7 +87,7 @@ export default function BillingDetailsForm<T extends BillingFormFields>({
         />
       )}
 
-      <Input<T>
+      <Input
         id="numericalCode"
         label={labels.numericalCode}
         name={"numericalCode" as Path<T>}
@@ -104,7 +104,7 @@ export default function BillingDetailsForm<T extends BillingFormFields>({
         disabled={disabled}
       />
 
-      <Input<T>
+      <Input
         id="email"
         label={labels.email}
         name={"email" as Path<T>}
@@ -121,7 +121,7 @@ export default function BillingDetailsForm<T extends BillingFormFields>({
         disabled={disabled}
       />
 
-      <Input<T>
+      <Input
         id="phoneNumber"
         label={labels.phoneNumber}
         name={"phoneNumber" as Path<T>}

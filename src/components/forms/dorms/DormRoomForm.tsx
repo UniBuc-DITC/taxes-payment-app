@@ -19,7 +19,7 @@ export default function DormRoomForm<T extends DormRoomNumberField>({
   disabled,
 }: DormRoomFormProps<T>) {
   return (
-    <Input<T>
+    <Input
       id="dormRoomNumber"
       label={label}
       name={"dormRoomNumber" as Path<T>}
