@@ -14,7 +14,7 @@
     "prisma:push": "dotenv -e .env.development -- npx prisma db push",
     "prisma:migrate": "dotenv -e .env.development -- npx prisma migrate dev",
     "prisma:generate": "dotenv -e .env.development -- npx prisma generate",
-    "seed:dev": "ts-node --project tsconfig.seed.json prisma/seed-dev.ts"
+    "seed:dev": "dotenv -e .env.development -- ts-node --project tsconfig.seed.json prisma/seed-dev.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.8.0",
