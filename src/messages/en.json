@@ -9,5 +9,134 @@
       "callbackError": "Only authorized users are allowed to log into the admin interface of the app",
       "otherError": "Ooops, something went wrong :("
     }
+  },
+  "Forms": {
+    "BillingDetails": {
+      "required": {
+        "firstName": "First name is required",
+        "lastName": "Last name is required",
+        "city": "City is required",
+        "country": "Country is required",
+        "address": "Address is required",
+        "numericalCode": "Numerical code is required",
+        "email": "Email is required",
+        "phoneNumber": "Phone number is required"
+      },
+      "placeholders": {
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "city": "City",
+        "country": "Country",
+        "address": "Address",
+        "numericalCode": "Numerical code",
+        "email": "Email",
+        "phoneNumber": "Phone Number"
+      },
+      "labels": {
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "city": "City",
+        "country": "Country",
+        "address": "Address",
+        "numericalCode": "Numerical code",
+        "email": "Email",
+        "phoneNumber": "Phone Number"
+      },
+      "patterns": {
+        "numericalCode": "Numerical code must be only numbers",
+        "email": "Enter a valid email",
+        "phoneNumber": "Phone number must be only numbers"
+      }
+    },
+    "ConsentTerms": {
+      "terms": "I agree with the <link>terms and conditions</link>",
+      "required": "You must aceept the payment terms and conditions"
+    },
+    "ConsentEuPlatesc": {
+      "terms": "I accept Eu Platesc <link>terms and conditions</link>",
+      "required": "You must aceept Eu Platesc"
+    },
+    "ReCAPTCHA": {
+      "required": "Please ensure us that you are not a robot",
+      "validate": "Please remake the reCAPTCHA validatio"
+    },
+    "Btn": {
+      "text": "Submit",
+      "loadingText": "Processing..."
+    },
+    "Faculties": {
+      "Amount": {
+        "required": {
+          "amount": "Amount is required"
+        },
+        "labels": {
+          "amount": "Amount"
+        },
+        "validate": {
+          "amount": "Minimum value is 100"
+        }
+      },
+      "DidacticPremiumCard": {
+        "text": "I want to pay with the didactic premium card"
+      },
+      "FacultyTaxes": {
+        "required": {
+          "faculty": "Faculty is required",
+          "tax": "Tax is required"
+        },
+        "labels": {
+          "faculty": "Faculty",
+          "tax": "Taxes"
+        },
+        "extraTaxOptions": {
+          "faculty": "Select a faculty",
+          "tax": "Select a tax",
+          "noFacultyTaxes": "Select a faculty first"
+        }
+      }
+    },
+    "Dorms": {
+      "RoomNumber": {
+        "label": "Room number",
+        "required": "Room number is required",
+        "placeholder": "Room number",
+        "pattern": "Room number must be valid"
+      },
+      "AccommodationTaxesForm": {
+        "required": {
+          "dorm": "Student dorm is required",
+          "tax": "Tax is required"
+        },
+        "extraTaxOptions": {
+          "dorm": "Select a student dorm",
+          "noDormTaxes": "First select a student dorm",
+          "tax": "Select a tax"
+        },
+        "labels": { "dorm": "Student Dorms", "tax": "Taxes" }
+      },
+      "PartialPay": {
+        "label": "I want to opt for partial payment"
+      },
+      "MonthTexts": {
+        "label": "Month",
+        "noMonth": "Select a month",
+        "required": "Month is required",
+        "extra": "The month for which you pay",
+        "MonthOptions": {
+          "january": "January",
+          "february": "February",
+          "march": "March",
+          "april": "April",
+          "may": "May",
+          "june": "June",
+          "july": "July",
+          "august": "August",
+          "september": "September",
+          "october": "October",
+          "november": "November",
+          "december": "December"
+        }
+      }
+    }
   }
 }

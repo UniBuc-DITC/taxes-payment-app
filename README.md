@@ -55,6 +55,12 @@ docker compose up
 
   This step is required after every schema change, because the Prisma client is dynamically generated and stored in a subdirectory of the `node_modules` folder, which is not commited into version control.
 
+- To seed the database with some fake data for development purposes:
+
+  ```bash
+  npm run seed:dev
+  ```
+
 ### Authentification config
 
 The app uses [NextAuth.js](https://next-auth.js.org/) to provide support for authentication using [Microsoft Entra ID (formerly Azure AD)](https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id). In development, you have to create a `.env.local` file in the root directory and define the following environment variables:
@@ -62,7 +68,16 @@ The app uses [NextAuth.js](https://next-auth.js.org/) to provide support for aut
 ```
 AZURE_AD_TENANT_ID=<ID of tenant in which app resides>
 AZURE_AD_CLIENT_ID=<client ID of app registration>
-AZURE_AD_CLIENT_SECRET<client secret created for app>
+AZURE_AD_CLIENT_SECRET=<client secret created for app>
+```
+
+### ReCAPTCHA config
+
+The app utilizes [Google ReCAPTCHA v2 Checkbox](https://developers.google.com/recaptcha/docs/display). In development, please add the following keys to your `.env.local` file:
+
+```
+NEXT_PUBLIC_RECAPTCHA=<The site/public key>
+RECAPTCHA_SERVER=<Your private key for verifying the reCAPTCHA token>
 ```
 
 ### Useful development commands
@@ -95,4 +110,6 @@ NEXTAUTH_SECRET=<cryptographically secure secret key, to be used for encryption>
 AZURE_AD_TENANT_ID=<ID of tenant in which app resides>
 AZURE_AD_CLIENT_ID=<client ID of app registration>
 AZURE_AD_CLIENT_SECRET<client secret created for app>
+NEXT_PUBLIC_RECAPTCHA=<The site/public key>
+RECAPTCHA_SERVER=<Your private key for verifying the reCAPTCHA token>
 ```

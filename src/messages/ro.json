@@ -9,5 +9,137 @@
       "callbackError": "Doar utilizatorii autorizați au permisiunea de a se conecta la interfața de administrare a aplicației",
       "otherError": "Hopa, ceva nu a funcționat corect :("
     }
+  },
+  "Forms": {
+    "BillingDetails": {
+      "required": {
+        "firstName": "Prenumele este necesar",
+        "lastName": "Numele de familie este necesar",
+        "city": "Orașul este necesar",
+        "country": "Țara este necesară",
+        "address": "Adresa este necesară",
+        "numericalCode": "Codul numeric este necesar",
+        "email": "Emailul este necesar",
+        "phoneNumber": "Numărul de telefon este necesar"
+      },
+      "placeholders": {
+        "firstName": "Prenume",
+        "lastName": "Nume de familie",
+        "city": "Oraș",
+        "country": "Țară",
+        "address": "Adresă",
+        "numericalCode": "Cod numeric",
+        "email": "Email",
+        "phoneNumber": "Număr de telefon"
+      },
+      "labels": {
+        "firstName": "Prenume",
+        "lastName": "Nume de familie",
+        "city": "Oraș",
+        "country": "Țară",
+        "address": "Adresă",
+        "numericalCode": "Cod numeric",
+        "email": "Email",
+        "phoneNumber": "Număr de telefon"
+      },
+      "patterns": {
+        "numericalCode": "Codul numeric trebuie să fie doar numere",
+        "email": "Introduceți un email valid",
+        "phoneNumber": "Numărul de telefon trebuie să fie doar numere"
+      }
+    },
+    "ConsentTerms": {
+      "terms": "Sunt de acord cu <link>termenii și condițiile</link>",
+      "required": "Trebuie să fii de acord cu termenii și condițiile"
+    },
+    "ConsentEuPlatesc": {
+      "terms": "Sunt de acord cu <link>termenii și condițiile</link> pentru Eu Platesc",
+      "required": "Trebuie să accepți Eu Platesc"
+    },
+    "ReCAPTCHA": {
+      "required": "Vă rugăm să ne asigurați că nu sunteți un robot",
+      "validate": "Vă rugăm să efectuați din nou validarea reCAPTCHA"
+    },
+    "Btn": {
+      "text": "Trimite",
+      "loadingText": "În procesare..."
+    },
+    "Faculties": {
+      "Amount": {
+        "required": {
+          "amount": "Suma este obligatorie"
+        },
+        "labels": {
+          "amount": "Sumă"
+        },
+        "validate": {
+          "amount": "Suma minima este 100"
+        }
+      },
+      "DidacticPremiumCard": {
+        "text": "Vreau să plătesc cu cardul de primă didactică"
+      },
+      "FacultyTaxes": {
+        "required": {
+          "faculty": "Facultatea este necesară",
+          "tax": "Taxa este necesară"
+        },
+        "labels": {
+          "faculty": "Facultate",
+          "tax": "Taxe"
+        },
+        "extraTaxOptions": {
+          "faculty": "Selectați o facultate",
+          "tax": "Selectați o taxă",
+          "noFacultyTaxes": "Selectați mai întâi o facultate"
+        }
+      }
+    },
+    "Dorms": {
+      "RoomNumber": {
+        "label": "Numărul camerei",
+        "required": "Numărul camerei este necesar",
+        "placeholder": "Numărul camerei",
+        "pattern": "Numărul camerei trebuie să fie valid"
+      },
+      "AccommodationTaxesForm": {
+        "required": {
+          "dorm": "Căminul studențesc este necesar",
+          "tax": "Taxa este necesară"
+        },
+        "extraTaxOptions": {
+          "dorm": "Selectați un cămin studențesc",
+          "noDormTaxes": "Selectați mai întâi un cămin studențesc",
+          "tax": "Selectați o taxă"
+        },
+        "labels": {
+          "dorm": "Cămine Studentești",
+          "tax": "Taxe"
+        }
+      },
+      "PartialPay": {
+        "label": "Vreau să optez pentru plata parțiala"
+      },
+      "MonthTexts": {
+        "label": "Luna",
+        "noMonth": "Selectați o lună",
+        "required": "Luna este necesară",
+        "extra": "Luna pentru care efectuați plata",
+        "MonthOptions": {
+          "january": "Ianuarie",
+          "february": "Februarie",
+          "march": "Martie",
+          "april": "Aprilie",
+          "may": "Mai",
+          "june": "Iunie",
+          "july": "Iulie",
+          "august": "August",
+          "september": "Septembrie",
+          "october": "Octombrie",
+          "november": "Noiembrie",
+          "december": "Decembrie"
+        }
+      }
+    }
   }
 }

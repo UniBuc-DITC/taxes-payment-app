@@ -61,7 +61,7 @@ enum StudyCycle {
   bachelors
   masters
   doctorate
-  postuniversitary
+  postgraduate  
 }
 
 enum FacultyTaxType {
