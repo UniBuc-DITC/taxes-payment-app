@@ -28,7 +28,6 @@ export default function useParentTaxOptions<
 
   const [selectedEntityTaxOption, setSelectedEntityTaxOption] = useState<K>();
 
-
   useEffect(() => {
     if (!partialPayValue && selectedEntityTaxOption) {
       setValue(
