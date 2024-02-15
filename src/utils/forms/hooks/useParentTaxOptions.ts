@@ -24,20 +24,10 @@ export default function useParentTaxOptions<
 }: Args<T>): [K | undefined, Dispatch<SetStateAction<K | undefined>>, boolean] {
   const amountId = "amount" as Path<T>;
   const partialPayValue = watch("partialPay" as Path<T>);
-  const amountValue = watch(amountId);
   const disabled = !watch(entityId) || !watch("taxId" as Path<T>);
 
   const [selectedEntityTaxOption, setSelectedEntityTaxOption] = useState<K>();
 
-  useEffect(() => {
-    if (
-      partialPayValue &&
-      selectedEntityTaxOption &&
-      amountValue === selectedEntityTaxOption.value
-    ) {
-      setValue(amountId, 100 as PathValue<T, Path<T>>);
-    }
-  }, [amountValue, partialPayValue, selectedEntityTaxOption, setValue]);
 
   useEffect(() => {
     if (!partialPayValue && selectedEntityTaxOption) {
