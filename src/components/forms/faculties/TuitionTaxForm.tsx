@@ -19,6 +19,7 @@ import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
 import BillingDetailsForm from "../reusable/BillingDetailsForm";
 import PartialPayForm from "../reusable/PartialPayForm";
 import useParentTaxOptions from "@/utils/forms/hooks/useParentTaxOptions";
+import useSetPartialPayDidacticCard from "@/utils/forms/hooks/useSetPartialPayDidacticCard";
 
 /**
  * `TuitionForm` is a React component for managing and submitting admission forms.
@@ -98,6 +99,12 @@ export default function TuitionForm({
       setValue,
     });
 
+  const [didacticPremiumCardOnlyValue] =
+    useSetPartialPayDidacticCard<TuitionTaxFormData>({
+      watch,
+      setValue,
+    });
+
   const onSubmit: SubmitHandler<TuitionTaxFormData> = useCallback(
     async (data) => {
       try {
@@ -131,7 +138,7 @@ export default function TuitionForm({
         <PartialPayForm
           register={register}
           {...partialPayTexts}
-          disabled={disabled}
+          disabled={disabled || didacticPremiumCardOnlyValue}
         />
         <DidacticCardForm
           errors={errors}

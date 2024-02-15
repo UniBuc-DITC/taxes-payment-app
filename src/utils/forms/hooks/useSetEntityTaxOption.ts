@@ -39,7 +39,6 @@ export default function useSetEntityTaxOption<
 
   const taxId = "taxId" as Path<T>;
   const amount = "amount" as Path<T>;
-  const partialPayId = "partialPay" as Path<T>;
 
   const selectedTax = watch(taxId)?.valueOf()?.toString();
   const selctedAmount = Number(watch(amount)?.valueOf()?.toString());
@@ -49,7 +48,6 @@ export default function useSetEntityTaxOption<
       const maxAmount = selectedEntityTaxOption?.value;
       if (Number(selctedAmount) >= maxAmount) {
         setValue(amount, maxAmount as PathValue<T, Path<T>>);
-        setValue(partialPayId, false as PathValue<T, Path<T>>);
       }
     }
   }, [selectedTax, selctedAmount, setValue, selectedEntityTaxOption, amount]);
