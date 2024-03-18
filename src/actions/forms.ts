@@ -6,8 +6,8 @@ import {
   TuitionTaxFormData,
 } from "@/types/forms/faculties";
 import {
-  admissionTaxFormSchema,
   accomodationTaxSchema,
+  admissionTaxFormSchema,
   tuitionTaxFormSchema,
 } from "@/utils/forms/validationSchemas";
 
@@ -40,6 +40,7 @@ export async function validateReCAPTCHA(token: string): Promise<boolean> {
 export interface FormActionResponse {
   success: boolean;
 }
+
 export async function submitAdmissionTaxForm(
   formData: AdmissionTaxFormData,
 ): Promise<FormActionResponse> {
@@ -52,6 +53,7 @@ export async function submitAdmissionTaxForm(
     return { success: false };
   }
   console.log(validate.data);
+
   // revalidate admin path
   // redirect to success page
   return { success: true };

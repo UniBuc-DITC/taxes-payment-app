@@ -1,4 +1,4 @@
-import { validateReCAPTCHA } from "@/actions/forms";
+import { validateReCAPTCHA } from "@/actions/recaptcha";
 import { ReCAPTCHAInput, ReCAPTCHATexts } from "@/types/forms/agreements";
 import { useParams } from "next/navigation";
 import React, { useRef } from "react";
