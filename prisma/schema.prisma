@@ -68,6 +68,54 @@ enum FacultyTaxType {
   tuition
 }
 
+enum TransactionStatus {
+  initiated
+  succeded
+  failed
+}
+
+model User {
+  id              Int    @id @default(autoincrement())
+  azureAdObjectId String @unique @map("azure_ad_object_id")
+  role            Role
+
+  @@map("users")
+}
+
+model EuPlatescAccount {
+  id                      Int           @id @default(autoincrement())
+  name                    String
+  description             String?
+  merchantId              Int           @unique @map("merchant_id")
+  secretKey               String        @map("secret_key")
+  didacticPremiumCardOnly Boolean       @map("didactic_premium_card_only")
+  faculties               Faculty[]
+  studentDorms            StudentDorm[]
+
+  @@map("euplatesc_accounts")
+}
+
+model Faculty {
+  id                 Int               @id @default(autoincrement())
+  nameRo             String            @map("name_ro")
+  nameEn             String            @map("name_en")
+  euplatescAccountId Int?              @map("euplatesc_account_id")
+  euPlatescAccount   EuPlatescAccount? @relation(fields: [euplatescAccountId], references: [id])
+  facultyTaxValues   FacultyTaxValue[]
+
+  @@map("faculties")
+}
+
+model StudentDorm {
+  id                   Int                   @id @default(autoincrement())
+  name                 String
+  euplatescAccountId   Int?                  @map("euplatesc_account_id")
+  euPlatescAccount     EuPlatescAccount?     @relation(fields: [euplatescAccountId], references: [id])
+  studentDormTaxValues StudentDormTaxValue[]
+
+  @@map("student_dorms")
+}
+
 model FacultyTaxValue {
   id             Int            @id @default(autoincrement())
   value          Decimal
@@ -92,15 +140,9 @@ model StudentDormTaxValue {
   @@map("student_dorm_tax_values")
 }
 
-enum TransactionStatus {
-  initiated
-  succeded
-  failed
-}
-
 model Transaction {
   id             Int               @id @default(autoincrement())
-  epid           String            @unique
+  epid           String
   status         TransactionStatus
   description    String
   value          Decimal
@@ -109,10 +151,10 @@ model Transaction {
   personalIdCode String            @map("personal_id_code")
   country        String
   city           String
+  address        String
   phoneNumber    String            @map("phone_number")
   emailAddress   String            @map("email_address")
   createdAt      DateTime          @map("created_at")
-  updatedAt      DateTime          @map("updated_at")
 
   @@map("transactions")
 }
