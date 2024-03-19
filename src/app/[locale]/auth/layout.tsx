@@ -1,3 +1,4 @@
+
 import { NextIntlClientProvider, useMessages } from "next-intl";
 
 type LayoutProps = {
@@ -14,8 +15,8 @@ export default function AuthLayout({
   const messages = useMessages();
 
   return (
-    <NextIntlClientProvider locale={locale} messages={messages}>
-      {children}
-    </NextIntlClientProvider>
+      <NextIntlClientProvider locale={locale} messages={messages}>
+        {children}
+      </NextIntlClientProvider>
   );
 }

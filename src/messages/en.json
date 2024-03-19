@@ -112,7 +112,10 @@
           "noDormTaxes": "First select a student dorm",
           "tax": "Select a tax"
         },
-        "labels": { "dorm": "Student Dorms", "tax": "Taxes" }
+        "labels": {
+          "dorm": "Student Dorms",
+          "tax": "Taxes"
+        }
       },
       "PartialPay": {
         "label": "I want to opt for partial payment"
@@ -136,7 +139,14 @@
           "november": "November",
           "december": "December"
         }
-      }
+      },
+      "DormitoryAdmin" : {
+        "dormitoryManagement": "Dormitory Management",
+        "addNewDormitory": "Add New Dormitory",
+        "edit": "Edit",
+        "delete": "Delete"
+        }
     }
+    
   }
 }

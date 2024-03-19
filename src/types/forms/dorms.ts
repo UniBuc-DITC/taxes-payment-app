@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import { InputBaseTexts, Option, OptionWithId, TaxField } from "./reusable";
+import { InputBaseTexts, OptionWithId, TaxField } from "./reusable";
 import { BillingFormFields, BillingFormTexts } from "./billingDetails";
 import { MonthSelectTexts } from "./month";
 import { SubmitButtonTexts } from "./submitBtn";

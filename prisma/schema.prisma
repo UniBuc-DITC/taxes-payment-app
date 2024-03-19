@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgresql://postgres:George2003@localhost:5432/taxes?schema=public"
 }
 
 enum Role {
@@ -61,7 +61,7 @@ enum StudyCycle {
   bachelors
   masters
   doctorate
-  postgraduate  
+  postuniversitary
 }
 
 enum FacultyTaxType {
