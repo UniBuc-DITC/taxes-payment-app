@@ -5,6 +5,8 @@ import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { AuthProvider, AuthProviderCallback } from "@microsoft/microsoft-graph-client";
 import { Client, Options } from "@microsoft/microsoft-graph-client";
 import SearchBar from "./SearchBar";
+import { FaTrash } from "react-icons/fa";
+import { deleteAdmin } from "@/actions/actions";
 
 export default async function Home() {
   const session = await getServerSession(authOptions);
@@ -22,7 +24,13 @@ export default async function Home() {
     let userDetails = await client.api(`/users/${user.azureAdObjectId}`).get();
     userDetails.role = user.role;
     userCards.push(
-      <div key={userDetails.id} className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl mb-8">
+      <div key={userDetails.id} className="relative max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl mb-8">
+        <form action={deleteAdmin} method="post" className="absolute top-0 right-0 m-4">
+          <input type="hidden" name="userId" value={userDetails.id} />
+          <button type="submit" className="p-2 bg-red-500 rounded-full hover:bg-red-600 inline-flex items-center justify-center">
+            <FaTrash className="text-white text-2xl" />
+          </button>
+        </form>
         <div className="md:flex">
           <div className="p-8">
             <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Name: {userDetails.displayName}</div>
@@ -37,21 +45,18 @@ export default async function Home() {
   }
 
    
-    return (
-      <div>
-        <Navbar />
-        <main className="flex min-h-screen p-24">
-          {/* Users Section */}
-          <div className="flex-1 mr-8">
-            <div className="mb-8">{userCards}</div>
-          </div>
-
-          {/* Search Bar Section */}
-          <div className="w-96">
-            <SearchBar />
-          </div>
-        </main>
-      </div>
+  return (
+    <div>
+      <Navbar />
+      <main className="flex min-h-screen p-24">
+        <div className="flex-1 mr-8">
+          <div className="mb-8">{userCards}</div>
+        </div>
+        <div className="w-96">
+          <SearchBar />
+        </div>
+      </main>
+    </div>
   );
 
 }

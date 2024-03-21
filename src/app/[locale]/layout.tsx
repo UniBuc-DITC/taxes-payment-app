@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { unstable_setRequestLocale } from "next-intl/server";
 import { locales } from "@/i18n";
-import Provider from "@/utils/Provider";
+import { headers } from 'next/headers';
+
 
 import "./globals.css";
 
@@ -26,11 +27,17 @@ type LayoutProps = {
   };
 };
 
+async function getURL() { 
+  const headersList = headers();
+  const fullUrl = headersList.get('referer') || "";
+  return fullUrl
+}
 
 export default async function RootLayout({
   children,
   params: { locale },
 }: LayoutProps) {
+  
   unstable_setRequestLocale(locale);
   return (
       <html lang={locale}>

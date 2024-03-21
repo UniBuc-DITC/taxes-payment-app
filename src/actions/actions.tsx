@@ -264,7 +264,7 @@ export async function filterUsers (data : Search) {
     };
     const client = Client.init(options);
 
-    const filteredUsers = await client.api(`/users?$filter=startswith(surname,'${data.search}')`).get();
+   const filteredUsers = await client.api(`/users?$filter=startswith(mail, '${data.search}')`).get();
     return filteredUsers
 }
 
@@ -277,4 +277,25 @@ export async function addAdmin(formData: FormData) {
     })
     revalidatePath('/'); 
     redirect('/ro/admin/users');
+}
+
+export async function addTaxesAdmin(formData: FormData) {
+    await prisma.user.create({
+        data: {
+            azureAdObjectId: formData.get('userId') as string,
+            role: Role.taxesAdmin
+        }
+    })
+    revalidatePath('/'); 
+    redirect('/ro/admin/users');
+}
+
+export async function deleteAdmin(formData: FormData) {
+    const id = formData.get('userId') as string;
+    await prisma.user.delete({
+        where: {
+            azureAdObjectId: id,
+        },
+    });
+    revalidatePath('/');
 }

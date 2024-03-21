@@ -19,7 +19,7 @@ export default  function FacultyList({faculties} : Props) {
         <main className="min-h-screen bg-gray-100 p-10">
           <div className="max-w-4xl mx-auto">
             <div className="flex justify-between items-center mb-6">
-              <h1 className="text-2xl font-semibold text-gray-800">Faculty Management</h1>
+              <h1 className="text-2xl font-semibold text-gray-800">Gestionare facultati</h1>
               <Link href={{ pathname: "faculties/add" }} passHref>
                 <p className="inline-block bg-green-500 p-3 rounded-full hover:bg-green-600 cursor-pointer">
                     <FaPlus className="text-white text-4xl" />

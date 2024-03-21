@@ -31,6 +31,9 @@ const Navbar = () => {
         </button>
 
         <div className={`absolute md:relative top-16 left-0 md:top-0 w-full md:w-auto bg-blue-500 md:bg-transparent transition-all duration-300 ease-in-out ${isOpen ? "flex" : "hidden"} flex-col md:flex-row md:flex space-x-0 md:space-x-4`}>
+          <Link href={createHref('/admin/users')}>
+            <p className="px-4 py-2 text-white hover:bg-blue-600 md:hover:bg-transparent md:hover:text-gray-300 transition duration-150 ease-in-out">Users</p>
+          </Link>
           <Link href={createHref('/admin/dormitories')}>
             <p className="px-4 py-2 text-white hover:bg-blue-600 md:hover:bg-transparent md:hover:text-gray-300 transition duration-150 ease-in-out">Dormitories</p>
           </Link>
