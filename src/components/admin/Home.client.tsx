@@ -1,48 +1,52 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { EuPlatescAccount } from "@prisma/client";
 import { setEuPlatescDidacticOnly } from "@/actions/actions";
+import Select from 'react-select';
 
 export default function HomeClient({ accounts }: { accounts: EuPlatescAccount[] }) {
-    const [selectedAccountId, setSelectedAccountId] = useState<number | null>(null);
+    const [selectedAccount, setSelectedAccount] = useState<EuPlatescAccount | null>(accounts[0]);
 
-    const handleSelectChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
-        const accountId = parseInt(event.target.value);
-        setSelectedAccountId(accountId);
+    const handleSelectChange = (selectedOption: any) => {
+        setSelectedAccount(selectedOption ? accounts.find(account => account.id === selectedOption.value) || null : null);
     };
 
     const handleSave = async () => {
-        if (selectedAccountId !== null) {
+        if (selectedAccount !== null) {
+            await setEuPlatescDidacticOnly(selectedAccount.id, true);
             await Promise.all(accounts.map(async (account) => {
-                await setEuPlatescDidacticOnly(account.id, account.id === selectedAccountId);
+                if (account.id !== selectedAccount.id) {
+                    await setEuPlatescDidacticOnly(account.id, false);
+                }
             }));
         }
     };
 
-    useEffect(() => {
-        const selectedAccount = accounts.find(account => account.didacticPremiumCardOnly);
-        if (selectedAccount) {
-            setSelectedAccountId(selectedAccount.id);
-        }
-    }, [accounts]);
+    const [isClearable, setIsClearable] = useState(true);
+    const [isSearchable, setIsSearchable] = useState(true);
+    const [isDisabled, setIsDisabled] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isRtl, setIsRtl] = useState(false);
 
     return (
         <div className="container mx-auto mt-10">
             <h1 className="text-center text-xl font-semibold mb-6">Contul pentru plata cu card didactic</h1>
             <div className="flex flex-col items-center">
-                <select
-                    className="p-2 bg-white border rounded-lg shadow-md hover:bg-gray-100 cursor-pointer"
-                    value={selectedAccountId || ""}
+                <Select
+                    options={accounts.map((account) => ({
+                        value: account.id,
+                        label: account.name
+                    }))}
+                    value={selectedAccount ? { value: selectedAccount.id, label: selectedAccount.name } : null}
                     onChange={handleSelectChange}
-                >
-                    <option value="" disabled>Select an account</option>
-                    {accounts.map((account) => (
-                        <option key={account.id} value={account.id}>
-                            {account.name} 
-                        </option>
-                    ))}
-                </select>
+                    placeholder="Select an account"
+                    isClearable={isClearable}
+                    isSearchable={isSearchable}
+                    isDisabled={isDisabled}
+                    isLoading={isLoading}
+                    isRtl={isRtl}
+                />
                 <button 
                     className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     onClick={handleSave}

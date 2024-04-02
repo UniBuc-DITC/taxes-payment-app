@@ -16,6 +16,17 @@ export default function FacultyTaxList({taxFaculties, faculties} : Props) {
 
   const tuitionValues = taxFaculties.filter(value => value.facultyTaxType === 'tuition');
   const admissionValues = taxFaculties.filter(value => value.facultyTaxType === 'admission');
+  const selectStudyCycles = [
+        { value: 'bachelors', label: 'Licenta' },
+        { value: 'masters', label: 'Masterat' },
+        { value: 'doctorate', label: 'Doctorat' },
+        { value: 'postgraduate', label: 'Postuniversitar' },
+  ];
+  const getLabel = (value : string) => {
+    const cycle = selectStudyCycles.find((cycle) => cycle.value === value)
+    return cycle?.label
+  }
+      
   return (
     
       <main className="min-h-screen bg-gray-100 p-10">
@@ -38,9 +49,8 @@ export default function FacultyTaxList({taxFaculties, faculties} : Props) {
               {tuitionValues.map((value) => (
                 <div key={value.id} className="border p-4 rounded-md mb-4 bg-white">
                   <div><strong>Valoare: </strong> {value.value.toString()}</div>
-                  <div><strong>Ciclu de Studiu: </strong> {value.studyCycle}</div>
+                  <div><strong>Ciclu de Studiu: </strong> {getLabel(value.studyCycle)}</div>
                   <div><strong>Facultate :</strong> {faculties.find(faculty => faculty.id === value.facultyId)?.nameRo}</div>
-                  <div><strong>Tip de Taxă: </strong> {value.facultyTaxType}</div>
                   <div><strong>Observații (RO) :</strong> {value.remarksRo}</div>
                   <div><strong>Observații (EN) :</strong> {value.remarksEn}</div>
                   <div className="flex justify-end gap-2">
@@ -78,9 +88,8 @@ export default function FacultyTaxList({taxFaculties, faculties} : Props) {
               {admissionValues.map((value) => (
                 <div key={value.id} className="border p-4 rounded-md mb-4 bg-white">
                   <div><strong>Valoare :</strong> {value.value.toString()}</div>
-                  <div><strong>Ciclu de Studiu: </strong> {value.studyCycle}</div>
+                  <div><strong>Ciclu de Studiu: </strong> {getLabel(value.studyCycle)}</div>
                   <div><strong>Facultate: </strong> {faculties.find(faculty => faculty.id === value.facultyId)?.nameRo}</div>
-                  <div><strong>Tip de Taxă :</strong> {value.facultyTaxType}</div>
                   <div><strong>Observații (RO): </strong> {value.remarksRo}</div>
                   <div><strong>Observații (EN): </strong> {value.remarksEn}</div>
                   <div className="flex justify-end gap-2">

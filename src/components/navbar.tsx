@@ -1,55 +1,66 @@
 'use client'
 
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useState } from 'react';
 
-const Navbar = () => {
+function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const pathname = usePathname();
-  const lang = pathname?.split('/')[1];
 
-  const createHref = (path: string) => `/${lang}${path}`;
-
-  const toggleMenu = () => {
+  const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <nav className="bg-blue-500 p-4 shadow-lg">
-      <div className="container mx-0 flex justify-between items-center">
-        <div className="flex items-center space-x-4">
-          <Link href={createHref(`/admin`)}>
-            <p className="text-white font-bold text-xl hover:text-gray-300 transition duration-150 ease-in-out">Home</p>
-          </Link>
-        </div>
+    <nav className="bg-gray-800 text-white relative flex items-center justify-between px-4 py-2">
+      
+      <Link href="/admin">
+           <span className="font-bold text-xl">Home</span>
+      </Link>
+      <button
+        className="dropdown-toggle text-white focus:outline-none px-3 py-2 rounded-md hover:bg-gray-700"
+        type="button"
+        onClick={toggleDropdown}
+      >
+        <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+        </svg>
+      </button>
 
-        <button onClick={toggleMenu} className="text-white hover:text-gray-300 md:hidden focus:outline-none focus:ring-2 focus:ring-white">
-          <svg className={`h-6 w-6 transition duration-150 ease-in-out ${isOpen && "transform rotate-90"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-          </svg>
-        </button>
-
-        <div className={`absolute md:relative top-16 left-0 md:top-0 w-full md:w-auto bg-blue-500 md:bg-transparent transition-all duration-300 ease-in-out ${isOpen ? "flex" : "hidden"} flex-col md:flex-row md:flex space-x-0 md:space-x-4`}>
-          <Link href={createHref('/admin/users')}>
-            <p className="px-4 py-2 text-white hover:bg-blue-600 md:hover:bg-transparent md:hover:text-gray-300 transition duration-150 ease-in-out">Users</p>
+      <ul className={`dropdown-menu absolute bg-gray-700 text-white rounded shadow-md py-1 w-48 z-50 ${isOpen ? '' : 'hidden'}`} style={{ top: 'calc(100% + 5px)', right: '0' }}
+      >
+        <li>
+          <Link href="/admin/users">
+            <p className="dropdown-item block px-4 py-2 hover:bg-gray-600">Useri</p>
           </Link>
-          <Link href={createHref('/admin/dormitories')}>
-            <p className="px-4 py-2 text-white hover:bg-blue-600 md:hover:bg-transparent md:hover:text-gray-300 transition duration-150 ease-in-out">Dormitories</p>
+        </li>
+        <li>
+          <Link href="/admin/dormitories">
+            <p className="dropdown-item block px-4 py-2 hover:bg-gray-600">Camine</p>
           </Link>
-          <Link href={createHref('/admin/faculties')}>
-            <p className="px-4 py-2 text-white hover:bg-blue-600 md:hover:bg-transparent md:hover:text-gray-300 transition duration-150 ease-in-out">Faculties</p>
+        </li>
+        <li>
+          <Link href="/admin/faculties">
+            <p className="dropdown-item block px-4 py-2 hover:bg-gray-600">Facultati</p>
           </Link>
-          <Link href={createHref('/admin/taxes')}>
-            <p className="px-4 py-2 text-white hover:bg-blue-600 md:hover:bg-transparent md:hover:text-gray-300 transition duration-150 ease-in-out">Taxes</p>
+        </li>
+        <li>
+          <Link href="/admin/taxes">
+            <p className="dropdown-item block px-4 py-2 hover:bg-gray-600">Taxe</p>
           </Link>
-          <Link href={createHref('/admin/euplatesc-accounts')}>
-            <p className="px-4 py-2 text-white hover:bg-blue-600 md:hover:bg-transparent md:hover:text-gray-300 transition duration-150 ease-in-out">EuPlatesc</p>
+        </li>
+        <li>
+          <Link href="/admin/euplatesc-accounts">
+            <p className="dropdown-item block px-4 py-2 hover:bg-gray-600">Conturi</p>
           </Link>
-        </div>
-      </div>
+        </li>
+        <li>
+          <Link href="/admin/transactions">
+            <p className="dropdown-item block px-4 py-2 hover:bg-gray-600">Tranzactii</p>
+          </Link>
+        </li>
+      </ul>
     </nav>
   );
-};
+}
 
 export default Navbar;

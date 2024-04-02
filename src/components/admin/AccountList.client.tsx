@@ -18,7 +18,7 @@ export default function getAllEuPlatescAccounts({ accounts } : Props) {
       <main className="flex min-h-screen bg-gray-100 p-10 flex-col items-center justify-start">
         <div className="w-full max-w-4xl">
           <div className="mb-4 flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-gray-800">EuPlatesc Account Management</h1>
+            <h1 className="text-2xl font-bold text-gray-800">Gestionare conturi EuPlatesc</h1>
             <Link href={{ pathname: "euplatesc-accounts/add" }} passHref>
               <p className="inline-block bg-green-500 p-3 rounded-full hover:bg-green-600 cursor-pointer">
                 <FaPlus className="text-white text-4xl" />

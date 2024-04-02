@@ -54,7 +54,7 @@ export async function createTaxFaculty(data : InputTaxFaculty) {
                 ? StudyCycle.masters
                 : data.studyCycle === 'doctorate'
                 ? StudyCycle.doctorate
-                : StudyCycle.postuniversitary,
+                : StudyCycle.postgraduate,
             facultyId: data.facultyId,
             facultyTaxType: data.facultyTaxType === 'admission'
             ? FacultyTaxType.admission
@@ -193,7 +193,7 @@ export async function updateTaxFaculty(data : InputTaxFaculty, id : number) {
                 ? StudyCycle.masters
                 : data.studyCycle === 'doctorate'
                 ? StudyCycle.doctorate
-                : StudyCycle.postuniversitary,
+                : StudyCycle.postgraduate,
             facultyId: data.facultyId,
             facultyTaxType: data.facultyTaxType === 'admission'
             ? FacultyTaxType.admission
