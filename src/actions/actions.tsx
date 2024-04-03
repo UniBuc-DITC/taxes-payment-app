@@ -7,7 +7,7 @@ import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import {z} from "zod"
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/next-auth-options";
 import { AuthProvider, AuthProviderCallback } from "@microsoft/microsoft-graph-client";
 import { Client, Options } from "@microsoft/microsoft-graph-client";
 

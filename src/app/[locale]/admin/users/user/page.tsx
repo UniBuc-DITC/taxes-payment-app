@@ -1,7 +1,7 @@
 import Navbar from '@/components/navbar';
 import React from 'react';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { authOptions } from '@/next-auth-options';
 import { AuthProvider, AuthProviderCallback } from '@microsoft/microsoft-graph-client';
 import { Client, Options } from '@microsoft/microsoft-graph-client';
 import { addAdmin } from '@/actions/actions';

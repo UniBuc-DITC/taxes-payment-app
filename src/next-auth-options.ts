@@ -52,6 +52,7 @@ export const authOptions: NextAuthOptions = {
   providers,
   session: {
     strategy: 'jwt',
+    maxAge: 60
   },
   callbacks: {
     async signIn({ user }) {
@@ -71,7 +72,7 @@ export const authOptions: NextAuthOptions = {
       }
       if(user) 
         token.azureAdObjectId = user.azureAdObjectId;
-       
+      
       return token;
     },
     async redirect({url, baseUrl}) {
