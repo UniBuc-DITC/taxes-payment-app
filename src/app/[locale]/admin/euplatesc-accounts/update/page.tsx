@@ -11,11 +11,13 @@ type Props = {
   };
 };
 
-export default async function EditEuPlatescAccountPage({ searchParams }: Props) {
+export default async function EditEuPlatescAccountPage({
+  searchParams,
+}: Props) {
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />
-      <EditAccount searchParams={searchParams}/>
+      <EditAccount searchParams={searchParams} />
     </div>
   );
 }

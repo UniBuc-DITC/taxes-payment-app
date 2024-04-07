@@ -27,7 +27,6 @@ if (typeof clientSecret !== "string" || !clientSecret) {
   );
 }
 
-
 providers.push(
   AzureAD({
     tenantId,
@@ -51,32 +50,33 @@ providers.push(
 export const authOptions: NextAuthOptions = {
   providers,
   session: {
-    strategy: 'jwt',
-    maxAge: 60 * 30
+    strategy: "jwt",
   },
   callbacks: {
     async signIn({ user }) {
       const dbUser = await prisma.user.findUnique({
         where: {
-          azureAdObjectId: user.azureAdObjectId
-        }
+          azureAdObjectId: user.azureAdObjectId,
+        },
       });
-      if(dbUser)
-        return true;
+      if (dbUser) return true;
       return false;
     },
-    async jwt({ token, user, account }) {
-      if(account && account.access_token !== undefined) {
+    async jwt({ token, user, account, trigger, session }) {
+      if (account && account.access_token !== undefined) {
         token.accessToken = account.access_token;
         token.refreshToken = account.refresh_token;
       }
-      if(user) 
-        token.azureAdObjectId = user.azureAdObjectId;
-      
+      if (user) token.azureAdObjectId = user.azureAdObjectId;
+
+      if (trigger === "update" && session?.name) {
+        token.name = session.name;
+      }
+
       return token;
     },
-    async redirect({url, baseUrl}) {
-      return url.startsWith(baseUrl) ? baseUrl + '/ro/admin' : url;
+    async redirect({ url, baseUrl }) {
+      return url.startsWith(baseUrl) ? baseUrl + "/ro/admin" : url;
     },
     async session({ session, token }) {
       session.accessToken = token.accessToken;
@@ -87,7 +87,7 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: "/auth/signin",
-  }
+  },
 };
 
 const handler = NextAuth(authOptions);

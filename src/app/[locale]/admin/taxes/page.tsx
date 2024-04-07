@@ -1,11 +1,10 @@
-'use client'
+"use client";
 
 import Link from "next/link";
 import Navbar from "@/components/navbar";
 import { usePathname } from "next/navigation";
 
 export default function Taxes() {
-
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />

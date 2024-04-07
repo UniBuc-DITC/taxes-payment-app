@@ -11,7 +11,7 @@ import {
 interface Args<
   K extends OptionWithId,
   T extends AmountFiled & PartialPayField,
-> { 
+> {
   watch: UseFormWatch<T>;
   setValue: UseFormSetValue<T>;
   selectedEntityId: string;

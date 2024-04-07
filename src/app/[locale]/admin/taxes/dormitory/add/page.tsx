@@ -1,12 +1,11 @@
-
-import prisma from '@/db/prisma';
-import AddTaxDormForm from '@/components/forms/admin/addDormTax';
-import Navbar from '@/components/navbar';
+import prisma from "@/db/prisma";
+import AddTaxDormForm from "@/components/forms/admin/addDormTax";
+import Navbar from "@/components/navbar";
 export default async function AddDormitoryTaxValue() {
   const dormitories = await prisma.studentDorm.findMany({
     orderBy: {
-      name: 'asc'
-    }
+      name: "asc",
+    },
   });
 
   return (
@@ -15,4 +14,4 @@ export default async function AddDormitoryTaxValue() {
       <AddTaxDormForm dormitories={dormitories} />
     </div>
   );
-};
+}

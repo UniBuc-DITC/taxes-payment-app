@@ -10,23 +10,29 @@ type Params = {
   };
 };
 
-export default async function EditDormitory({ searchParams } : Params) {
+export default async function EditDormitory({ searchParams }: Params) {
   const accounts = await prisma.euPlatescAccount.findMany({
     orderBy: {
-      description: "asc"
-    }
+      description: "asc",
+    },
   });
-  
+
   const searchParamsForForm = {
     id: parseInt(searchParams.id, 10),
     name: searchParams.name,
-    euPlatescAccount: searchParams.accountId !== undefined ? parseInt(searchParams.accountId, 10) : null
-  }
+    euPlatescAccount:
+      searchParams.accountId !== undefined
+        ? parseInt(searchParams.accountId, 10)
+        : null,
+  };
 
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />
-      <EditDormitoryForm accounts={accounts} searchParams={searchParamsForForm} />
+      <EditDormitoryForm
+        accounts={accounts}
+        searchParams={searchParamsForForm}
+      />
     </div>
   );
 }

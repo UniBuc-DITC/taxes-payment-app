@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { unstable_setRequestLocale } from "next-intl/server";
 import { locales } from "@/i18n";
-import { headers } from 'next/headers';
-
+import SessionWrapper from "@/components/SessionWrapper";
 
 import "./globals.css";
 
@@ -27,24 +26,19 @@ type LayoutProps = {
   };
 };
 
-async function getURL() { 
-  const headersList = headers();
-  const fullUrl = headersList.get('referer') || "";
-  return fullUrl
-}
-
 export default async function RootLayout({
   children,
   params: { locale },
 }: LayoutProps) {
-  
   unstable_setRequestLocale(locale);
   return (
+    <SessionWrapper>
       <html lang={locale}>
         <body className={inter.className}>
-            <NavBar />
-            {children}
+          <NavBar />
+          {children}
         </body>
       </html>
+    </SessionWrapper>
   );
 }

@@ -1,4 +1,7 @@
-import { NextIntlClientProvider, useMessages } from "next-intl";
+"use client";
+
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -7,14 +10,16 @@ type LayoutProps = {
   };
 };
 
-export default function AuthLayout({
-  children,
-}: LayoutProps) {
-  const messages = useMessages();
+export default function AuthLayout({ children }: LayoutProps) {
+  const { data: session, status, update } = useSession();
+  /*
+  useEffect(() => {
+      console.log(session);
+      const interval = setInterval(() => {
+        update();
+      }, 100000); 
+      return () => clearInterval(interval);
+  }, [update]); */
 
-  return (
-      <NextIntlClientProvider messages={messages}>
-        {children}
-      </NextIntlClientProvider>
-  );
+  return <div>{children}</div>;
 }

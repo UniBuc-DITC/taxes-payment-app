@@ -5,8 +5,8 @@ import AddDormitoryForm from "@/components/forms/admin/addDorm";
 export default async function AddDormitory() {
   const accounts = await prisma.euPlatescAccount.findMany({
     orderBy: {
-      description: "asc"
-    }
+      description: "asc",
+    },
   });
 
   return (

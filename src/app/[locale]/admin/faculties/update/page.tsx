@@ -11,19 +11,22 @@ type Params = {
   };
 };
 
-export default async function EditFaculty({ searchParams } : Params) {
+export default async function EditFaculty({ searchParams }: Params) {
   const accounts = await prisma.euPlatescAccount.findMany({
     orderBy: {
-      description: "asc"
-    }
+      description: "asc",
+    },
   });
-  
+
   const searchParamsForForm = {
     id: parseInt(searchParams.id, 10),
     nameRo: searchParams.nameRo,
     nameEn: searchParams.nameEn,
-    euPlatescAccount: searchParams.accountId !== undefined ? parseInt(searchParams.accountId, 10) : null
-  }
+    euPlatescAccount:
+      searchParams.accountId !== undefined
+        ? parseInt(searchParams.accountId, 10)
+        : null,
+  };
 
   return (
     <div className="min-h-screen bg-gray-100">

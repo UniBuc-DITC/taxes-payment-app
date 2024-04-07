@@ -16,23 +16,33 @@ type Props = {
   };
 };
 
-
-export default async function Edit({searchParams} : Props) {
-    const faculties = await prisma.faculty.findMany();
-    const {id, value, studyCycle, facultyId, facultyTaxType, remarksRo, remarksEn} = searchParams;
-    const searchParamsForForm = {
-      id: parseInt(id, 10),
-      value: value,
-      studyCycle: studyCycle,
-      facultyId: parseInt(facultyId),
-      facultyTaxType: facultyTaxType,
-      remarksRo: remarksRo,
-      remarksEn: remarksEn
-    }
-    return (
-      <div className="min-h-screen bg-gray-100">
-        <Navbar />
-        <EditFacultyTaxForm faculties={faculties} searchParams={searchParamsForForm} />
-      </div>
-    );
+export default async function Edit({ searchParams }: Props) {
+  const faculties = await prisma.faculty.findMany();
+  const {
+    id,
+    value,
+    studyCycle,
+    facultyId,
+    facultyTaxType,
+    remarksRo,
+    remarksEn,
+  } = searchParams;
+  const searchParamsForForm = {
+    id: parseInt(id, 10),
+    value: value,
+    studyCycle: studyCycle,
+    facultyId: parseInt(facultyId),
+    facultyTaxType: facultyTaxType,
+    remarksRo: remarksRo,
+    remarksEn: remarksEn,
+  };
+  return (
+    <div className="min-h-screen bg-gray-100">
+      <Navbar />
+      <EditFacultyTaxForm
+        faculties={faculties}
+        searchParams={searchParamsForForm}
+      />
+    </div>
+  );
 }

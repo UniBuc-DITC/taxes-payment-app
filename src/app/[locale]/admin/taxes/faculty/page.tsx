@@ -5,12 +5,13 @@ import { FacultyTaxValue } from "@prisma/client";
 import FacultyTaxList from "@/components/admin/FacultyTaxList.client";
 
 export default async function getAll() {
-  unstable_noStore();
-  const taxFaculties : FacultyTaxValue[] = await prisma.facultyTaxValue.findMany({
-    orderBy: {
-      value: 'asc',
+  const taxFaculties: FacultyTaxValue[] = await prisma.facultyTaxValue.findMany(
+    {
+      orderBy: {
+        value: "asc",
+      },
     },
-  });
+  );
   const faculties = await prisma.faculty.findMany();
   return (
     <div>
@@ -19,5 +20,3 @@ export default async function getAll() {
     </div>
   );
 }
-
-

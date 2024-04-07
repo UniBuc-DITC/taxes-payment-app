@@ -89,45 +89,48 @@ export const accomodationTaxSchema = z
   .and(partialPaySchema)
   .and(taxAmountFormSchema);
 
-
 export const dormSchema = z.object({
-  name: z
-    .string()
-    .nonempty('Name is required')
-    .min(3, { message: 'The dormitory name should have at least 3 characters!'}),
+  name: z.string().nonempty("Name is required").min(3, {
+    message: "The dormitory name should have at least 3 characters!",
+  }),
   accountId: z.number().int().nullable(),
-})
+});
 
 export const facultySchema = z.object({
-  nameRo: z
-    .string()
-    .nonempty('Name is required')
-    .min(3, { message: 'The faculty name (RO) should have at least 3 characters!'}),
-    nameEn: z
-    .string()
-    .nonempty('Name is required')
-    .min(3, { message: 'The faculty name (RO) should have at least 3 characters!'}),
-    accountId: z.number().int().nullable(),
-  
-})
+  nameRo: z.string().nonempty("Name is required").min(3, {
+    message: "The faculty name (RO) should have at least 3 characters!",
+  }),
+  nameEn: z.string().nonempty("Name is required").min(3, {
+    message: "The faculty name (RO) should have at least 3 characters!",
+  }),
+  accountId: z.number().int().nullable(),
+});
 
 export const euPlatescAccountSchema = z.object({
-  name: z.string().min(1, 'Name is required'), 
-  description: z.string().optional(), 
-  merchantId: z.string().min(1, 'Merchant id is required').regex(/^\d+$/, 'Merchant id must contain only digits'), 
-  secretKey: z.string().min(1, 'Secret key is required'), 
+  name: z.string().min(1, "Name is required"),
+  description: z.string().optional(),
+  merchantId: z
+    .string()
+    .min(1, "Merchant id is required")
+    .regex(/^\d+$/, "Merchant id must contain only digits"),
+  secretKey: z.string().min(1, "Secret key is required"),
 });
 
 export const dormTaxSchema = z.object({
-  value: z.string().min(1, 'Tax value is required').regex(/^\d+$/, 'Tax value must contain only digits'),
+  value: z
+    .string()
+    .min(1, "Tax value is required")
+    .regex(/^\d+$/, "Tax value must contain only digits"),
   studentDormId: z.number().int(),
   remarksRo: z.string().optional(),
   remarksEn: z.string().optional(),
-
-})
+});
 
 export const facultyTaxSchema = z.object({
-  value: z.string().min(1, 'Tax value is required').regex(/^\d+$/, 'Tax value must contain only digits'),
+  value: z
+    .string()
+    .min(1, "Tax value is required")
+    .regex(/^\d+$/, "Tax value must contain only digits"),
   studyCycle: z.string(),
   facultyId: z.number().int(),
   facultyTaxType: z.string(),
@@ -136,10 +139,9 @@ export const facultyTaxSchema = z.object({
 });
 
 export const searchSchema = z.object({
-  search: z.string()
-})
+  search: z.string(),
+});
 
 export const adminSchema = z.object({
-  id: z.string()
-})
-
+  id: z.string(),
+});

@@ -53,17 +53,17 @@ export const columns = [
     header: () => "email",
     cell: (info) => info.getValue(),
   }),
-  
+
   columnHelper.accessor("createdAt", {
     header: () => "Created At",
     cell: (info) => {
-        const createdAt = info.getValue() as Date; 
-        const formattedCreatedAt = createdAt.toLocaleString(); 
-        return <div>{formattedCreatedAt}</div>; 
+      const createdAt = info.getValue() as Date;
+      const formattedCreatedAt = createdAt.toLocaleString();
+      return <div>{formattedCreatedAt}</div>;
     },
-   }),/*
+  }) /*
   columnHelper.accessor("updatedAt", {
     header: () => "Updated At",
     cell: (info) => info.getValue(),
-  }), */
+  }), */,
 ];

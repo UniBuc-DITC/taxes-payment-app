@@ -140,13 +140,12 @@
           "december": "December"
         }
       },
-      "DormitoryAdmin" : {
+      "DormitoryAdmin": {
         "dormitoryManagement": "Dormitory Management",
         "addNewDormitory": "Add New Dormitory",
         "edit": "Edit",
         "delete": "Delete"
-        }
+      }
     }
-    
   }
 }

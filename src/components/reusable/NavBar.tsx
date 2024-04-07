@@ -1,13 +1,12 @@
-'use client'
+"use client";
 
 import { Link } from "@/navigation";
 import LocaleSwitcher from "./LocaleSwitcher";
 import { usePathname } from "next/navigation";
 
-
 export default function NavBar() {
   const pathname = usePathname();
-  const isAdmin = pathname.includes('/admin');
+  const isAdmin = pathname.includes("/admin");
   if (!isAdmin) {
     return (
       <div className="bg-blue-400 ">

@@ -1,18 +1,17 @@
 import Navbar from "@/components/navbar";
 import prisma from "@/db/prisma";
-import AddFacultyForm from "@/components/forms/admin/addFaculty";
+import HomeClient from "@/components/admin/Home.client";
 
-export default async function AddFaculty() {
+export default async function Home() {
   const accounts = await prisma.euPlatescAccount.findMany({
     orderBy: {
-      description: "asc",
+      didacticPremiumCardOnly: "desc",
     },
   });
-
   return (
     <div className="min-h-screen bg-gray-100">
       <Navbar />
-      <AddFacultyForm accounts={accounts} />
+      <HomeClient accounts={accounts} />
     </div>
   );
 }
