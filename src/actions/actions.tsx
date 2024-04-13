@@ -13,8 +13,6 @@ import { FacultyTaxType, Role, StudyCycle } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/next-auth-options";
 import {
   AuthProvider,
   AuthProviderCallback,
@@ -28,6 +26,8 @@ type InputTaxDorm = z.infer<typeof dormTaxSchema>;
 type InputTaxFaculty = z.infer<typeof facultyTaxSchema>;
 type Search = z.infer<typeof searchSchema>;
 
+let accessToken: string | null = null;
+
 export async function createDormitory(data: InputDorm) {
   await prisma.studentDorm.create({
     data: {
@@ -36,7 +36,7 @@ export async function createDormitory(data: InputDorm) {
     },
   });
   revalidatePath("/");
-  redirect("/ro/admin/dormitories");
+  redirect("/admin/dormitories");
 }
 
 export async function createFaculty(data: InputFaculty) {
@@ -48,7 +48,7 @@ export async function createFaculty(data: InputFaculty) {
     },
   });
   revalidatePath("/");
-  redirect("/ro/admin/faculties");
+  redirect("/admin/faculties");
 }
 
 export async function createTaxFaculty(data: InputTaxFaculty) {
@@ -73,7 +73,7 @@ export async function createTaxFaculty(data: InputTaxFaculty) {
     },
   });
   revalidatePath("/");
-  redirect("/ro/admin/taxes/faculty");
+  redirect("/admin/taxes/faculty");
 }
 
 export async function createTaxDorm(data: InputTaxDorm) {
@@ -86,7 +86,7 @@ export async function createTaxDorm(data: InputTaxDorm) {
     },
   });
   revalidatePath("/");
-  redirect("/ro/admin/taxes/dormitory");
+  redirect("/admin/taxes/dormitory");
 }
 
 export async function createEuPlatescAccount(data: InputAccount) {
@@ -101,7 +101,7 @@ export async function createEuPlatescAccount(data: InputAccount) {
   });
 
   revalidatePath("/");
-  redirect("/ro/admin/euplatesc-accounts");
+  redirect("/admin/euplatesc-accounts");
 }
 
 export async function deleteDormitory(formData: FormData) {
@@ -165,7 +165,7 @@ export async function updateDormitory(data: InputDorm, id: number) {
     },
   });
   revalidatePath("/");
-  redirect("/ro/admin/dormitories");
+  redirect("/admin/dormitories");
 }
 
 export async function updateFaculty(data: InputFaculty, id: number) {
@@ -180,7 +180,7 @@ export async function updateFaculty(data: InputFaculty, id: number) {
     },
   });
   revalidatePath("/");
-  redirect("/ro/admin/faculties");
+  redirect("/admin/faculties");
 }
 
 export async function updateTaxFaculty(data: InputTaxFaculty, id: number) {
@@ -208,7 +208,7 @@ export async function updateTaxFaculty(data: InputTaxFaculty, id: number) {
     },
   });
   revalidatePath("/");
-  redirect("/ro/admin/taxes/faculty");
+  redirect("/admin/taxes/faculty");
 }
 
 export async function updateTaxDorm(data: InputTaxDorm, id: number) {
@@ -225,7 +225,7 @@ export async function updateTaxDorm(data: InputTaxDorm, id: number) {
   });
 
   revalidatePath("/");
-  redirect("/ro/admin/taxes/dormitory");
+  redirect("/admin/taxes/dormitory");
 }
 
 export async function updateEuPlatescAccount(data: InputAccount, id: number) {
@@ -242,7 +242,7 @@ export async function updateEuPlatescAccount(data: InputAccount, id: number) {
     },
   });
   revalidatePath("/");
-  redirect("/ro/admin/euplatesc-accounts");
+  redirect("/admin/euplatesc-accounts");
 }
 
 export async function setEuPlatescDidacticOnly(id: number, bool: boolean) {
@@ -258,9 +258,36 @@ export async function setEuPlatescDidacticOnly(id: number, bool: boolean) {
 }
 
 export async function filterUsers(data: Search) {
-  const session = await getServerSession(authOptions);
-  const authProvider: AuthProvider = (callback: AuthProviderCallback) => {
-    callback(null, session?.accessToken ?? null);
+  const authProvider: AuthProvider = async (callback: AuthProviderCallback) => {
+    const clientId = process.env.AZURE_AD_CLIENT_ID;
+    const clientSecret = process.env.AZURE_AD_CLIENT_SECRET;
+    const tokenEndpoint = `https://login.microsoftonline.com/${process.env.AZURE_AD_TENANT_ID}/oauth2/v2.0/token`;
+    try {
+      const response = await fetch(tokenEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: new URLSearchParams({
+          grant_type: "client_credentials",
+          client_id: clientId ?? "",
+          client_secret: clientSecret ?? "",
+          scope: "https://graph.microsoft.com/.default",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch access token: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      accessToken = data.access_token;
+      console.log(accessToken);
+      callback(null, accessToken);
+    } catch (error) {
+      console.error(error);
+      callback(error, null);
+    }
   };
   const options: Options = {
     authProvider,
@@ -281,7 +308,7 @@ export async function addAdmin(formData: FormData) {
     },
   });
   revalidatePath("/");
-  redirect("/ro/admin/users");
+  redirect("/admin/users");
 }
 
 export async function addTaxesAdmin(formData: FormData) {
@@ -292,7 +319,7 @@ export async function addTaxesAdmin(formData: FormData) {
     },
   });
   revalidatePath("/");
-  redirect("/ro/admin/users");
+  redirect("/admin/users");
 }
 
 export async function deleteAdmin(formData: FormData) {

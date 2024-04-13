@@ -9,17 +9,48 @@ import {
 import { Client, Options } from "@microsoft/microsoft-graph-client";
 import { addAdmin } from "@/actions/actions";
 
-
 type Params = {
   searchParams: {
     userId: string;
   };
 };
 
+let accessToken: string | null = null;
+
 export default async function Page({ searchParams }: Params) {
-  const session = await getServerSession(authOptions);
-  const authProvider: AuthProvider = (callback: AuthProviderCallback) => {
-    callback(null, session?.accessToken ?? null);
+  const authProvider: AuthProvider = async (callback: AuthProviderCallback) => {
+    const clientId = process.env.AZURE_AD_CLIENT_ID;
+    const clientSecret = process.env.AZURE_AD_CLIENT_SECRET;
+    const tokenEndpoint = `https://login.microsoftonline.com/${process.env.AZURE_AD_TENANT_ID}/oauth2/v2.0/token`;
+    try {
+      const response = await fetch(tokenEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+          Pragma: "no-cache",
+          Expires: "0",
+        },
+        body: new URLSearchParams({
+          grant_type: "client_credentials",
+          client_id: clientId ?? "",
+          client_secret: clientSecret ?? "",
+          scope: "https://graph.microsoft.com/.default",
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch access token: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      accessToken = data.access_token;
+      console.log(accessToken);
+      callback(null, accessToken);
+    } catch (error) {
+      console.error(error);
+      callback(error, null);
+    }
   };
   const options: Options = {
     authProvider,
@@ -61,7 +92,8 @@ export default async function Page({ searchParams }: Params) {
               />
             ) : (
               <div className="w-32 h-32 rounded-full bg-yellow-200 flex items-center justify-center text-black text-5xl  border-4 border-black mb-4">
-                {userDetails.givenName.charAt(0).toUpperCase() + userDetails.surname.charAt(0).toUpperCase()}
+                {userDetails.givenName.charAt(0).toUpperCase() +
+                  userDetails.surname.charAt(0).toUpperCase()}
               </div>
             )}
             <div className="flex flex-col gap-4 justify-center">

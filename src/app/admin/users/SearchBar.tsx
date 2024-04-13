@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { searchSchema } from "@/utils/forms/validationSchemas";
 import Link from "next/link";
-import { debounce } from 'lodash';
+import { debounce } from "lodash";
 
 type Input = z.infer<typeof searchSchema>;
 

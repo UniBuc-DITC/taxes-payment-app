@@ -1,5 +1,4 @@
 import Navbar from "@/components/navbar";
-import Button from "@/components/UI/button";
 import { updateTaxFaculty } from "@/actions/actions";
 import prisma from "@/db/prisma";
 import EditFacultyTaxForm from "@/components/forms/admin/editFacultyTax";

@@ -9,7 +9,9 @@ type NavItemProps = {
 const NavItem: React.FC<NavItemProps> = ({ href, children }) => (
   <li>
     <Link href={href}>
-      <p className="text-blue-600 hover:text-blue-800 hover:underline cursor-pointer transition-colors">{children}</p>
+      <p className="text-blue-600 hover:text-blue-800 hover:underline cursor-pointer transition-colors">
+        {children}
+      </p>
     </Link>
   </li>
 );

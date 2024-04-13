@@ -1,7 +1,6 @@
 "use client";
 
 import Navbar from "@/components/navbar";
-import Button from "@/components/UI/button";
 import Link from "next/link";
 import { deleteFaculty } from "@/actions/actions";
 import { Faculty } from "@prisma/client";
@@ -53,16 +52,12 @@ export default function FacultyList({ faculties }: Props) {
                       }}
                       passHref
                     >
-                      <p className="p-2 bg-blue-500 rounded-full hover:bg-blue-600 inline-flex items-center justify-center cursor-pointer">
+                      <button className="p-2 bg-blue-500 rounded-full hover:bg-blue-600 inline-flex items-center justify-center cursor-pointer">
                         <FaEdit className="text-white text-2xl" />
-                      </p>
+                      </button>
                     </Link>
                     <form action={deleteFaculty} method="post">
-                      <input
-                        type="hidden"
-                        name="facultyId"
-                        value={faculty.id}
-                      />
+                      <input type="hidden" name="facultyId" value={faculty.id} />
                       <button
                         type="submit"
                         className="p-2 bg-red-500 rounded-full hover:bg-red-600 inline-flex items-center justify-center"

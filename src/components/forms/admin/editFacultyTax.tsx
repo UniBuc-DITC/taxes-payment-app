@@ -2,7 +2,7 @@
 
 import { IoAddCircle } from "react-icons/io5";
 import { updateTaxFaculty } from "@/actions/actions";
-import { Faculty, FacultyTaxType, StudyCycle } from "@prisma/client";
+import { Faculty } from "@prisma/client";
 import { useState } from "react";
 import Select from "react-select";
 import { Controller } from "react-hook-form";

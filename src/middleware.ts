@@ -24,7 +24,7 @@ const authMiddleware = withAuth(
 
 export default function middleware(req: NextRequest) {
   // /[locale]/admin/*  private url pattern
-  const excludePattern = "^(/(" + locales.join("|") + "))?/admin/?.*?$";
+  const excludePattern = "^/admin/?.*?$";
   const publicPathnameRegex = RegExp(excludePattern, "i");
   const isPublicPage = !publicPathnameRegex.test(req.nextUrl.pathname);
 

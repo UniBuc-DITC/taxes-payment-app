@@ -1,17 +1,15 @@
 "use client";
 
-import React, { use, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { EuPlatescAccount } from "@prisma/client";
 import { setEuPlatescDidacticOnly } from "@/actions/actions";
 import Select from "react-select";
-import { useSession } from "next-auth/react";
 
 export default function HomeClient({
   accounts,
 }: {
   accounts: EuPlatescAccount[];
 }) {
-  const { data: session, status, update } = useSession();
   const [selectedAccount, setSelectedAccount] =
     useState<EuPlatescAccount | null>(accounts[0]);
 

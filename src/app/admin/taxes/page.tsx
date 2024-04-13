@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Navbar from "@/components/navbar";
-import { usePathname } from "next/navigation";
 
 export default function Taxes() {
   return (

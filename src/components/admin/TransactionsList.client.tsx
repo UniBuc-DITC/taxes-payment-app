@@ -12,7 +12,7 @@ import {
   getFilteredRowModel,
 } from "@tanstack/react-table";
 import { useMemo } from "react";
-import { columns } from "@/app/[locale]/admin/transactions/columns";
+import { columns } from "@/app/admin/transactions/columns";
 
 type Props = {
   transactions: Transaction[];

@@ -62,7 +62,7 @@ async function main() {
     } else if (i >= 15 && i < 20) {
       studyCycle = StudyCycle.bachelors;
     } else {
-      studyCycle = StudyCycle.postuniversitary;
+      studyCycle = StudyCycle.postgraduate;
     }
 
     const facultyTaxValue = await prisma.facultyTaxValue.create({

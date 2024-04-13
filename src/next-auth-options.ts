@@ -51,6 +51,7 @@ export const authOptions: NextAuthOptions = {
   providers,
   session: {
     strategy: "jwt",
+    maxAge: 30 * 60,
   },
   callbacks: {
     async signIn({ user }) {
@@ -76,7 +77,7 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async redirect({ url, baseUrl }) {
-      return url.startsWith(baseUrl) ? baseUrl + "/ro/admin" : url;
+      return url.startsWith(baseUrl) ? baseUrl + "/admin" : url;
     },
     async session({ session, token }) {
       session.accessToken = token.accessToken;
