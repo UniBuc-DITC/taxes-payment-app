@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { unstable_setRequestLocale } from "next-intl/server";
 import { locales } from "@/i18n";
-import SessionWrapper from "@/components/SessionWrapper";
 
 import "./globals.css";
 
@@ -32,13 +31,11 @@ export default async function RootLayout({
 }: LayoutProps) {
   unstable_setRequestLocale(locale);
   return (
-    <SessionWrapper>
-      <html lang={locale}>
-        <body className={inter.className}>
-          <NavBar />
-          {children}
-        </body>
-      </html>
-    </SessionWrapper>
+    <html lang={locale}>
+      <body className={inter.className}>
+        <NavBar />
+        {children}
+      </body>
+    </html>
   );
 }

@@ -1,7 +1,7 @@
 import createMiddleware from "next-intl/middleware";
 import { locales } from "./i18n";
-import { withAuth } from "next-auth/middleware";
-import { NextRequest } from "next/server";
+import { NextRequestWithAuth, withAuth } from "next-auth/middleware";
+import { NextFetchEvent, NextRequest } from "next/server";
 
 const intlMiddleware = createMiddleware({
   // A list of all locales that are supported
@@ -11,33 +11,35 @@ const intlMiddleware = createMiddleware({
   defaultLocale: "ro",
 });
 
-const authMiddleware = withAuth(
-  function onSuccess(req) {
-    return intlMiddleware(req);
+const authMiddleware = withAuth({
+  callbacks: {
+    authorized: ({ token }) => token != null,
   },
-  {
-    callbacks: {
-      authorized: ({ token }) => token != null,
-    },
-  },
-);
+});
 
-export default function middleware(req: NextRequest) {
-  // /[locale]/admin/*  private url pattern
-  const excludePattern = "^/admin/?.*?$";
-  const publicPathnameRegex = RegExp(excludePattern, "i");
-  const isPublicPage = !publicPathnameRegex.test(req.nextUrl.pathname);
+export default function middleware(req: NextRequest, event: NextFetchEvent) {
+  // Routes to be treated as admin pages
+  const adminRoutesPattern = "^/admin/?.*?$";
+  const adminRoutesRegex = RegExp(adminRoutesPattern, "i");
 
-  if (isPublicPage) {
-    // Apply Next-Intl middleware for public pages
-    return intlMiddleware(req);
-  } else {
-    // Apply Next-Auth middleware for private pages
-    return (authMiddleware as any)(req);
+  if (adminRoutesRegex.test(req.nextUrl.pathname)) {
+    // For the admin pages, only apply the NextAuth middleware
+    return authMiddleware(req as NextRequestWithAuth, event);
   }
+
+  // For all other pages, apply the `next-intl` middleware
+  return intlMiddleware(req);
 }
 
 export const config = {
-  // Match only internationalized pathnames and exclude the api and _next
-  matcher: ["/", "/(en|ro)/:path*", "/((?!api|_next|.*\\..*).*)"],
+  matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - api (API routes)
+     * - _next/static (static files)
+     * - _next/image (image optimization files)
+     * - favicon.ico (favicon file)
+     */
+    "/((?!api|_next/static|_next/image|favicon.ico).*)",
+  ],
 };

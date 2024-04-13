@@ -13,10 +13,10 @@ type LayoutProps = {
 
 export default function AuthLayout({ children }: LayoutProps) {
   return (
-    <SessionWrapper>
+    <html lang="ro">
       <body className={inter.className}>
-          {children}
+        <SessionWrapper>{children}</SessionWrapper>
       </body>
-    </SessionWrapper>
+    </html>
   );
 }
