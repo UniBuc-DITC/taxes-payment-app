@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { filterUsers } from "@/actions/actions";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -28,21 +28,26 @@ export default function SearchBar() {
     setSearchTerm(data.search);
   };
 
-  useEffect(() => {
-    const fetchData = debounce(async () => {
-      if (searchTerm.trim() !== "") {
-        setSearching(true);
-        const response = await filterUsers({ search: searchTerm });
-        const users = response.value.slice(0, 10);
-        setFilteredUsers(users);
-        setSearching(false);
-      } else {
-        setFilteredUsers([]);
-      }
-    }, 500);
+  const fetchData = useCallback(async (term: string) => {
+    if (term.trim() !== "") {
+      setSearching(true);
+      const response = await filterUsers({ search: term });
+      const users = response.value.slice(0, 10);
+      setFilteredUsers(users);
+      setSearching(false);
+    } else {
+      setFilteredUsers([]);
+    }
+  }, []);
 
-    fetchData();
-  }, [searchTerm]);
+  const debouncedFetchData = useMemo(
+    () => debounce(fetchData, 500),
+    [fetchData],
+  );
+
+  useEffect(() => {
+    debouncedFetchData(searchTerm);
+  }, [debouncedFetchData, searchTerm]);
 
   return (
     <div className="search-bar-container flex flex-col items-center w-full">
