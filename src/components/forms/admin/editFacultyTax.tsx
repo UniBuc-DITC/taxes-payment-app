@@ -86,6 +86,7 @@ export default function EditFacultyTaxForm({ faculties, searchParams }: Props) {
             <input
               {...register("value")}
               type="number"
+              step="0.01"
               className="block h-10 w-full border border-gray-300 rounded-md p-3 shadow-sm focus:border-blue-500 focus:ring-blue-500"
               placeholder="Introdu valoarea"
               defaultValue={searchParams.value}

@@ -67,6 +67,7 @@ export default function EditTaxDormForm({ dormitories, searchParams }: Props) {
             <input
               {...register("value")}
               type="number"
+              step="0.01"
               className="w-full h-10 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:ring-opacity-50 focus:outline-none focus:border-green-500 transition duration-300 ease-in-out hover:border-green-500"
               placeholder="Introdu valoarea"
               defaultValue={searchParams.value}

@@ -111,8 +111,8 @@ export const euPlatescAccountSchema = z.object({
   description: z.string().optional(),
   merchantId: z
     .string()
-    .min(1, "Merchant id is required")
-    .regex(/^\d+$/, "Merchant id must contain only digits"),
+    .min(1, "Merchant ID is required")
+    .regex(/^\d+$/, "Merchant ID must contain only digits"),
   secretKey: z.string().min(1, "Secret key is required"),
 });
 
@@ -120,7 +120,10 @@ export const dormTaxSchema = z.object({
   value: z
     .string()
     .min(1, "Tax value is required")
-    .regex(/^\d+$/, "Tax value must contain only digits"),
+    .regex(
+      /^\d+(\.\d{0,2})?$/,
+      "Tax value must be a number with up to two decimal places",
+    ),
   studentDormId: z.number().int(),
   remarksRo: z.string().optional(),
   remarksEn: z.string().optional(),
@@ -130,7 +133,10 @@ export const facultyTaxSchema = z.object({
   value: z
     .string()
     .min(1, "Tax value is required")
-    .regex(/^\d+$/, "Tax value must contain only digits"),
+    .regex(
+      /^\d+(\.\d{0,2})?$/,
+      "Tax value must be a number with up to two decimal places",
+    ),
   studyCycle: z.string(),
   facultyId: z.number().int(),
   facultyTaxType: z.string(),
