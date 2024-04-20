@@ -8,38 +8,10 @@ import { Client, Options } from "@microsoft/microsoft-graph-client";
 import SearchBar from "./SearchBar";
 import { FaTrash } from "react-icons/fa";
 import { deleteAdmin } from "@/actions/actions";
+import { getAccessToken } from "@/utils/microsoft-graph";
 
 export default async function Home() {
-  const fetchAccessToken = async () => {
-    const clientId = process.env.AZURE_AD_CLIENT_ID;
-    const clientSecret = process.env.AZURE_AD_CLIENT_SECRET;
-    const tokenEndpoint = `https://login.microsoftonline.com/${process.env.AZURE_AD_TENANT_ID}/oauth2/v2.0/token`;
-    try {
-      const response = await fetch(tokenEndpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          "Cache-control": "no-cache",
-        },
-        body: new URLSearchParams({
-          grant_type: "client_credentials",
-          client_id: clientId ?? "",
-          client_secret: clientSecret ?? "",
-          scope: "https://graph.microsoft.com/.default",
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch access token: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      return data.access_token;
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  const token = await fetchAccessToken();
+  const token = await getAccessToken();
   const authProvider: AuthProvider = async (callback: AuthProviderCallback) => {
     callback(null, token);
   };

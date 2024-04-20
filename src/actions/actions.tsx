@@ -18,6 +18,7 @@ import {
   AuthProviderCallback,
 } from "@microsoft/microsoft-graph-client";
 import { Client, Options } from "@microsoft/microsoft-graph-client";
+import { getAccessToken } from "@/utils/microsoft-graph";
 
 type InputDorm = z.infer<typeof dormSchema>;
 type InputFaculty = z.infer<typeof facultySchema>;
@@ -259,30 +260,9 @@ export async function setEuPlatescDidacticOnly(id: number, bool: boolean) {
 
 export async function filterUsers(data: Search) {
   const authProvider: AuthProvider = async (callback: AuthProviderCallback) => {
-    const clientId = process.env.AZURE_AD_CLIENT_ID;
-    const clientSecret = process.env.AZURE_AD_CLIENT_SECRET;
-    const tokenEndpoint = `https://login.microsoftonline.com/${process.env.AZURE_AD_TENANT_ID}/oauth2/v2.0/token`;
     try {
-      const response = await fetch(tokenEndpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-          grant_type: "client_credentials",
-          client_id: clientId ?? "",
-          client_secret: clientSecret ?? "",
-          scope: "https://graph.microsoft.com/.default",
-        }),
-      });
+      const accessToken = await getAccessToken();
 
-      if (!response.ok) {
-        throw new Error(`Failed to fetch access token: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      accessToken = data.access_token;
-      console.log(accessToken);
       callback(null, accessToken);
     } catch (error) {
       console.error(error);
@@ -291,12 +271,16 @@ export async function filterUsers(data: Search) {
   };
   const options: Options = {
     authProvider,
+    fetchOptions: {
+      cache: "no-store",
+    },
   };
   const client = Client.init(options);
 
   const filteredUsers = await client
     .api(`/users?$filter=startswith(mail, '${data.search}')`)
     .get();
+
   return filteredUsers;
 }
 
