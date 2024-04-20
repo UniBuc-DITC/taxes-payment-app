@@ -4,5 +4,8 @@
   "files.associations": {
     // Associate `globals.css` file with Tailwind CSS plugin
     "globals.css": "tailwindcss"
+  },
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
   }
 }
