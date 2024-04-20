@@ -1,5 +1,4 @@
 import prisma from "@/db/prisma";
-import { unstable_noStore } from "next/cache";
 import { StudentDormTaxValue, StudentDorm } from "@prisma/client";
 import DormitoryTaxList from "@/components/admin/DormitoryTaxList.client";
 
