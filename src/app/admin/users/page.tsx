@@ -32,7 +32,7 @@ export default async function Home() {
       >
         <form
           action={deleteAdmin}
-          method="post"
+          method="POST"
           className="absolute top-0 right-0 m-4"
         >
           <input type="hidden" name="userId" value={userDetails.id} />

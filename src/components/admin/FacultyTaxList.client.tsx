@@ -91,7 +91,7 @@ export default function FacultyTaxList({ taxFaculties, faculties }: Props) {
                       <FaEdit className="text-white text-2xl" />
                     </p>
                   </Link>
-                  <form action={deleteTaxFaculty} method="post">
+                  <form action={deleteTaxFaculty} method="POST">
                     <input type="hidden" name="taxFacultyId" value={value.id} />
                     <button
                       type="submit"
@@ -153,7 +153,7 @@ export default function FacultyTaxList({ taxFaculties, faculties }: Props) {
                       <FaEdit className="text-white text-2xl" />
                     </p>
                   </Link>
-                  <form action={deleteTaxFaculty} method="post">
+                  <form action={deleteTaxFaculty} method="POST">
                     <input type="hidden" name="taxFacultyId" value={value.id} />
                     <button
                       type="submit"

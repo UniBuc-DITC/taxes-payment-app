@@ -72,7 +72,7 @@ export default function DormitoryTaxList({
                         <FaEdit className="text-white text-2xl" />
                       </p>
                     </Link>
-                    <form action={deleteTaxDorm} method="post">
+                    <form action={deleteTaxDorm} method="POST">
                       <input type="hidden" name="taxDormId" value={value.id} />
                       <button
                         type="submit"

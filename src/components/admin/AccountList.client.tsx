@@ -61,7 +61,7 @@ export default function getAllEuPlatescAccounts({ accounts }: Props) {
                         <FaEdit className="text-white text-2xl" />
                       </p>
                     </Link>
-                    <form action={deleteEuPlatescAccount} method="post">
+                    <form action={deleteEuPlatescAccount} method="POST">
                       <input
                         type="hidden"
                         name="accountId"

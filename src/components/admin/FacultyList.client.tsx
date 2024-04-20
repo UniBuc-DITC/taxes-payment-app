@@ -56,7 +56,7 @@ export default function FacultyList({ faculties }: Props) {
                         <FaEdit className="text-white text-2xl" />
                       </button>
                     </Link>
-                    <form action={deleteFaculty} method="post">
+                    <form action={deleteFaculty} method="POST">
                       <input
                         type="hidden"
                         name="facultyId"
