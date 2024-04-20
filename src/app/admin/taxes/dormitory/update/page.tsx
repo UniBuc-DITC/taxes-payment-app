@@ -1,6 +1,5 @@
 import EditTaxDormForm from "@/components/forms/admin/editDormTax";
 import Navbar from "@/components/navbar";
-import Button from "@/components/UI/button";
 import prisma from "@/db/prisma";
 
 type Props = {
