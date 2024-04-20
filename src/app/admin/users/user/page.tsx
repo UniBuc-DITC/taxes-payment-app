@@ -1,13 +1,12 @@
 import Navbar from "@/components/navbar";
 import React from "react";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/next-auth-options";
 import {
   AuthProvider,
   AuthProviderCallback,
 } from "@microsoft/microsoft-graph-client";
 import { Client, Options } from "@microsoft/microsoft-graph-client";
 import { addAdmin } from "@/actions/actions";
+import { getAccessToken } from "@/utils/microsoft-graph";
 
 type Params = {
   searchParams: {
@@ -15,37 +14,10 @@ type Params = {
   };
 };
 
-let accessToken: string | null = null;
-
 export default async function Page({ searchParams }: Params) {
   const authProvider: AuthProvider = async (callback: AuthProviderCallback) => {
-    const clientId = process.env.AZURE_AD_CLIENT_ID;
-    const clientSecret = process.env.AZURE_AD_CLIENT_SECRET;
-    const tokenEndpoint = `https://login.microsoftonline.com/${process.env.AZURE_AD_TENANT_ID}/oauth2/v2.0/token`;
     try {
-      const response = await fetch(tokenEndpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          "Cache-Control": "no-cache, no-store, must-revalidate",
-          Pragma: "no-cache",
-          Expires: "0",
-        },
-        body: new URLSearchParams({
-          grant_type: "client_credentials",
-          client_id: clientId ?? "",
-          client_secret: clientSecret ?? "",
-          scope: "https://graph.microsoft.com/.default",
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch access token: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      accessToken = data.access_token;
-      console.log(accessToken);
+      const accessToken = await getAccessToken();
       callback(null, accessToken);
     } catch (error) {
       console.error(error);
