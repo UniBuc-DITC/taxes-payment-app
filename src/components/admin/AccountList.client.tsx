@@ -20,7 +20,7 @@ export default function getAllEuPlatescAccounts({ accounts }: Props) {
             <h1 className="text-2xl font-bold text-gray-800">
               Gestionare conturi EuPlatesc
             </h1>
-            <Link href={{ pathname: "euplatesc-accounts/add" }} passHref>
+            <Link href="euplatesc-accounts/add">
               <p className="inline-block bg-green-500 p-3 rounded-full hover:bg-green-600 cursor-pointer">
                 <FaPlus className="text-white text-4xl" />
               </p>

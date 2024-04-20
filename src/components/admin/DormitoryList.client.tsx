@@ -20,7 +20,7 @@ export default function DormitoryList({ dormitories }: Props) {
             <h1 className="text-2xl font-bold text-gray-800">
               Gestionare camine
             </h1>
-            <Link href={{ pathname: "dormitories/add" }} passHref>
+            <Link href="dormitories/add">
               <p className="inline-block bg-green-500 p-3 rounded-full hover:bg-green-600 cursor-pointer">
                 <FaPlus className="text-white text-4xl" />
               </p>
