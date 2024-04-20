@@ -25,19 +25,16 @@ type LayoutProps = {
   };
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params: { locale },
 }: LayoutProps) {
-  // Cache the request locale using a temporary API, to make it available to downstream components.
-  // See https://next-intl-docs.vercel.app/docs/getting-started/app-router#add-unstable_setrequestlocale-to-all-layouts-and-pages for more details.
   unstable_setRequestLocale(locale);
-
   return (
     <html lang={locale}>
       <body className={inter.className}>
         <NavBar />
-        <main className="max-w-7xl mx-auto">{children}</main>
+        {children}
       </body>
     </html>
   );

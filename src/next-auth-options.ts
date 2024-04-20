@@ -1,6 +1,8 @@
-import type { NextAuthOptions } from "next-auth";
-import type { Provider } from "next-auth/providers/index";
+import { NextAuthOptions } from "next-auth";
+import NextAuth from "next-auth/next";
 import AzureAD from "next-auth/providers/azure-ad";
+import type { Provider } from "next-auth/providers/index";
+import prisma from "@/db/prisma";
 
 const providers: Provider[] = [];
 
@@ -47,32 +49,37 @@ providers.push(
 
 export const authOptions: NextAuthOptions = {
   providers,
-
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 60,
+  },
   callbacks: {
     async signIn({ user }) {
-      // waiting for prisma to be added just a prof of concept
-      //   const dbUser = await prisma.user.findUnique({
-      //     where: { azureAdObjectId: user.azureAdObjectId },
-      //   });
-      //   if (dbUser) {
-      //     return true;
-      //   }
-      //   return false;
-
-      return true;
+      const dbUser = await prisma.user.findUnique({
+        where: {
+          azureAdObjectId: user.azureAdObjectId,
+        },
+      });
+      if (dbUser) return true;
+      return false;
     },
-    jwt({ token, user, account }) {
+    async jwt({ token, user, account, trigger, session }) {
       if (account && account.access_token !== undefined) {
         token.accessToken = account.access_token;
+        token.refreshToken = account.refresh_token;
       }
+      if (user) token.azureAdObjectId = user.azureAdObjectId;
 
-      if (user) {
-        token.azureAdObjectId = user.azureAdObjectId;
+      if (trigger === "update" && session?.name) {
+        token.name = session.name;
       }
 
       return token;
     },
-    session({ session, token }) {
+    async redirect({ url, baseUrl }) {
+      return url.startsWith(baseUrl) ? baseUrl + "/admin" : url;
+    },
+    async session({ session, token }) {
       session.accessToken = token.accessToken;
       session.user.azureAdObjectId = token.azureAdObjectId;
 
@@ -83,3 +90,7 @@ export const authOptions: NextAuthOptions = {
     signIn: "/auth/signin",
   },
 };
+
+const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST };

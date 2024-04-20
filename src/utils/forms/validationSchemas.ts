@@ -88,3 +88,66 @@ export const accomodationTaxSchema = z
   .and(consentFormSchema)
   .and(partialPaySchema)
   .and(taxAmountFormSchema);
+
+export const dormSchema = z.object({
+  name: z.string().nonempty("Name is required").min(3, {
+    message: "The dormitory name should have at least 3 characters!",
+  }),
+  accountId: z.number().int().nullable(),
+});
+
+export const facultySchema = z.object({
+  nameRo: z.string().nonempty("Name is required").min(3, {
+    message: "The faculty name (RO) should have at least 3 characters!",
+  }),
+  nameEn: z.string().nonempty("Name is required").min(3, {
+    message: "The faculty name (RO) should have at least 3 characters!",
+  }),
+  accountId: z.number().int().nullable(),
+});
+
+export const euPlatescAccountSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  description: z.string().optional(),
+  merchantId: z
+    .string()
+    .min(1, "Merchant ID is required")
+    .regex(/^\d+$/, "Merchant ID must contain only digits"),
+  secretKey: z.string().min(1, "Secret key is required"),
+});
+
+export const dormTaxSchema = z.object({
+  value: z
+    .string()
+    .min(1, "Tax value is required")
+    .regex(
+      /^\d+(\.\d{0,2})?$/,
+      "Tax value must be a number with up to two decimal places",
+    ),
+  studentDormId: z.number().int(),
+  remarksRo: z.string().optional(),
+  remarksEn: z.string().optional(),
+});
+
+export const facultyTaxSchema = z.object({
+  value: z
+    .string()
+    .min(1, "Tax value is required")
+    .regex(
+      /^\d+(\.\d{0,2})?$/,
+      "Tax value must be a number with up to two decimal places",
+    ),
+  studyCycle: z.string(),
+  facultyId: z.number().int(),
+  facultyTaxType: z.string(),
+  remarksRo: z.string().optional(),
+  remarksEn: z.string().optional(),
+});
+
+export const searchSchema = z.object({
+  search: z.string(),
+});
+
+export const adminSchema = z.object({
+  id: z.string(),
+});

@@ -139,6 +139,12 @@
           "november": "Noiembrie",
           "december": "Decembrie"
         }
+      },
+      "DormitoryAdmin": {
+        "dormitoryManagement": "Gestionarea căminelor",
+        "addNewDormitory": "Adaugă cămin nou",
+        "edit": "Editează",
+        "delete": "Șterge"
       }
     }
   }

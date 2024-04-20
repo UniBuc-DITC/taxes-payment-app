@@ -11,47 +11,47 @@ datasource db {
 }
 
 enum Role {
-  appAdmin @map("app_admin")
+  appAdmin   @map("app_admin")
   taxesAdmin @map("taxes_admin")
 }
 
 model User {
-  id                Int    @id @default(autoincrement())
-  azureAdObjectId   String @unique @map("azure_ad_object_id")
-  role              Role
+  id              Int    @id @default(autoincrement())
+  azureAdObjectId String @unique @map("azure_ad_object_id")
+  role            Role
 
   @@map("users")
 }
 
 model EuPlatescAccount {
-  id                         Int      @id @default(autoincrement())
-  name                       String
-  description                String?
-  merchantId                 Int      @unique @map("merchant_id")
-  secretKey                  String   @map("secret_key")
-  didacticPremiumCardOnly    Boolean  @map("didactic_premium_card_only")
-  faculties                  Faculty[]
-  studentDorms               StudentDorm[]
+  id                      Int           @id @default(autoincrement())
+  name                    String
+  description             String?
+  merchantId              Int           @unique @map("merchant_id")
+  secretKey               String        @map("secret_key")
+  didacticPremiumCardOnly Boolean       @map("didactic_premium_card_only")
+  faculties               Faculty[]
+  studentDorms            StudentDorm[]
 
   @@map("euplatesc_accounts")
 }
 
 model Faculty {
-  id                  Int              @id @default(autoincrement())
-  nameRo              String           @map("name_ro")
-  nameEn              String           @map("name_en")
-  euplatescAccountId  Int?             @map("euplatesc_account_id")
-  euPlatescAccount    EuPlatescAccount? @relation(fields: [euplatescAccountId], references: [id])
-  facultyTaxValues    FacultyTaxValue[]
+  id                 Int               @id @default(autoincrement())
+  nameRo             String            @map("name_ro")
+  nameEn             String            @map("name_en")
+  euplatescAccountId Int?              @map("euplatesc_account_id")
+  euPlatescAccount   EuPlatescAccount? @relation(fields: [euplatescAccountId], references: [id])
+  facultyTaxValues   FacultyTaxValue[]
 
   @@map("faculties")
 }
 
 model StudentDorm {
-  id                  Int              @id @default(autoincrement())
-  name                String
-  euplatescAccountId  Int?             @map("euplatesc_account_id")
-  euPlatescAccount    EuPlatescAccount? @relation(fields: [euplatescAccountId], references: [id])
+  id                   Int                   @id @default(autoincrement())
+  name                 String
+  euplatescAccountId   Int?                  @map("euplatesc_account_id")
+  euPlatescAccount     EuPlatescAccount?     @relation(fields: [euplatescAccountId], references: [id])
   studentDormTaxValues StudentDormTaxValue[]
 
   @@map("student_dorms")
@@ -61,7 +61,7 @@ enum StudyCycle {
   bachelors
   masters
   doctorate
-  postgraduate  
+  postgraduate
 }
 
 enum FacultyTaxType {
@@ -70,25 +70,50 @@ enum FacultyTaxType {
 }
 
 model FacultyTaxValue {
-  id               Int            @id @default(autoincrement())
-  value            Decimal          
-  studyCycle       StudyCycle     @map("study_cycle")
-  facultyId        Int            @map("faculty_id")
-  facultyTaxType   FacultyTaxType @map("faculty_tax_type")
-  remarksRo        String?        @map("remarks_ro")
-  remarksEn        String?        @map("remarks_en")
-  faculty          Faculty        @relation(fields: [facultyId], references: [id])
+  id             Int            @id @default(autoincrement())
+  value          Decimal
+  studyCycle     StudyCycle     @map("study_cycle")
+  facultyId      Int            @map("faculty_id")
+  facultyTaxType FacultyTaxType @map("faculty_tax_type")
+  remarksRo      String?        @map("remarks_ro")
+  remarksEn      String?        @map("remarks_en")
+  faculty        Faculty        @relation(fields: [facultyId], references: [id])
 
   @@map("faculty_tax_values")
 }
 
 model StudentDormTaxValue {
-  id              Int         @id @default(autoincrement())
-  value           Decimal       
-  studentDormId   Int         @map("student_dorm_id")
-  remarksRo       String      @map("remarks_ro")
-  remarksEn       String      @map("remarks_en")
-  studentDorm     StudentDorm @relation(fields: [studentDormId], references: [id])
+  id            Int         @id @default(autoincrement())
+  value         Decimal
+  studentDormId Int         @map("student_dorm_id")
+  remarksRo     String      @map("remarks_ro")
+  remarksEn     String      @map("remarks_en")
+  studentDorm   StudentDorm @relation(fields: [studentDormId], references: [id])
 
   @@map("student_dorm_tax_values")
+}
+
+enum TransactionStatus {
+  initiated
+  succeded
+  failed
+}
+
+model Transaction {
+  id             Int               @id @default(autoincrement())
+  epid           String            @unique
+  status         TransactionStatus
+  description    String
+  value          Decimal
+  firstName      String            @map("first_name")
+  lastName       String            @map("last_name")
+  personalIdCode String            @map("personal_id_code")
+  country        String
+  city           String
+  phoneNumber    String            @map("phone_number")
+  emailAddress   String            @map("email_address")
+  createdAt      DateTime          @map("created_at")
+  updatedAt      DateTime          @map("updated_at")
+
+  @@map("transactions")
 }

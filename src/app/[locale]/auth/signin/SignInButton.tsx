@@ -2,11 +2,10 @@
 
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 
 function SignInButton() {
   const t = useTranslations("Auth.SignIn");
-
   const params = useSearchParams();
   const error = params.get("error");
   return (
@@ -17,6 +16,13 @@ function SignInButton() {
         }}
       >
         {t("buttonLabel")}
+      </button>
+      <button
+        onClick={() => {
+          signOut();
+        }}
+      >
+        Log out
       </button>
       {error &&
         (error === "Callback" ? (
