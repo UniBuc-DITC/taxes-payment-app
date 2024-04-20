@@ -36,7 +36,6 @@ const AddDormitoryForm = ({ accounts }: { accounts: EuPlatescAccount[] }) => {
     value: account.id,
     label: account.name,
   }));
-  
 
   return (
     <main className="py-10 flex justify-center items-center min-h-screen bg-gray-100">

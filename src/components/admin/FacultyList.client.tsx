@@ -57,7 +57,11 @@ export default function FacultyList({ faculties }: Props) {
                       </button>
                     </Link>
                     <form action={deleteFaculty} method="post">
-                      <input type="hidden" name="facultyId" value={faculty.id} />
+                      <input
+                        type="hidden"
+                        name="facultyId"
+                        value={faculty.id}
+                      />
                       <button
                         type="submit"
                         className="p-2 bg-red-500 rounded-full hover:bg-red-600 inline-flex items-center justify-center"
