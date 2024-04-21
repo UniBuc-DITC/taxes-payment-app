@@ -6,6 +6,7 @@ services:
     restart: unless-stopped
     networks:
       - nginx-proxy
+      - database
     environment:
       VIRTUAL_HOST: ponou.unibuc.ro
 
@@ -45,6 +46,8 @@ services:
       POSTGRES_DB: taxes
     volumes:
       - db-data:/var/lib/postgresql/data
+    networks:
+      - database
 
 volumes:
   nginx-certs:
@@ -54,4 +57,4 @@ volumes:
 
 networks:
   nginx-proxy:
-
+  database:
