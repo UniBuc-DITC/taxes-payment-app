@@ -1,7 +1,16 @@
 import { useTranslations } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 import { Link } from "@/navigation";
 
-export default function Home() {
+type PageProps = {
+  params: {
+    locale: string;
+  };
+};
+
+export default function Home({ params: { locale } }: PageProps) {
+  unstable_setRequestLocale(locale);
+
   const t = useTranslations("Index");
 
   return (
