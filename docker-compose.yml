@@ -3,6 +3,7 @@ services:
     build: .
     depends_on:
       - postgres
+      - nginx-proxy-acme
     restart: unless-stopped
     networks:
       - nginx-proxy
@@ -10,12 +11,11 @@ services:
     environment:
       DATABASE_URL: postgresql://taxes_app:dev_pwd@postgres:5432/taxes?schema=public
       VIRTUAL_HOST: ponou.unibuc.ro
+      LETSENCRYPT_HOST: ponou.unibuc.ro
 
   nginx-proxy:
     image: nginxproxy/nginx-proxy:latest
     restart: unless-stopped
-    depends_on:
-      - web
     ports:
       - 80:80
     volumes:
