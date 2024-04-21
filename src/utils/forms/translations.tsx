@@ -131,7 +131,6 @@ export async function getSubmitButtonTexts(): Promise<SubmitButtonTexts> {
 
 export async function getAmountFormTexts(): Promise<AmountTexts> {
   const t = await getTranslations("Forms.Faculties.Amount");
-  console.log(t("required.amount"));
   return {
     required: { amount: t("required.amount") },
     labels: { amount: t("labels.amount") },

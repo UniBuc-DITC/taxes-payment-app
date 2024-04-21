@@ -1,6 +1,7 @@
 import Navbar from "@/components/navbar";
 import prisma from "@/db/prisma";
 import EditFacultyForm from "@/components/forms/admin/editFaculty";
+import {unstable_noStore} from "next/cache";
 
 type Params = {
   searchParams: {
@@ -12,6 +13,8 @@ type Params = {
 };
 
 export default async function EditFaculty({ searchParams }: Params) {
+  unstable_noStore();
+
   const accounts = await prisma.euPlatescAccount.findMany({
     orderBy: {
       description: "asc",

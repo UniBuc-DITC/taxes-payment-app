@@ -2,6 +2,7 @@ import Navbar from "@/components/navbar";
 import { updateTaxFaculty } from "@/actions/actions";
 import prisma from "@/db/prisma";
 import EditFacultyTaxForm from "@/components/forms/admin/editFacultyTax";
+import {unstable_noStore} from "next/cache";
 
 type Props = {
   searchParams: {
@@ -16,6 +17,8 @@ type Props = {
 };
 
 export default async function Edit({ searchParams }: Props) {
+  unstable_noStore();
+
   const faculties = await prisma.faculty.findMany();
   const {
     id,
