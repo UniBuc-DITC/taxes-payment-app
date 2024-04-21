@@ -18,11 +18,20 @@ const authMiddleware = withAuth({
 });
 
 export default function middleware(req: NextRequest, event: NextFetchEvent) {
+  const pathname = req.nextUrl.pathname;
+
+  const authRoutesPattern = "^/admin/auth/?.*?$";
+  const authRoutesRegex = RegExp(authRoutesPattern);
+
+  if (authRoutesRegex.test(pathname)) {
+    return;
+  }
+
   // Routes to be treated as admin pages
   const adminRoutesPattern = "^/admin/?.*?$";
   const adminRoutesRegex = RegExp(adminRoutesPattern, "i");
 
-  if (adminRoutesRegex.test(req.nextUrl.pathname)) {
+  if (adminRoutesRegex.test(pathname)) {
     // For the admin pages, only apply the NextAuth middleware
     return authMiddleware(req as NextRequestWithAuth, event);
   }
