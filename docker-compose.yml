@@ -1,0 +1,57 @@
+services:
+  web:
+    build: .
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    networks:
+      - nginx-proxy
+    environment:
+      VIRTUAL_HOST: ponou.unibuc.ro
+
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy:latest
+    restart: unless-stopped
+    depends_on:
+      - web
+    ports:
+      - 80:80
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    networks:
+      - nginx-proxy
+
+  nginx-proxy-acme:
+    image: nginxproxy/acme-companion:latest
+    restart: unless-stopped
+    depends_on:
+      - nginx-proxy
+    volumes:
+      - nginx-certs:/etc/nginx/certs
+      - nginx-vhost.d:/etc/nginx/vhost.d
+      - nginx-html:/usr/share/nginx/html
+      - /etc/acme.sh
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      DEFAULT_EMAIL: contact@it.unibuc.ro
+
+  postgres:
+    image: postgres:16.1
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: taxes_app
+      POSTGRES_PASSWORD: dev_pwd
+      POSTGRES_DB: taxes
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  nginx-certs:
+  nginx-vhost.d:
+  nginx-html:
+  db-data:
+
+networks:
+  nginx-proxy:
+
