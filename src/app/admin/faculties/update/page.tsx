@@ -1,7 +1,7 @@
 import Navbar from "@/components/navbar";
 import prisma from "@/db/prisma";
 import EditFacultyForm from "@/components/forms/admin/editFaculty";
-import {unstable_noStore} from "next/cache";
+import { unstable_noStore } from "next/cache";
 
 type Params = {
   searchParams: {
