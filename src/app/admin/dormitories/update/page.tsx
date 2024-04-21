@@ -1,6 +1,7 @@
 import Navbar from "@/components/navbar";
 import prisma from "@/db/prisma";
 import EditDormitoryForm from "@/components/forms/admin/editDorm";
+import {unstable_noStore} from "next/cache";
 
 type Params = {
   searchParams: {
@@ -11,6 +12,8 @@ type Params = {
 };
 
 export default async function EditDormitory({ searchParams }: Params) {
+  unstable_noStore();
+
   const accounts = await prisma.euPlatescAccount.findMany({
     orderBy: {
       description: "asc",

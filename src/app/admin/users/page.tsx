@@ -9,8 +9,11 @@ import SearchBar from "./SearchBar";
 import { FaTrash } from "react-icons/fa";
 import { deleteAdmin } from "@/actions/actions";
 import { getAccessToken } from "@/utils/microsoft-graph";
+import {unstable_noStore} from "next/cache";
 
 export default async function Home() {
+  unstable_noStore();
+
   const token = await getAccessToken();
   const authProvider: AuthProvider = async (callback: AuthProviderCallback) => {
     callback(null, token);

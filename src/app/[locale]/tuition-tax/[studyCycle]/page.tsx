@@ -5,6 +5,7 @@ import { getTuitionFormTexts } from "@/utils/forms/translations";
 import { StudyCycle } from "@prisma/client";
 import { unstable_setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
+import {unstable_noStore} from "next/cache";
 
 export function generateStaticParams() {
   return Object.values(StudyCycle).map((studyCycle) => ({ studyCycle }));
@@ -17,6 +18,7 @@ interface Props {
 export default async function TuitionTaxPage({
   params: { locale, studyCycle },
 }: Props) {
+  unstable_noStore();
   unstable_setRequestLocale(locale);
 
   if (!Object.values(StudyCycle).includes(studyCycle)) {
