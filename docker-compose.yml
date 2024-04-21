@@ -8,6 +8,7 @@ services:
       - nginx-proxy
       - database
     environment:
+      DATABASE_URL: postgresql://taxes_app:dev_pwd@postgres:5432/taxes?schema=public
       VIRTUAL_HOST: ponou.unibuc.ro
 
   nginx-proxy:
@@ -21,6 +22,10 @@ services:
       - /var/run/docker.sock:/tmp/docker.sock:ro
     networks:
       - nginx-proxy
+    labels:
+      - com.github.nginx-proxy.nginx
+    environment:
+      TRUST_DOWNSTREAM_PROXY: false
 
   nginx-proxy-acme:
     image: nginxproxy/acme-companion:latest
