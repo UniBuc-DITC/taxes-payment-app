@@ -3,13 +3,6 @@
     "getStarted": "Get started by editing",
     "by": "By"
   },
-  "Auth": {
-    "SignIn": {
-      "buttonLabel": "Sign in",
-      "callbackError": "Only authorized users are allowed to log into the admin interface of the app",
-      "otherError": "Ooops, something went wrong :("
-    }
-  },
   "Forms": {
     "BillingDetails": {
       "required": {
