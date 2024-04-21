@@ -9,7 +9,7 @@ import SearchBar from "./SearchBar";
 import { FaTrash } from "react-icons/fa";
 import { deleteAdmin } from "@/actions/actions";
 import { getAccessToken } from "@/utils/microsoft-graph";
-import {unstable_noStore} from "next/cache";
+import { unstable_noStore } from "next/cache";
 
 export default async function Home() {
   unstable_noStore();

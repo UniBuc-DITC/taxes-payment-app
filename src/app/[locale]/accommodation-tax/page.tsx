@@ -3,7 +3,7 @@ import { getDormsWithTax } from "@/db/dorms";
 import { createDormTaxOptions } from "@/utils/forms/dorms";
 import { getDormFormTexts } from "@/utils/forms/translations";
 import { unstable_setRequestLocale } from "next-intl/server";
-import {unstable_noStore} from "next/cache";
+import { unstable_noStore } from "next/cache";
 
 interface Props {
   params: { locale: string };

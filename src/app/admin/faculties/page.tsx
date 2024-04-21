@@ -1,7 +1,7 @@
 import prisma from "@/db/prisma";
 import FacultyList from "@/components/admin/FacultyList.client";
 import { Faculty } from "@prisma/client";
-import {unstable_noStore} from "next/cache";
+import { unstable_noStore } from "next/cache";
 
 export default async function getAll() {
   unstable_noStore();
