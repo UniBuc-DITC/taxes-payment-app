@@ -18,7 +18,11 @@ services:
     restart: unless-stopped
     ports:
       - 80:80
+      - 443:443
     volumes:
+      - nginx-certs:/etc/nginx/certs
+      - nginx-vhost:/etc/nginx/vhost.d
+      - nginx-html:/usr/share/nginx/html
       - /var/run/docker.sock:/tmp/docker.sock:ro
     networks:
       - nginx-proxy
@@ -34,10 +38,12 @@ services:
       - nginx-proxy
     volumes:
       - nginx-certs:/etc/nginx/certs
-      - nginx-vhost.d:/etc/nginx/vhost.d
+      - nginx-vhost:/etc/nginx/vhost.d
       - nginx-html:/usr/share/nginx/html
       - /etc/acme.sh
       - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - nginx-proxy
     environment:
       DEFAULT_EMAIL: contact@it.unibuc.ro
 
@@ -56,7 +62,7 @@ services:
 
 volumes:
   nginx-certs:
-  nginx-vhost.d:
+  nginx-vhost:
   nginx-html:
   db-data:
 
