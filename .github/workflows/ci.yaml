@@ -27,3 +27,6 @@ jobs:
 
       - name: Run the linter
         run: npm run lint
+
+      - name: Test production build
+        run: npm run build
