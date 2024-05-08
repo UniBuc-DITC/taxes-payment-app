@@ -11,8 +11,7 @@ datasource db {
 }
 
 enum Role {
-  appAdmin   @map("app_admin")
-  taxesAdmin @map("taxes_admin")
+  appAdmin @map("app_admin")
 }
 
 model User {

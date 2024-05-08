@@ -40,18 +40,6 @@ async function main() {
     studentDorms.push(studentDorm);
   }
 
-  // Insert 5 User records
-  const users = [];
-  for (let i = 1; i <= 25; i++) {
-    const user = await prisma.user.create({
-      data: {
-        azureAdObjectId: `UserObjectID${i}`,
-        role: i % 2 === 0 ? Role.appAdmin : Role.taxesAdmin, // Alternate between roles
-      },
-    });
-    users.push(user);
-  }
-
   const facultyTaxValues = [];
   for (let i = 1; i <= 25; i++) {
     let studyCycle: StudyCycle = StudyCycle.bachelors;
