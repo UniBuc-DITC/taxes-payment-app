@@ -295,17 +295,6 @@ export async function addAdmin(formData: FormData) {
   redirect("/admin/users");
 }
 
-export async function addTaxesAdmin(formData: FormData) {
-  await prisma.user.create({
-    data: {
-      azureAdObjectId: formData.get("userId") as string,
-      role: Role.taxesAdmin,
-    },
-  });
-  revalidatePath("/");
-  redirect("/admin/users");
-}
-
 export async function deleteAdmin(formData: FormData) {
   const id = formData.get("userId") as string;
   await prisma.user.delete({
