@@ -9,7 +9,7 @@ async function main() {
       data: {
         name: `Account ${i}`,
         description: `Description ${i}`,
-        merchantId: 10000 + i,
+        merchantId: 44841002813,
         secretKey: `Key ${i}`,
         didacticPremiumCardOnly: i % 2 === 0, // Alternate between true and false
       },
