@@ -86,7 +86,7 @@ model EuPlatescAccount {
   id                      Int           @id @default(autoincrement())
   name                    String
   description             String?
-  merchantId              Int           @unique @map("merchant_id")
+  merchantId              String        @map("merchant_id")
   secretKey               String        @map("secret_key")
   didacticPremiumCardOnly Boolean       @map("didactic_premium_card_only")
   faculties               Faculty[]
