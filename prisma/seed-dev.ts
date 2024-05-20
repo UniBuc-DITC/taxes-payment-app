@@ -3,7 +3,8 @@ import { PrismaClient, Role, StudyCycle, FacultyTaxType } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  if (!process.env.EUPLATESC_KEY) throw Error("Missing EUPLATESC_KEY env variable");
+  if (!process.env.EUPLATESC_KEY)
+    throw Error("Missing EUPLATESC_KEY env variable");
 
   const euPlatescAccounts = [];
   for (let i = 1; i <= 25; i++) {
