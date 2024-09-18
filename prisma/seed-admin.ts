@@ -8,6 +8,8 @@ import { PrismaClient, Role } from "@prisma/client";
 import { createInterface as readlineCreateInterface } from "readline";
 import { stdin as input, stdout as output } from "process";
 
+const prisma = new PrismaClient();
+
 const MICROSOFT_GRAPH_ENDPOINT = "https://graph.microsoft.com/";
 
 async function acquireAccessToken() {
@@ -43,8 +45,6 @@ async function acquireAccessToken() {
 
   return await cca.acquireTokenByClientCredential(tokenRequest);
 }
-
-const prisma = new PrismaClient();
 
 async function main() {
   const authenticationResult = await acquireAccessToken();
