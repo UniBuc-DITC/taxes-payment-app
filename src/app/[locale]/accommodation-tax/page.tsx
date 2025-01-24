@@ -12,9 +12,7 @@ interface Props {
 export default async function AccommodationTaxPage(props: Props) {
   const params = await props.params;
 
-  const {
-    locale
-  } = params;
+  const { locale } = params;
 
   unstable_noStore();
   unstable_setRequestLocale(locale);

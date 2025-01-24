@@ -18,10 +18,7 @@ interface Props {
 export default async function TuitionTaxPage(props: Props) {
   const params = await props.params;
 
-  const {
-    locale,
-    studyCycle
-  } = params;
+  const { locale, studyCycle } = params;
 
   unstable_noStore();
   unstable_setRequestLocale(locale);
