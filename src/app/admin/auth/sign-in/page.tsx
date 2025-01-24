@@ -1,9 +1,12 @@
+import { Suspense } from "react";
 import SignInButton from "./SignInButton";
 
 export default async function SignInPage() {
   return (
     <div>
-      <SignInButton />
+      <Suspense>
+        <SignInButton />
+      </Suspense>
     </div>
   );
 }

@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { unstable_setRequestLocale } from "next-intl/server";
-import { locales } from "@/i18n";
+import { setRequestLocale } from "next-intl/server";
+import { routing } from "@/i18n/routing";
 
 import "./globals.css";
 
 import NavBar from "@/components/reusable/NavBar";
+import { notFound } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,21 +15,26 @@ export const metadata: Metadata = {
 };
 
 export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
+  return routing.locales.map((locale) => ({ locale }));
 }
 
 type LayoutProps = {
   children: React.ReactNode;
-  params: {
+  params: Promise<{
     locale: string;
-  };
+  }>;
 };
 
-export default async function RootLayout({
-  children,
-  params: { locale },
-}: LayoutProps) {
-  unstable_setRequestLocale(locale);
+export default async function RootLayout({ children, params }: LayoutProps) {
+  const { locale } = await params;
+
+  // Ensure that the incoming `locale` is valid
+  if (!routing.locales.includes(locale as any)) {
+    notFound();
+  }
+
+  // Enable static rendering
+  setRequestLocale(locale);
 
   return (
     <html lang={locale}>

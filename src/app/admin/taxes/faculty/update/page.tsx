@@ -5,7 +5,7 @@ import EditFacultyTaxForm from "@/components/forms/admin/editFacultyTax";
 import { unstable_noStore } from "next/cache";
 
 type Props = {
-  searchParams: {
+  searchParams: Promise<{
     id: string;
     value: string;
     studyCycle: string;
@@ -13,10 +13,11 @@ type Props = {
     facultyTaxType: string;
     remarksRo: string;
     remarksEn: string;
-  };
+  }>;
 };
 
-export default async function Edit({ searchParams }: Props) {
+export default async function Edit(props: Props) {
+  const searchParams = await props.searchParams;
   unstable_noStore();
 
   const faculties = await prisma.faculty.findMany();

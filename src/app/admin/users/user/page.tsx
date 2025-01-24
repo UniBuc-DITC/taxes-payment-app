@@ -9,12 +9,13 @@ import { addAdmin } from "@/actions/actions";
 import { getAccessToken } from "@/utils/microsoft-graph";
 
 type Params = {
-  searchParams: {
+  searchParams: Promise<{
     userId: string;
-  };
+  }>;
 };
 
-export default async function Page({ searchParams }: Params) {
+export default async function Page(props: Params) {
+  const searchParams = await props.searchParams;
   const authProvider: AuthProvider = async (callback: AuthProviderCallback) => {
     try {
       const accessToken = await getAccessToken();

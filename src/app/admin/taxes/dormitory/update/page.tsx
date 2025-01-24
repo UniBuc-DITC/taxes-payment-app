@@ -4,16 +4,17 @@ import prisma from "@/db/prisma";
 import { unstable_noStore } from "next/cache";
 
 type Props = {
-  searchParams: {
+  searchParams: Promise<{
     id: string;
     value: string;
     studentDormId: string;
     remarksRo: string;
     remarksEn: string;
-  };
+  }>;
 };
 
-export default async function EditDormitoryTaxValue({ searchParams }: Props) {
+export default async function EditDormitoryTaxValue(props: Props) {
+  const searchParams = await props.searchParams;
   unstable_noStore();
 
   const dormitories = await prisma.studentDorm.findMany({

@@ -1,21 +1,19 @@
-import { useTranslations } from "next-intl";
-import { unstable_setRequestLocale } from "next-intl/server";
-import { Link } from "@/navigation";
+import { setRequestLocale } from "next-intl/server";
+import { Link } from "@/i18n/routing";
 
-type PageProps = {
-  params: {
-    locale: string;
-  };
-};
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
 
-export default function Home({ params: { locale } }: PageProps) {
-  unstable_setRequestLocale(locale);
-
-  const t = useTranslations("Index");
+  // Enable static rendering
+  setRequestLocale(locale);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>PLACEHOLDER UNTIL WE GET THE UI</h1>
+      <h1>Taxes Payment App</h1>
       <div className="flex flex-col">
         <h2 className="text-lg font-bold">Admission</h2>
         <Link href="/admission-tax/bachelors">Admission bachelors</Link>

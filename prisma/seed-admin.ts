@@ -1,4 +1,4 @@
-import msal from "@azure/msal-node";
+import { ConfidentialClientApplication } from "@azure/msal-node";
 import {
   AuthProvider,
   AuthProviderCallback,
@@ -41,7 +41,7 @@ async function acquireAccessToken() {
     scopes: [`${MICROSOFT_GRAPH_ENDPOINT}/.default`],
   };
 
-  const cca = new msal.ConfidentialClientApplication(msalConfig);
+  const cca = new ConfidentialClientApplication(msalConfig);
 
   return await cca.acquireTokenByClientCredential(tokenRequest);
 }

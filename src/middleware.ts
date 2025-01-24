@@ -1,15 +1,9 @@
 import createMiddleware from "next-intl/middleware";
-import { locales } from "./i18n";
+import { routing } from "./i18n/routing";
 import { NextRequestWithAuth, withAuth } from "next-auth/middleware";
 import { NextFetchEvent, NextRequest } from "next/server";
 
-const intlMiddleware = createMiddleware({
-  // A list of all locales that are supported
-  locales,
-
-  // Used when no locale matches
-  defaultLocale: "ro",
-});
+const intlMiddleware = createMiddleware(routing);
 
 const authMiddleware = withAuth({
   callbacks: {
@@ -36,8 +30,13 @@ export default function middleware(req: NextRequest, event: NextFetchEvent) {
     return authMiddleware(req as NextRequestWithAuth, event);
   }
 
-  // For all other pages, apply the `next-intl` middleware
-  return intlMiddleware(req);
+  // For localized pages, apply the `next-intl` middleware
+  if (
+    pathname == "/" ||
+    routing.locales.some((locale) => pathname.startsWith(`/${locale}`))
+  ) {
+    return intlMiddleware(req);
+  }
 }
 
 export const config = {
@@ -47,8 +46,9 @@ export const config = {
      * - api (API routes)
      * - _next/static (static files)
      * - _next/image (image optimization files)
+     * - installHook.js.map (source map file)
      * - favicon.ico (favicon file)
      */
-    "/((?!api|_next/static|_next/image|favicon.ico).*)",
+    "/((?!api|_next/static|_next/image|installHook.js.map|favicon.ico).*)",
   ],
 };
