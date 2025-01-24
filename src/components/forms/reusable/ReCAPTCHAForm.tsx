@@ -58,7 +58,7 @@ export default function ReCAPTCHAForm<T extends ReCAPTCHAInput>({
               size="normal"
               sitekey={process.env.NEXT_PUBLIC_RECAPTCHA!}
               onChange={field.onChange}
-              hl={locale}
+              hl={typeof locale === "string" ? locale : "ro"}
             />
             {disabled && (
               <div className="absolute inset-0 z-10 bg-white bg-opacity-50 " />
