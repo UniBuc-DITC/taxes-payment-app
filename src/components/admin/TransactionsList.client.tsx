@@ -19,7 +19,7 @@ type Props = {
 };
 
 export default function TransactionsList({ transactions }: Props) {
-  const data = useMemo(() => transactions, []);
+  const data = useMemo(() => transactions, [transactions]);
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [search, setSearch] = React.useState<string>();
   const table = useReactTable({

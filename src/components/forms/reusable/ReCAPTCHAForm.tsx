@@ -1,6 +1,6 @@
 import { validateReCAPTCHA } from "@/actions/forms";
 import { ReCAPTCHAInput, ReCAPTCHATexts } from "@/types/forms/agreements";
-import { useLocale } from "next-intl";
+import { useParams } from "next/navigation";
 import React, { useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Controller, Control, Path, FieldErrors } from "react-hook-form";
@@ -31,7 +31,7 @@ export default function ReCAPTCHAForm<T extends ReCAPTCHAInput>({
   disabled,
 }: Props<T>) {
   const recaptchaRef = useRef<ReCAPTCHA>(null);
-  const locale = useLocale();
+  const locale = useParams().locale;
 
   if (!process.env.NEXT_PUBLIC_RECAPTCHA) {
     return null;

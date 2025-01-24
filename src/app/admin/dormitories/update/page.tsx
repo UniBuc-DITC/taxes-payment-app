@@ -4,14 +4,15 @@ import EditDormitoryForm from "@/components/forms/admin/editDorm";
 import { unstable_noStore } from "next/cache";
 
 type Params = {
-  searchParams: {
+  searchParams: Promise<{
     id: string;
     name: string;
     accountId?: string;
-  };
+  }>;
 };
 
-export default async function EditDormitory({ searchParams }: Params) {
+export default async function EditDormitory(props: Params) {
+  const searchParams = await props.searchParams;
   unstable_noStore();
 
   const accounts = await prisma.euPlatescAccount.findMany({

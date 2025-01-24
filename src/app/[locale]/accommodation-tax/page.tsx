@@ -6,12 +6,16 @@ import { unstable_setRequestLocale } from "next-intl/server";
 import { unstable_noStore } from "next/cache";
 
 interface Props {
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }
 
-export default async function AccommodationTaxPage({
-  params: { locale },
-}: Props) {
+export default async function AccommodationTaxPage(props: Props) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
   unstable_noStore();
   unstable_setRequestLocale(locale);
   const [dorms, dormsText] = await Promise.all([

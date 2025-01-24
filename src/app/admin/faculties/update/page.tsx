@@ -4,15 +4,16 @@ import EditFacultyForm from "@/components/forms/admin/editFaculty";
 import { unstable_noStore } from "next/cache";
 
 type Params = {
-  searchParams: {
+  searchParams: Promise<{
     id: string;
     nameRo: string;
     nameEn: string;
     accountId?: string;
-  };
+  }>;
 };
 
-export default async function EditFaculty({ searchParams }: Params) {
+export default async function EditFaculty(props: Params) {
+  const searchParams = await props.searchParams;
   unstable_noStore();
 
   const accounts = await prisma.euPlatescAccount.findMany({

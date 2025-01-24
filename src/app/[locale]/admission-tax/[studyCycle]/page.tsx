@@ -12,12 +12,17 @@ export function generateStaticParams() {
 }
 
 interface Props {
-  params: { locale: string; studyCycle: StudyCycle };
+  params: Promise<{ locale: string; studyCycle: StudyCycle }>;
 }
 
-export default async function AdmissionTaxPage({
-  params: { locale, studyCycle },
-}: Props) {
+export default async function AdmissionTaxPage(props: Props) {
+  const params = await props.params;
+
+  const {
+    locale,
+    studyCycle
+  } = params;
+
   unstable_noStore();
   unstable_setRequestLocale(locale);
   if (!Object.values(StudyCycle).includes(studyCycle)) {
