@@ -12,20 +12,20 @@ import {
 } from "@/utils/forms/validationSchemas";
 
 export async function validateReCAPTCHA(token: string): Promise<boolean> {
+  console.log("Validating ReCAPTCHA challenge response");
   try {
-    console.log("validating");
-    const response = await fetch(
-      `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SERVER}&response=${token}`,
-      {
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
-        },
-        method: "POST",
+    const recaptchaQueryUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SERVER}&response=${token}`;
+    const response = await fetch(recaptchaQueryUrl, {
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
       },
-    );
+      method: "POST",
+    });
     const res: ReCAPTCHAResponse = await response.json();
+
     // make more actions, if its necessary
-    console.log(res);
+    console.log("ReCAPTCHA response:", res);
+
     return res.success;
   } catch (error) {
     console.log(error);
@@ -43,6 +43,7 @@ export interface FormActionResponse {
 export async function submitAdmissionTaxForm(
   formData: AdmissionTaxFormData,
 ): Promise<FormActionResponse> {
+  console.log("Submitting admission tax form");
   const validate = admissionTaxFormSchema.safeParse(formData);
 
   if (!validate.success) {
