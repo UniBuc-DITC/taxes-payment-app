@@ -15,10 +15,25 @@ export type EuPlatescPayment = {
   billingAddress: string;
 };
 
+export type EuPlatescPaymentResponse = {
+  account: EuPlatescAccount;
+  amount: string;
+  currency: string;
+  invoiceId: string;
+  epId: string;
+  action: string;
+  message: string;
+  approval: string;
+  timestamp: string;
+  nonce: string;
+  fpHash: string;
+};
+
 export function generateEuPlatescPaymentUrl(data: EuPlatescPayment): string {
   const euPlatesc = new EuPlatesc({
     merchantId: data.account.merchantId.toString(),
     secretKey: data.account.secretKey,
+    testMode: true,
   });
 
   const url = euPlatesc.paymentUrl({
@@ -48,4 +63,21 @@ export function generateEuPlatescPaymentUrl(data: EuPlatescPayment): string {
   });
 
   return url.paymentUrl;
+}
+
+export function verifyEuPlatescPaymentResponse(
+  data: EuPlatescPaymentResponse,
+): boolean {
+  const euPlatesc = new EuPlatesc({
+    merchantId: data.account.merchantId,
+    secretKey: data.account.secretKey,
+    testMode: true,
+  });
+
+  const response = euPlatesc.checkResponse({
+    ...data,
+    merchantId: data.account.merchantId,
+  });
+
+  return response.success;
 }
