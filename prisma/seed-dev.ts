@@ -3,14 +3,17 @@ import { PrismaClient, Role, StudyCycle, FacultyTaxType } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
+  if (!process.env.EUPLATESC_KEY)
+    throw Error("Missing EUPLATESC_KEY env variable");
+
   const euPlatescAccounts = [];
   for (let i = 1; i <= 25; i++) {
     const account = await prisma.euPlatescAccount.create({
       data: {
         name: `Account ${i}`,
         description: `Description ${i}`,
-        merchantId: 10000 + i,
-        secretKey: `Key ${i}`,
+        merchantId: "44841002813",
+        secretKey: process.env.EUPLATESC_KEY,
         didacticPremiumCardOnly: i % 2 === 0, // Alternate between true and false
       },
     });

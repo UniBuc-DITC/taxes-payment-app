@@ -17,5 +17,6 @@ insert_final_newline = true
 # Remove extraneous whitespace at the end of lines.
 trim_trailing_whitespace = true
 
+# Set the indentation style to 2 spaces.
 indent_style = space
 indent_size = 2
