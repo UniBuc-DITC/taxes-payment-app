@@ -1,4 +1,6 @@
 "use server";
+import { redirect } from "next/navigation";
+
 import { ReCAPTCHAResponse } from "@/types/forms/agreements";
 import { AccommodationTaxFormData } from "@/types/forms/dorms";
 import {
@@ -10,6 +12,8 @@ import {
   admissionTaxFormSchema,
   tuitionTaxFormSchema,
 } from "@/utils/forms/validationSchemas";
+
+import { EuPlatescPayment, generateEuPlatescPaymentUrl } from "./euplatesc";
 
 export async function validateReCAPTCHA(token: string): Promise<boolean> {
   console.log("Validating ReCAPTCHA challenge response");
@@ -52,11 +56,43 @@ export async function submitAdmissionTaxForm(
     //redirect to error page
     return { success: false };
   }
-  console.log(validate.data);
+  const { data } = validate;
 
-  // revalidate admin path
-  // redirect to success page
-  return { success: true };
+  if (!prisma) {
+    console.error("Prisma client is null!");
+    return { success: false };
+  }
+
+  const faculty = await prisma.faculty.findUnique({
+    include: {
+      euPlatescAccount: true,
+    },
+    where: {
+      id: data.facultyId,
+    },
+  });
+
+  if (!faculty) {
+    console.error("Failed to find faculty with ID %d", data.facultyId);
+    return { success: false };
+  }
+
+  const account = faculty.euPlatescAccount!;
+
+  const paymentData: EuPlatescPayment = {
+    account,
+    amount: data.amount,
+    invoiceId: "1234",
+    description: `Plata taxa de admitere ${faculty.nameRo}`,
+    billingEmail: data.email,
+    billingPhone: data.phoneNumber,
+    billingCountry: data.country,
+    billingCity: data.city,
+    billingAddress: data.address,
+  };
+  const redirectUrl = generateEuPlatescPaymentUrl(paymentData);
+
+  redirect(redirectUrl);
 }
 
 export async function submitTuitionTaxForm(
@@ -69,11 +105,44 @@ export async function submitTuitionTaxForm(
     //redirect to error page
     return { success: false };
   }
-  console.log(validate.data);
 
-  // revalidate admin path
-  // redirect to success page
-  return { success: true };
+  const { data } = validate;
+
+  if (!prisma) {
+    console.error("Prisma client is null!");
+    return { success: false };
+  }
+
+  const faculty = await prisma.faculty.findUnique({
+    include: {
+      euPlatescAccount: true,
+    },
+    where: {
+      id: data.facultyId,
+    },
+  });
+
+  if (!faculty) {
+    console.error("Failed to find faculty with ID %d", data.facultyId);
+    return { success: false };
+  }
+
+  const account = faculty.euPlatescAccount!;
+
+  const paymentData: EuPlatescPayment = {
+    account,
+    amount: data.amount,
+    invoiceId: "1234",
+    description: `Plata taxa de studii ${faculty.nameRo}`,
+    billingEmail: data.email,
+    billingPhone: data.phoneNumber,
+    billingCountry: data.country,
+    billingCity: data.city,
+    billingAddress: data.address,
+  };
+  const redirectUrl = generateEuPlatescPaymentUrl(paymentData);
+
+  redirect(redirectUrl);
 }
 
 export async function submitAccomodationTaxForm(
@@ -85,9 +154,42 @@ export async function submitAccomodationTaxForm(
     //redirect to error page
     return { success: false };
   }
-  console.log(validate.data);
 
-  // revalidate admin path
-  // redirect to success page
-  return { success: true };
+  const { data } = validate;
+
+  if (!prisma) {
+    console.error("Prisma client is null!");
+    return { success: false };
+  }
+
+  const dorm = await prisma.studentDorm.findUnique({
+    include: {
+      euPlatescAccount: true,
+    },
+    where: {
+      id: data.dormId,
+    },
+  });
+
+  if (!dorm) {
+    console.error("Failed to find student dorm with ID %d", data.dormId);
+    return { success: false };
+  }
+
+  const account = dorm.euPlatescAccount!;
+
+  const paymentData: EuPlatescPayment = {
+    account,
+    amount: data.amount,
+    invoiceId: "1234",
+    description: `Plata taxa camin ${dorm.name}`,
+    billingEmail: data.email,
+    billingPhone: data.phoneNumber,
+    billingCountry: data.country,
+    billingCity: data.city,
+    billingAddress: "",
+  };
+  const redirectUrl = generateEuPlatescPaymentUrl(paymentData);
+
+  redirect(redirectUrl);
 }

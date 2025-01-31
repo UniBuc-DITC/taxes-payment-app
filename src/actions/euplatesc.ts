@@ -1,5 +1,3 @@
-"use server";
-
 import { EuPlatesc } from "euplatesc";
 import { EuPlatescAccount } from "@prisma/client";
 
