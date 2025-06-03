@@ -1,3 +1,4 @@
+import { PHASE_PRODUCTION_BUILD } from "next/constants";
 import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import AzureAD from "next-auth/providers/azure-ad";
@@ -20,11 +21,16 @@ if (typeof clientId !== "string" || !clientId) {
   );
 }
 
-const clientSecret = process.env.AZURE_AD_CLIENT_SECRET;
+let clientSecret = process.env.AZURE_AD_CLIENT_SECRET;
 if (typeof clientSecret !== "string" || !clientSecret) {
-  throw Error(
-    "Required environment variable `AZURE_AD_CLIENT_SECRET` is not defined",
-  );
+  if (process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD) {
+    // During build, we don't need to know the client secret
+    clientSecret = "";
+  } else {
+    throw Error(
+      "Required environment variable `AZURE_AD_CLIENT_SECRET` is not defined",
+    );
+  }
 }
 
 providers.push(
