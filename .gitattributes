@@ -2,3 +2,7 @@
 
 # Automatically detect text files and store them with the LF character as line terminator.
 * text=auto eol=lf
+
+# Store images using Git LFS
+*.png filter=lfs diff=lfs merge=lfs -text
+*.jpg filter=lfs diff=lfs merge=lfs -text
