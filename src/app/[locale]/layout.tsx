@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 
@@ -29,7 +30,7 @@ export default async function RootLayout({ children, params }: LayoutProps) {
   const { locale } = await params;
 
   // Ensure that the incoming `locale` is valid
-  if (!routing.locales.includes(locale as any)) {
+  if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
 
@@ -39,8 +40,10 @@ export default async function RootLayout({ children, params }: LayoutProps) {
   return (
     <html lang={locale}>
       <body className={inter.className}>
-        <NavBar />
-        {children}
+        <NextIntlClientProvider>
+          <NavBar />
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );

@@ -44,11 +44,10 @@ export const config = {
     /*
      * Match all request paths except for the ones starting with:
      * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
+     * - _next (internal Next.js routes)
      * - installHook.js.map (source map file)
      * - favicon.ico (favicon file)
      */
-    "/((?!api|_next/static|_next/image|installHook.js.map|favicon.ico).*)",
+    "/((?!api|_next|installHook.js.map|favicon.ico).*)",
   ],
 };

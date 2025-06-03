@@ -1,5 +1,5 @@
 "use client";
-import { Link, usePathname } from "@/i18n/routing";
+import { Link, usePathname } from "@/i18n/navigation";
 
 export default function LocaleSwitcher() {
   const pathname = usePathname();

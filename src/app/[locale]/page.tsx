@@ -1,5 +1,5 @@
 import { setRequestLocale } from "next-intl/server";
-import { Link } from "@/i18n/routing";
+import { Link } from "@/i18n/navigation";
 
 export default async function Home({
   params,
