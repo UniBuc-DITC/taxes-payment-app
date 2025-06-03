@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { Inter } from "next/font/google";
+
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
+
+import classNames from "classnames";
+
 import { routing } from "@/i18n/routing";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 import "./globals.css";
-
-import NavBar from "@/components/reusable/NavBar";
-import { notFound } from "next/navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -38,11 +42,12 @@ export default async function RootLayout({ children, params }: LayoutProps) {
   setRequestLocale(locale);
 
   return (
-    <html lang={locale}>
-      <body className={inter.className}>
+    <html lang={locale} className="h-screen">
+      <body className={classNames(inter.className, "h-screen")}>
         <NextIntlClientProvider>
-          <NavBar />
+          <Header locale={locale} />
           {children}
+          <Footer locale={locale} />
         </NextIntlClientProvider>
       </body>
     </html>

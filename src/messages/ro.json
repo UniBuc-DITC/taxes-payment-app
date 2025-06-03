@@ -1,7 +1,21 @@
 {
+  "Common": {
+    "home": "Acasă"
+  },
+  "Header": {
+    "logo": "Logo Universitatea din București"
+  },
+  "Footer": {
+    "guide": "Ghid achitare taxe online",
+    "accessibility": "Accesibilitate",
+    "dataPrivacy": "Protecția datelor personale",
+    "contact": "Contact"
+  },
   "Index": {
-    "getStarted": "Începe prin a edita fișierul",
-    "by": "De"
+    "title": "Plată online taxe UB",
+    "admissionTaxes": "Plată taxe admitere",
+    "tuitionTaxes": "Plată taxe studiu",
+    "accommodationTaxes": "Plată taxe cazare"
   },
   "Forms": {
     "BillingDetails": {

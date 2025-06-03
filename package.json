@@ -27,6 +27,7 @@
     "@prisma/client": "^6.8.2",
     "@tailwindcss/postcss": "^4.1.8",
     "@tanstack/react-table": "^8.21.3",
+    "classnames": "^2.5.1",
     "lodash": "^4.17.21",
     "next": "^15.3.3",
     "next-auth": "^4.24.11",
