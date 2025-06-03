@@ -23,3 +23,8 @@ export default async function AccommodationTaxPage(props: Props) {
     </div>
   );
 }
+
+export function generateStaticParams() {
+  // Don't generate this route statically at build time
+  return [];
+}

@@ -1,5 +1,18 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+
+import { FacultyTaxType, Role, StudyCycle } from "@prisma/client";
+
+import { z } from "zod";
+
+import {
+  AuthProvider,
+  AuthProviderCallback,
+} from "@microsoft/microsoft-graph-client";
+import { Client, Options } from "@microsoft/microsoft-graph-client";
+
 import prisma from "@/db/prisma";
 import {
   dormSchema,
@@ -9,15 +22,7 @@ import {
   facultyTaxSchema,
   searchSchema,
 } from "@/utils/forms/validationSchemas";
-import { FacultyTaxType, Role, StudyCycle } from "@prisma/client";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
-import { z } from "zod";
-import {
-  AuthProvider,
-  AuthProviderCallback,
-} from "@microsoft/microsoft-graph-client";
-import { Client, Options } from "@microsoft/microsoft-graph-client";
+
 import { getAccessToken } from "@/utils/microsoft-graph";
 
 type InputDorm = z.infer<typeof dormSchema>;
@@ -26,8 +31,6 @@ type InputAccount = z.infer<typeof euPlatescAccountSchema>;
 type InputTaxDorm = z.infer<typeof dormTaxSchema>;
 type InputTaxFaculty = z.infer<typeof facultyTaxSchema>;
 type Search = z.infer<typeof searchSchema>;
-
-let accessToken: string | null = null;
 
 export async function createDormitory(data: InputDorm) {
   await prisma.studentDorm.create({
