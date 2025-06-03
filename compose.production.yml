@@ -52,7 +52,7 @@ services:
 
   # Database container
   postgres:
-    image: postgres:16.1
+    image: postgres:17.5
     expose:
       - 5432
     environment:
