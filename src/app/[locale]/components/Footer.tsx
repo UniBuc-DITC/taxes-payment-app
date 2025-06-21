@@ -8,11 +8,14 @@ type Props = {
 };
 
 export default async function Footer({ locale }: Props) {
-  const commonT = await getTranslations({ locale, namespace: "Common" });
+  const navigationT = await getTranslations({
+    locale,
+    namespace: "Common.Navigation",
+  });
   const t = await getTranslations({ locale, namespace: "Footer" });
   return (
-    <footer className="fixed bottom-0 bg-blue-900 text-white">
-      <Link href="/">{commonT("home")}</Link>
+    <footer className="fixed bottom-0 bg-blue-900 text-white p-2 flex flex-row flex-wrap gap-x-3 gap-y-2 items-center justify-center">
+      <Link href="/">{navigationT("home")}</Link>
       <Link href="/guide">{t("guide")}</Link>
       <Link href="/accessibility">{t("accessibility")}</Link>
       <Link href="/data-privacy">{t("dataPrivacy")}</Link>

@@ -8,8 +8,8 @@ import { setRequestLocale } from "next-intl/server";
 import classNames from "classnames";
 
 import { routing } from "@/i18n/routing";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./components/header";
+import Footer from "./components/footer";
 
 import "./globals.css";
 

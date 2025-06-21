@@ -1,6 +1,11 @@
 {
   "Common": {
-    "home": "Acasă"
+    "Navigation": {
+      "home": "Acasă",
+      "admissionTaxes": "Taxe admitere",
+      "tuitionTaxes": "Taxe studii",
+      "accommodationTaxes": "Taxe cazare"
+    }
   },
   "Header": {
     "logo": "Logo Universitatea din București"
@@ -14,7 +19,7 @@
   "Index": {
     "title": "Plată online taxe UB",
     "admissionTaxes": "Plată taxe admitere",
-    "tuitionTaxes": "Plată taxe studiu",
+    "tuitionTaxes": "Plată taxe de studii",
     "accommodationTaxes": "Plată taxe cazare"
   },
   "Forms": {
