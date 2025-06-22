@@ -128,7 +128,6 @@ export default function TuitionForm({
           taxesOptions={taxesOptions}
           {...facultyTaxesTexts}
           control={control}
-          errors={errors}
           watch={watch}
           setValue={setValue}
           setTaxesOptionParent={setSelectedFacultyTaxOption}

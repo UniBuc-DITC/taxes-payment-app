@@ -67,7 +67,7 @@ export default function DormTaxesForm<
   const selectedDorm = watch(dormId)?.valueOf()?.toString();
 
   const [selectedDormTaxOption, setSelectedDormTaxOption, setTaxOption] =
-    useSetEntityTaxOption<DormTaxOption, T>({
+    useSetEntityTaxOption({
       setValue,
       watch,
       selectedEntityId: selectedDorm,

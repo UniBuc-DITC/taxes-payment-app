@@ -87,7 +87,7 @@ function FacultyTaxesForm<TFieldValues extends FacultyTaxesAmountFields>({
 
   const taxIdValue = watch(taxId) as string;
 
-  useEffect(() => setTaxesOption(taxIdValue), [taxIdValue]);
+  useEffect(() => setTaxesOption(taxIdValue), [setTaxesOption, taxIdValue]);
 
   return (
     <>
