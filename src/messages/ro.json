@@ -5,6 +5,12 @@
       "admissionTaxes": "Taxe admitere",
       "tuitionTaxes": "Taxe studii",
       "accommodationTaxes": "Taxe cazare"
+    },
+    "StudyCycles": {
+      "bachelors": "Licență",
+      "masters": "Master",
+      "doctorate": "Doctorat",
+      "postgraduate": "Postuniversitar"
     }
   },
   "Header": {
@@ -21,6 +27,9 @@
     "admissionTaxes": "Plată taxe admitere",
     "tuitionTaxes": "Plată taxe de studii",
     "accommodationTaxes": "Plată taxe cazare"
+  },
+  "AdmissionTaxes": {
+    "title": "Plată taxe admitere"
   },
   "Forms": {
     "BillingDetails": {
@@ -130,7 +139,7 @@
         }
       },
       "PartialPay": {
-        "label": "Vreau să optez pentru plata parțiala"
+        "label": "Vreau să optez pentru plată parțială"
       },
       "MonthTexts": {
         "label": "Luna",

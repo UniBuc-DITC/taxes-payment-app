@@ -1,21 +1,13 @@
-import React, { useEffect, useMemo, useState } from "react";
-import {
-  Controller,
-  Control,
-  Path,
-  UseFormWatch,
-  FieldErrors,
-  UseFormSetValue,
-  PathValue,
-} from "react-hook-form";
+import React, { useEffect, useMemo } from "react";
+import { Control, UseFormWatch, UseFormSetValue, Path } from "react-hook-form";
 import {
   FacultyOption,
   FacultyTaxOption,
   FacultyTaxesAmountFields,
   FacultyTaxesTexts,
 } from "@/types/forms/faculties";
-import Select from "react-select";
 import useSetEntityTaxOption from "@/utils/forms/hooks/useSetEntityTaxOption";
+import ControlledSelect from "@/components/controlled-select";
 
 /**
  * `FacultyTaxesForm` is a React component that renders a part of a form
@@ -37,20 +29,19 @@ import useSetEntityTaxOption from "@/utils/forms/hooks/useSetEntityTaxOption";
  * This component should be used within a form that is wrapped with `FormProvider` from `react-hook-form` with an input data type that can extend `FacultyTaxesAmountFields`.
  */
 
-type FacultyTaxesFormProps<T extends FacultyTaxesAmountFields> = {
+type FacultyTaxesFormProps<TFieldValues extends FacultyTaxesAmountFields> = {
   facultyOptions: FacultyOption[];
   taxesOptions: Record<string, FacultyTaxOption[]>;
   setTaxesOptionParent?: React.Dispatch<
     React.SetStateAction<FacultyTaxOption | undefined>
   >;
   partialPay: boolean;
-  control: Control<T>;
-  watch: UseFormWatch<T>;
-  errors: FieldErrors<T>;
-  setValue: UseFormSetValue<T>;
+  control: Control<TFieldValues>;
+  watch: UseFormWatch<TFieldValues>;
+  setValue: UseFormSetValue<TFieldValues>;
 } & FacultyTaxesTexts;
 
-function FacultyTaxesForm<T extends FacultyTaxesAmountFields>({
+function FacultyTaxesForm<TFieldValues extends FacultyTaxesAmountFields>({
   facultyOptions,
   taxesOptions,
   required,
@@ -59,27 +50,23 @@ function FacultyTaxesForm<T extends FacultyTaxesAmountFields>({
   setTaxesOptionParent,
   partialPay,
   control,
-  errors,
   watch,
   setValue,
-}: FacultyTaxesFormProps<T>) {
-  const facultyId = "facultyId" as Path<T>;
-  const taxId = "taxId" as Path<T>;
+}: FacultyTaxesFormProps<TFieldValues>) {
+  const facultyId = "facultyId" as Path<TFieldValues>;
+  const taxId = "taxId" as Path<TFieldValues>;
 
-  const selectedFaculty = watch(facultyId)?.valueOf()?.toString();
+  const selectedFaculty = watch(facultyId) as string;
 
-  const [
-    selectedFacultyTaxOption,
-    setSelectedFacultyTaxOption,
-    setTaxesOption,
-  ] = useSetEntityTaxOption<FacultyTaxOption, T>({
-    setValue,
-    watch,
-    selectedEntityId: selectedFaculty,
-    taxesOptions,
-    setTaxesOptionParent,
-    partialPay,
-  });
+  const [selectedFacultyTaxOption, setSelectedEntityTaxOption, setTaxesOption] =
+    useSetEntityTaxOption({
+      setValue,
+      watch,
+      selectedEntityId: selectedFaculty,
+      taxesOptions,
+      setTaxesOptionParent,
+      partialPay,
+    });
 
   const selectFacultyOptions = useMemo(
     () =>
@@ -98,95 +85,41 @@ function FacultyTaxesForm<T extends FacultyTaxesAmountFields>({
     [selectFacultyOptions, selectedFaculty, taxesOptions],
   );
 
+  const taxIdValue = watch(taxId) as string;
+
+  useEffect(() => setTaxesOption(taxIdValue), [taxIdValue]);
+
   return (
     <>
       <div className="relative">
         <label htmlFor="faculty" className="text-sm font-medium text-gray-700">
           {labels.facultyId}
         </label>
-        <Controller
+        <ControlledSelect
           name={facultyId}
+          placeholder={extraTaxOptions.faculty}
           control={control}
+          defaultValue={selectedFaculty as any}
           rules={{ required: required.facultyId }}
-          render={({ field }) => (
-            <div>
-              <Select
-                id="faculty"
-                aria-label="Faculty"
-                {...field}
-                options={selectFacultyOptions}
-                value={selectFacultyOptions.find(
-                  (c) => c.value === field.value,
-                )}
-                onChange={(val) => field?.onChange(val?.value)}
-                placeholder={extraTaxOptions.faculty}
-                styles={{
-                  control: (base, state) => ({
-                    ...base,
-                    borderColor:
-                      errors.facultyId && !state.isFocused ? "red" : "intital",
-                  }),
-                }}
-              />
-              {errors.facultyId && (
-                <span
-                  className={`text-xs text-red-500 ${
-                    errors.facultyId ? "block" : "hidden"
-                  }`}
-                >
-                  {errors.facultyId.message?.toString()}
-                </span>
-              )}
-            </div>
-          )}
+          options={selectFacultyOptions as any}
         />
       </div>
       <div className="relative">
         <label htmlFor="tax" className="text-sm font-medium text-gray-700">
           {labels.taxId}
         </label>
-        <Controller
+        <ControlledSelect
           name={taxId}
+          placeholder={
+            !selectedFaculty
+              ? extraTaxOptions.tax
+              : extraTaxOptions.noFacultyTaxes
+          }
           control={control}
+          defaultValue={selectedFacultyTaxOption?.value?.toString() as any}
           rules={{ required: required.taxId }}
           disabled={!selectedFaculty}
-          render={({ field }) => (
-            <div>
-              <Select
-                id="tax"
-                aria-label="Taxes"
-                {...field}
-                options={selectTaxOptions}
-                value={selectTaxOptions?.find((c) => c.value === field.value)}
-                onChange={(val) => {
-                  if (val) setTaxesOption(val?.value);
-                  field.onChange(val?.value);
-                }}
-                placeholder={
-                  !selectedFaculty
-                    ? extraTaxOptions.tax
-                    : extraTaxOptions.noFacultyTaxes
-                }
-                isDisabled={!selectedFaculty}
-                styles={{
-                  control: (base, state) => ({
-                    ...base,
-                    borderColor:
-                      errors.taxId && !state.isFocused ? "red" : "initial",
-                  }),
-                }}
-              />
-              {errors.taxId && (
-                <span
-                  className={`text-xs text-red-500 ${
-                    errors.taxId ? "block" : "hidden"
-                  }`}
-                >
-                  {errors.taxId.message?.toString()}
-                </span>
-              )}
-            </div>
-          )}
+          options={selectTaxOptions as any}
         />
       </div>
     </>

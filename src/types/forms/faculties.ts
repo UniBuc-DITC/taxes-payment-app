@@ -8,7 +8,11 @@ import {
   ReCAPTCHATexts,
   RequiredCheckboxTexts,
 } from "./agreements";
-import { AmountFiled, AmountTexts, PartialPayField } from "./amount";
+import {
+  AmountFiled as AmountField,
+  AmountTexts,
+  PartialPayField,
+} from "./amount";
 
 /**
  * Extended Faculty type including associated faculty tax values.
@@ -57,7 +61,7 @@ export type FacultyTaxesTexts = {
  */
 export interface FacultyTaxesAmountFields
   extends FacultyTaxesFields,
-    AmountFiled,
+    AmountField,
     PartialPayField {}
 
 // ---------- Admission Form Types ----------
@@ -92,7 +96,7 @@ export interface AdmissionTaxFormData
     FacultyTaxesFields,
     ReCAPTCHAInput,
     PartialPayField,
-    AmountFiled {}
+    AmountField {}
 
 // ---------- Tuition Form Types ----------
 

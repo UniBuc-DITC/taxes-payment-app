@@ -56,7 +56,7 @@ export default function AmountForm<T extends AmountFiled>({
                 {...field}
                 onChange={(e) => field.onChange(parseInt(e.target.value))}
                 min={100}
-                max={selectedEntityTaxOption?.value || 0}
+                max={selectedEntityTaxOption?.value}
                 step={50}
                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-200 focus:outline-none focus:ring-0 focus:shadow-none accent-slate-500"
               />
@@ -65,7 +65,7 @@ export default function AmountForm<T extends AmountFiled>({
                 {...field}
                 onChange={(e) => field.onChange(parseInt(e.target.value))}
                 min={100}
-                max={selectedEntityTaxOption?.value || 0}
+                max={selectedEntityTaxOption?.value}
                 step={50}
                 className="w-24 border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500  p-2 outline-none focus:outline-blue-200 "
               />

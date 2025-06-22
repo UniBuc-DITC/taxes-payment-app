@@ -9,11 +9,11 @@ import {
 } from "react-hook-form";
 
 interface Args<
+  F extends AmountFiled & PartialPayField,
   K extends OptionWithId,
-  T extends AmountFiled & PartialPayField,
 > {
-  watch: UseFormWatch<T>;
-  setValue: UseFormSetValue<T>;
+  watch: UseFormWatch<F>;
+  setValue: UseFormSetValue<F>;
   selectedEntityId: string;
   taxesOptions: Record<string, K[]>;
   partialPay: boolean;
@@ -21,8 +21,8 @@ interface Args<
 }
 
 export default function useSetEntityTaxOption<
+  F extends AmountFiled & PartialPayField,
   K extends OptionWithId,
-  T extends AmountFiled & PartialPayField,
 >({
   setValue,
   watch,
@@ -30,15 +30,15 @@ export default function useSetEntityTaxOption<
   taxesOptions,
   setTaxesOptionParent,
   partialPay,
-}: Args<K, T>): [
+}: Args<F, K>): [
   K | undefined,
   Dispatch<SetStateAction<K | undefined>>,
   (selectedId: string) => void,
 ] {
   const [selectedEntityTaxOption, setSelectedEntityTaxOption] = useState<K>();
 
-  const taxId = "taxId" as Path<T>;
-  const amount = "amount" as Path<T>;
+  const taxId = "taxId" as Path<F>;
+  const amount = "amount" as Path<F>;
 
   const selectedTax = watch(taxId)?.valueOf()?.toString();
   const selctedAmount = Number(watch(amount)?.valueOf()?.toString());
@@ -47,7 +47,7 @@ export default function useSetEntityTaxOption<
     if (selectedTax && selectedEntityTaxOption) {
       const maxAmount = selectedEntityTaxOption?.value;
       if (Number(selctedAmount) >= maxAmount) {
-        setValue(amount, maxAmount as PathValue<T, Path<T>>);
+        setValue(amount, maxAmount as PathValue<F, Path<F>>);
       }
     }
   }, [selectedTax, selctedAmount, setValue, selectedEntityTaxOption, amount]);
@@ -63,7 +63,7 @@ export default function useSetEntityTaxOption<
         setTaxesOptionParent(st);
       }
       if (!partialPay && st) {
-        setValue(amount, st?.value as PathValue<T, Path<T>>);
+        setValue(amount, st?.value as PathValue<F, Path<F>>);
       }
     } else {
       setSelectedEntityTaxOption(undefined);
@@ -71,7 +71,7 @@ export default function useSetEntityTaxOption<
         setTaxesOptionParent(undefined);
       }
       if (!partialPay) {
-        setValue(amount, 0 as PathValue<T, Path<T>>);
+        setValue(amount, 0 as PathValue<F, Path<F>>);
       }
     }
   };

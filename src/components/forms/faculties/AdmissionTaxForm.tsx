@@ -98,6 +98,7 @@ const AdmissionForm = ({
       entityId: "facultyId",
       setValue,
     });
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -109,7 +110,6 @@ const AdmissionForm = ({
           taxesOptions={taxesOptions}
           {...facultyTaxesTexts}
           control={control}
-          errors={errors}
           watch={watch}
           setValue={setValue}
           setTaxesOptionParent={setSelectedFacultyTaxOption}

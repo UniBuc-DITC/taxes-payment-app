@@ -19,7 +19,7 @@ export default async function Header({ locale }: Props) {
   });
   const t = await getTranslations({ locale, namespace: "Header" });
   return (
-    <div className="sticky top-0 bg-blue-900 text-white flex flex-row">
+    <div className="sticky z-10 top-0 bg-blue-900 text-white flex flex-row">
       <Link
         href="/"
         title={navigationT("home")}

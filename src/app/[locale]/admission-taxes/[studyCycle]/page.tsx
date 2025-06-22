@@ -12,9 +12,7 @@ interface Props {
 }
 
 export default async function AdmissionTaxPage(props: Props) {
-  const params = await props.params;
-
-  const { locale, studyCycle } = params;
+  const { locale, studyCycle } = await props.params;
 
   if (!Object.values(StudyCycle).includes(studyCycle)) {
     notFound();
@@ -24,6 +22,7 @@ export default async function AdmissionTaxPage(props: Props) {
     getFacultiesWithTax("admission", studyCycle),
     getAdmissionFormTexts(),
   ]);
+
   const formTaxesOptions = createFacultyTaxOptions(faculties, locale);
   return (
     <div>

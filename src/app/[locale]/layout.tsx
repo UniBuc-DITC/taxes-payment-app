@@ -43,10 +43,10 @@ export default async function RootLayout({ children, params }: LayoutProps) {
 
   return (
     <html lang={locale} className="h-screen">
-      <body className={classNames(inter.className, "h-screen")}>
+      <body className={classNames(inter.className, "min-h-screen")}>
         <NextIntlClientProvider>
           <Header locale={locale} />
-          {children}
+          <main>{children}</main>
           <Footer locale={locale} />
         </NextIntlClientProvider>
       </body>

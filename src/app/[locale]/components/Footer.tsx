@@ -14,7 +14,7 @@ export default async function Footer({ locale }: Props) {
   });
   const t = await getTranslations({ locale, namespace: "Footer" });
   return (
-    <footer className="fixed bottom-0 bg-blue-900 text-white p-2 flex flex-row flex-wrap gap-x-3 gap-y-2 items-center justify-center">
+    <footer className="fixed w-full text-center z-10 bottom-0 bg-blue-900 text-white p-2 flex flex-row flex-wrap gap-x-3 gap-y-2 items-center justify-center">
       <Link href="/">{navigationT("home")}</Link>
       <Link href="/guide">{t("guide")}</Link>
       <Link href="/accessibility">{t("accessibility")}</Link>
