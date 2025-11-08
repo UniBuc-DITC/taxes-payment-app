@@ -16,7 +16,7 @@ jobs:
       - name: Set up Node.js and npm
         uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: "24"
 
       - name: Install dependencies using npm
         run: npm ci

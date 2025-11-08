@@ -11,7 +11,7 @@ const authMiddleware = withAuth({
   },
 });
 
-export default function middleware(req: NextRequest, event: NextFetchEvent) {
+export default function proxy(req: NextRequest, event: NextFetchEvent) {
   const pathname = req.nextUrl.pathname;
 
   const authRoutesPattern = "^/admin/auth/?.*?$";

@@ -5,6 +5,12 @@
     // Associate `globals.css` file with Tailwind CSS plugin
     "globals.css": "tailwindcss"
   },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
   }
