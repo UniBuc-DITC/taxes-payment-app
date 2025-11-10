@@ -24,7 +24,7 @@ model User {
 
 model EuPlatescAccount {
   id                      Int           @id @default(autoincrement())
-  name                    String
+  name                    String        @unique
   description             String?
   merchantId              Int           @unique @map("merchant_id")
   secretKey               String        @map("secret_key")
@@ -37,8 +37,8 @@ model EuPlatescAccount {
 
 model Faculty {
   id                 Int               @id @default(autoincrement())
-  nameRo             String            @map("name_ro")
-  nameEn             String            @map("name_en")
+  nameRo             String            @unique @map("name_ro")
+  nameEn             String            @unique @map("name_en")
   euplatescAccountId Int?              @map("euplatesc_account_id")
   euPlatescAccount   EuPlatescAccount? @relation(fields: [euplatescAccountId], references: [id])
   facultyTaxValues   FacultyTaxValue[]
@@ -48,7 +48,7 @@ model Faculty {
 
 model StudentDorm {
   id                   Int                   @id @default(autoincrement())
-  name                 String
+  name                 String                @unique
   euplatescAccountId   Int?                  @map("euplatesc_account_id")
   euPlatescAccount     EuPlatescAccount?     @relation(fields: [euplatescAccountId], references: [id])
   studentDormTaxValues StudentDormTaxValue[]
@@ -78,13 +78,14 @@ model FacultyTaxValue {
   remarksEn      String?        @map("remarks_en")
   faculty        Faculty        @relation(fields: [facultyId], references: [id])
 
+  @@unique([studyCycle, facultyId, facultyTaxType], name: "facultyTaxIdentifier")
   @@map("faculty_tax_values")
 }
 
 model StudentDormTaxValue {
   id            Int         @id @default(autoincrement())
   value         Decimal
-  studentDormId Int         @map("student_dorm_id")
+  studentDormId Int         @unique @map("student_dorm_id")
   remarksRo     String      @map("remarks_ro")
   remarksEn     String      @map("remarks_en")
   studentDorm   StudentDorm @relation(fields: [studentDormId], references: [id])

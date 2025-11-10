@@ -4,83 +4,134 @@ const prisma = new PrismaClient();
 
 async function main() {
   const euPlatescAccounts = [];
-  for (let i = 1; i <= 25; i++) {
-    const account = await prisma.euPlatescAccount.create({
-      data: {
-        name: `Account ${i}`,
-        description: `Description ${i}`,
+  for (let i = 1; i <= 5; i++) {
+    const accountName = `Account ${i}`;
+    const account = await prisma.euPlatescAccount.upsert({
+      where: {
+        name: accountName,
+      },
+      create: {
+        name: accountName,
+        description: `Description for EuPlatesc account ${i}`,
         merchantId: 10000 + i,
         secretKey: `Key ${i}`,
         didacticPremiumCardOnly: i % 2 === 0, // Alternate between true and false
       },
+      update: {},
     });
     euPlatescAccounts.push(account);
   }
+  console.log(
+    `Ensured ${euPlatescAccounts.length} EuPlatesc accounts exist in the database`,
+  );
 
   const faculties = [];
-  for (let i = 1; i <= 25; i++) {
-    const faculty = await prisma.faculty.create({
-      data: {
-        nameRo: `Faculty ${i} RO`,
-        nameEn: `Faculty ${i} EN`,
-        euplatescAccountId: euPlatescAccounts[i - 1].id, // Use an existing EuPlatescAccount ID
+  for (let i = 1; i <= 10; i++) {
+    const nameRo = `Facultatea nr. ${i}`;
+    const faculty = await prisma.faculty.upsert({
+      where: {
+        nameRo,
       },
+      create: {
+        nameRo,
+        nameEn: `Faculty no. ${i}`,
+        euplatescAccountId:
+          euPlatescAccounts[(i - 1) % euPlatescAccounts.length].id, // Use an existing EuPlatescAccount ID
+      },
+      update: {},
     });
     faculties.push(faculty);
   }
+  console.log(`Ensured ${faculties.length} faculties exist in the database`);
 
   const studentDorms = [];
-  for (let i = 1; i <= 25; i++) {
-    const studentDorm = await prisma.studentDorm.create({
-      data: {
-        name: `Dormitory ${i}`,
-        euplatescAccountId: euPlatescAccounts[i - 1].id, // Use an existing EuPlatescAccount ID
+  for (let i = 1; i <= 10; i++) {
+    const name = `Cămin ${i}`;
+    const studentDorm = await prisma.studentDorm.upsert({
+      where: {
+        name,
       },
+      create: {
+        name,
+        euplatescAccountId:
+          euPlatescAccounts[(i - 1) % euPlatescAccounts.length].id, // Use an existing EuPlatescAccount ID
+      },
+      update: {},
     });
     studentDorms.push(studentDorm);
   }
+  console.log(
+    `Ensured ${studentDorms.length} student dorms exist in the database`,
+  );
 
+  const studyCycles = Object.values(StudyCycle);
   const facultyTaxValues = [];
-  for (let i = 1; i <= 25; i++) {
-    let studyCycle: StudyCycle = StudyCycle.bachelors;
-    if (i >= 5 && i < 10) {
-      studyCycle = StudyCycle.doctorate;
-    } else if (i >= 10 && i < 15) {
-      studyCycle = StudyCycle.masters;
-    } else if (i >= 15 && i < 20) {
-      studyCycle = StudyCycle.bachelors;
-    } else {
-      studyCycle = StudyCycle.postgraduate;
-    }
+  for (let facultyIndex = 0; facultyIndex < faculties.length; ++facultyIndex) {
+    const faculty = faculties[facultyIndex];
+    const facultyId = faculty.id;
+    for (
+      let studyCycleIndex = 0;
+      studyCycleIndex < studyCycles.length;
+      ++studyCycleIndex
+    ) {
+      const studyCycle: StudyCycle = studyCycles[studyCycleIndex];
 
-    const facultyTaxValue = await prisma.facultyTaxValue.create({
-      data: {
-        value: 1000 * i, // Values are 1000, 2000, 3000, ...
-        studyCycle, // Set to a specific study cycle
-        facultyId: faculties[i - 1].id, // Use an existing Faculty ID
-        facultyTaxType:
-          i % 2 === 0 ? FacultyTaxType.admission : FacultyTaxType.tuition, // Alternate between types
-        remarksRo: `Remarks RO ${i}`,
-        remarksEn: `Remarks EN ${i}`,
-      },
-    });
-    facultyTaxValues.push(facultyTaxValue);
+      for (const facultyTaxType of [
+        FacultyTaxType.admission,
+        FacultyTaxType.tuition,
+      ]) {
+        const facultyTaxValue = await prisma.facultyTaxValue.upsert({
+          where: {
+            facultyTaxIdentifier: {
+              studyCycle,
+              facultyId,
+              facultyTaxType,
+            },
+          },
+          create: {
+            value: 2000 + 500 * facultyIndex + 1000 * studyCycleIndex,
+            studyCycle,
+            facultyId,
+            facultyTaxType,
+            remarksRo: "Observații pentru taxă",
+            remarksEn: "Remarks for tax",
+          },
+          update: {},
+        });
+        facultyTaxValues.push(facultyTaxValue);
+      }
+    }
   }
+  console.log(
+    `Ensured ${facultyTaxValues.length} faculty tax values exist in the database`,
+  );
 
   const studentDormTaxValues = [];
-  for (let i = 1; i <= 25; i++) {
-    const studentDormTaxValue = await prisma.studentDormTaxValue.create({
-      data: {
-        value: 500 * i, // Values are 500, 1000, 1500, ...
-        studentDormId: studentDorms[i - 1].id, // Use an existing StudentDorm ID
-        remarksRo: `Remarks RO ${i}`,
-        remarksEn: `Remarks EN ${i}`,
+  for (
+    let studentDormIndex = 0;
+    studentDormIndex < studentDorms.length;
+    ++studentDormIndex
+  ) {
+    const studentDorm = studentDorms[studentDormIndex];
+    const studentDormId = studentDorm.id;
+
+    const studentDormTaxValue = await prisma.studentDormTaxValue.upsert({
+      where: {
+        studentDormId,
       },
+      create: {
+        value: 100 * studentDormIndex,
+        studentDormId,
+        remarksRo: "Observații pentru taxa",
+        remarksEn: "Remarks for tax",
+      },
+      update: {},
     });
     studentDormTaxValues.push(studentDormTaxValue);
   }
-
-  console.log("Inserted 25 records for each entity.");
+  console.log(
+    `Ensured ${studentDormTaxValues.length} student dorm tax values exist in the database`,
+  );
 
   await prisma.$disconnect();
 }
