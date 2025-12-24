@@ -1,172 +1,215 @@
 "use client";
-import {
-  AdmissionTaxFormData,
-  AdmissionFormTexts,
-  FacultyOption,
-  FacultyTaxOption,
-} from "@/types/forms/faculties";
-import React, { useCallback } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import FacultyTaxesForm from "./FacultyTaxesForm";
-import ConsentToTermsForm from "../reusable/ConsentToTermsForm";
-import SubmitButton from "../reusable/SubmitButton";
-import { submitAdmissionTaxForm } from "@/actions/forms";
-import ReCAPTCHAForm from "../reusable/ReCAPTCHAForm";
-import BillingDetailsForm from "../reusable/BillingDetailsForm";
-import EuPlatescConsentForm from "../reusable/EuPlatescConsentForm";
-import PartialPayForm from "../reusable/PartialPayForm";
-import AmountForm from "../reusable/AmountForm";
-import useParentTaxOptions from "@/utils/forms/hooks/useParentTaxOptions";
 
-/**
- * `AdmissionForm` is a React component for handling the admission forms.
- *
- * Props:
- * @prop {FacultyOption[]} facultyOptions - Array of options for faculty selection.
- * @prop {Record<string, FacultyTaxOption[]>} taxesOptions - Mapping of faculty IDs to their corresponding tax options.
- * @prop {RequiredCheckboxTexts} agreeTexts - Texts for the agreement to the terms section of the form.
- * @prop {BillingFormTexts} billingTexts - Texts for the personal details section of the form.
- * @prop {FacultyTaxesTexts} facultyTaxesTexts - Texts for the faculty taxes section of the form.
- * @prop {boolean} [isAmountVariable=false] - Indicates if the amount is variable (optional, defaults to false, it's here just in case we want to allow partial paymanet in the admission form).
- * @prop {AmountTexts} variableAmountTexts - Texts related to variable amounts, required if `isAmountVariable` is true.
- * @prop {RequiredCheckboxTexts} acceptEuPlatescTexts - Texts for the Eu Platesc acceptance section.
- * @prop {SubmitButtonTexts} submitTexts - Texts for the submit button (submitting or not).
- * @prop {ReCAPTCHATexts} recaptchaTexts - Texts for the reCAPTCHA form.
- *
- * The component integrates: `FacultyTaxesForm`, `BillingDetailsForm`, `ConsentToTermsForm`, `EuPlatescConsentForm`, and `SubmitButton`.
- *
- * The component uses the `useForm` hook from `react-hook-form` for form handling and validation.
- */
+import { useId, useMemo, useState } from "react";
 
-interface Props extends AdmissionFormTexts {
-  facultyOptions: FacultyOption[];
-  taxesOptions: Record<string, FacultyTaxOption[]>;
-}
+import Select from "react-select";
+import { useTranslations } from "next-intl";
 
-const AdmissionForm = ({
-  facultyOptions,
-  taxesOptions,
-  agreeTexts,
-  billingTexts,
-  facultyTaxesTexts,
-  submitTexts,
-  acceptEuPlatescTexts,
-  recaptchaTexts,
-  partialPayTexts,
-  variableAmountTexts,
-}: Props) => {
-  const {
-    handleSubmit,
-    watch,
-    setValue,
-    control,
-    register,
-    formState: { errors, isSubmitting },
-  } = useForm<AdmissionTaxFormData>({
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      city: "",
-      numericalCode: "",
-      country: "",
-      address: "",
-      email: "",
-      phoneNumber: "",
-      consentToTerms: false,
-      facultyId: "",
-      taxId: "",
-      amount: 0,
-      consentEuPlatesc: false,
-      recaptcha: "",
-      partialPay: false,
-    },
-  });
+import Decimal from "decimal.js-light";
 
-  const partialPayValue = watch("partialPay");
+import { Locale } from "@/i18n/routing";
 
-  const onSubmit: SubmitHandler<AdmissionTaxFormData> = useCallback(
-    async (data) => {
-      const r = await submitAdmissionTaxForm(data);
-      console.log(r);
-    },
-    [],
-  );
-
-  const [selectedFacultyTaxOption, setSelectedFacultyTaxOption, disabled] =
-    useParentTaxOptions<FacultyTaxOption, AdmissionTaxFormData>({
-      watch,
-      entityId: "facultyId",
-      setValue,
-    });
-
-  return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="max-w-5xl mx-auto mt-12 bg-white p-10 shadow-lg rounded-lg space-y-6"
-    >
-      <div className="md:grid md:grid-cols-2 gap-6 flex flex-col items-center justify-center">
-        <FacultyTaxesForm
-          facultyOptions={facultyOptions}
-          taxesOptions={taxesOptions}
-          {...facultyTaxesTexts}
-          control={control}
-          watch={watch}
-          setValue={setValue}
-          setTaxesOptionParent={setSelectedFacultyTaxOption}
-          partialPay={partialPayValue}
-        />
-
-        <PartialPayForm
-          register={register}
-          {...partialPayTexts}
-          disabled={disabled}
-        />
-        {partialPayValue && (
-          <AmountForm
-            control={control}
-            {...variableAmountTexts}
-            selectedEntityTaxOption={selectedFacultyTaxOption}
-            errors={errors}
-          />
-        )}
-
-        <BillingDetailsForm
-          {...billingTexts}
-          errors={errors}
-          register={register}
-          disabled={disabled}
-          renderAddress={true}
-        />
-
-        <ConsentToTermsForm
-          {...agreeTexts}
-          errors={errors}
-          register={register}
-          disabled={disabled}
-        />
-        <EuPlatescConsentForm
-          {...acceptEuPlatescTexts}
-          errors={errors}
-          register={register}
-          disabled={disabled}
-        />
-
-        <ReCAPTCHAForm
-          {...recaptchaTexts}
-          control={control}
-          errors={errors}
-          disabled={disabled}
-        />
-        <div className="col-span-2 w-full text-center flex items-center justify-center">
-          <SubmitButton
-            isSubmitting={isSubmitting}
-            {...submitTexts}
-            disabled={disabled}
-          />
-        </div>
-      </div>
-    </form>
-  );
+type Props = {
+  locale: Locale;
+  faculties: {
+    id: number;
+    nameRo: string;
+    nameEn: string;
+    facultyTaxValues: {
+      value: string;
+    }[];
+  }[];
 };
 
-export default AdmissionForm;
+const AdmissionTaxForm = ({
+  locale,
+  faculties,
+  // facultyOptions,
+  // taxesOptions,
+  // agreeTexts,
+  // billingTexts,
+  // facultyTaxesTexts,
+  // submitTexts,
+  // acceptEuPlatescTexts,
+  // recaptchaTexts,
+  // partialPayTexts,
+  // variableAmountTexts,
+}: Props) => {
+  const formsT = useTranslations("Common.Forms");
+
+  const facultySelectInstanceId = useId();
+
+  const facultyOptions = useMemo(
+    () =>
+      faculties.map((faculty) => ({
+        value: faculty.id,
+        label: locale == "ro" ? faculty.nameRo : faculty.nameEn,
+      })),
+    [faculties],
+  );
+
+  const [selectedFacultyId, setFacultyId] = useState<number | null>(null);
+
+  const facultyTaxValue = useMemo(() => {
+    if (!selectedFacultyId) {
+      return null;
+    }
+
+    const selectedFaculty = faculties.find(
+      (faculty) => faculty.id === selectedFacultyId,
+    );
+    if (!selectedFaculty) {
+      return null;
+    }
+
+    if (selectedFaculty.facultyTaxValues.length == 0) {
+      return null;
+    }
+
+    const facultyTaxValue = selectedFaculty.facultyTaxValues[0];
+
+    return new Decimal(facultyTaxValue.value);
+  }, [faculties, selectedFacultyId]);
+
+  return (
+    <form className="max-w-prose mx-auto">
+      <div className="my-3">
+        <label htmlFor="faculty-select" className="block">
+          {formsT("faculty")}
+        </label>
+        <Select
+          id="faculty-select"
+          instanceId={facultySelectInstanceId}
+          options={facultyOptions}
+          className="block"
+          onChange={(selectedOption) =>
+            setFacultyId(selectedOption?.value ?? null)
+          }
+        />
+      </div>
+      {selectedFacultyId && (
+        <>
+          {facultyTaxValue ? (
+            <div className="my-3">
+              <span>Cuantumul taxei:</span> {facultyTaxValue.toFixed(2)} RON
+            </div>
+          ) : (
+            <p className="my-3">
+              Eroare: taxa de admitere nu a fost configurată pentru această
+              facultate.
+            </p>
+          )}
+        </>
+      )}
+    </form>
+  );
+
+  /* <AdmissionForm {...formTaxesOptions} {...admissionTexts} /> */
+
+  // const {
+  //   handleSubmit,
+  //   watch,
+  //   setValue,
+  //   control,
+  //   register,
+  //   formState: { errors, isSubmitting },
+  // } = useForm<AdmissionTaxFormData>({
+  //   defaultValues: {
+  //     firstName: "",
+  //     lastName: "",
+  //     city: "",
+  //     numericalCode: "",
+  //     country: "",
+  //     address: "",
+  //     email: "",
+  //     phoneNumber: "",
+  //     consentToTerms: false,
+  //     facultyId: "",
+  //     taxId: "",
+  //     amount: 0,
+  //     consentEuPlatesc: false,
+  //     recaptcha: "",
+  //     partialPay: false,
+  //   },
+  // });
+  // const partialPayValue = watch("partialPay");
+  // const onSubmit: SubmitHandler<AdmissionTaxFormData> = useCallback(
+  //   async (data) => {
+  //     const r = await submitAdmissionTaxForm(data);
+  //     console.log(r);
+  //   },
+  //   [],
+  // );
+  // const [selectedFacultyTaxOption, setSelectedFacultyTaxOption, disabled] =
+  //   useParentTaxOptions<FacultyTaxOption, AdmissionTaxFormData>({
+  //     watch,
+  //     entityId: "facultyId",
+  //     setValue,
+  //   });
+  // return (
+  //   <form
+  //     onSubmit={handleSubmit(onSubmit)}
+  //     className="max-w-5xl mx-auto mt-12 bg-white p-10 shadow-lg rounded-lg space-y-6"
+  //   >
+  //     <div className="md:grid md:grid-cols-2 gap-6 flex flex-col items-center justify-center">
+  //       <FacultyTaxesForm
+  //         facultyOptions={facultyOptions}
+  //         taxesOptions={taxesOptions}
+  //         {...facultyTaxesTexts}
+  //         control={control}
+  //         watch={watch}
+  //         setValue={setValue}
+  //         setTaxesOptionParent={setSelectedFacultyTaxOption}
+  //         partialPay={partialPayValue}
+  //       />
+  //       <PartialPayForm
+  //         register={register}
+  //         {...partialPayTexts}
+  //         disabled={disabled}
+  //       />
+  //       {partialPayValue && (
+  //         <AmountForm
+  //           control={control}
+  //           {...variableAmountTexts}
+  //           selectedEntityTaxOption={selectedFacultyTaxOption}
+  //           errors={errors}
+  //         />
+  //       )}
+  //       <BillingDetailsForm
+  //         {...billingTexts}
+  //         errors={errors}
+  //         register={register}
+  //         disabled={disabled}
+  //         renderAddress={true}
+  //       />
+  //       <ConsentToTermsForm
+  //         {...agreeTexts}
+  //         errors={errors}
+  //         register={register}
+  //         disabled={disabled}
+  //       />
+  //       <EuPlatescConsentForm
+  //         {...acceptEuPlatescTexts}
+  //         errors={errors}
+  //         register={register}
+  //         disabled={disabled}
+  //       />
+  //       <ReCAPTCHAForm
+  //         {...recaptchaTexts}
+  //         control={control}
+  //         errors={errors}
+  //         disabled={disabled}
+  //       />
+  //       <div className="col-span-2 w-full text-center flex items-center justify-center">
+  //         <SubmitButton
+  //           isSubmitting={isSubmitting}
+  //           {...submitTexts}
+  //           disabled={disabled}
+  //         />
+  //       </div>
+  //     </div>
+  //   </form>
+  // );
+};
+
+export default AdmissionTaxForm;

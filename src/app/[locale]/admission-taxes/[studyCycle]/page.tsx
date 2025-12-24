@@ -1,33 +1,56 @@
 import { notFound } from "next/navigation";
 
-import { StudyCycle } from "@prisma/client";
+import { getTranslations } from "next-intl/server";
 
-import AdmissionForm from "@/components/forms/faculties/AdmissionTaxForm";
-import { getFacultiesWithTax } from "@/db/faculties";
-import { createFacultyTaxOptions } from "@/utils/forms/faculties";
-import { getAdmissionFormTexts } from "@/utils/forms/translations";
+import PageTitle from "@/components/page-title";
+import { FacultyTaxType, StudyCycle } from "@/generated/prisma/client";
 
-interface Props {
-  params: Promise<{ locale: string; studyCycle: StudyCycle }>;
-}
+import { Locale } from "@/i18n/routing";
+import prisma from "@/lib/prisma";
+
+import AdmissionTaxForm from "@/components/forms/faculties/AdmissionTaxForm";
+
+type Props = {
+  params: Promise<{ locale: Locale; studyCycle: StudyCycle }>;
+};
 
 export default async function AdmissionTaxPage(props: Props) {
   const { locale, studyCycle } = await props.params;
 
+  // Validate study cycle route parameter
   if (!Object.values(StudyCycle).includes(studyCycle)) {
     notFound();
   }
 
-  const [faculties, admissionTexts] = await Promise.all([
-    getFacultiesWithTax("admission", studyCycle),
-    getAdmissionFormTexts(),
-  ]);
+  // Query the list of faculties (including their associated taxes)
+  const rawFaculties = await prisma.faculty.findMany({
+    include: {
+      facultyTaxValues: {
+        where: { studyCycle, facultyTaxType: FacultyTaxType.admission },
+      },
+    },
+    where: { euPlatescAccount: { isNot: null } },
+  });
+  const faculties = rawFaculties.map((faculty) => ({
+    ...faculty,
+    facultyTaxValues: faculty.facultyTaxValues.map((ftv) => ({
+      ...ftv,
+      value: ftv.value.toString(),
+    })),
+  }));
 
-  const formTaxesOptions = createFacultyTaxOptions(faculties, locale);
+  const t = await getTranslations("AdmissionTaxes");
+  const studyCyclesT = await getTranslations("Common.StudyCycles");
+
   return (
-    <div>
-      <AdmissionForm {...formTaxesOptions} {...admissionTexts} />
-    </div>
+    <>
+      <PageTitle
+        title={t("paymentFormPageTitle", {
+          studyCycle: studyCyclesT(studyCycle).toLocaleLowerCase(),
+        })}
+      />
+      <AdmissionTaxForm locale={locale} faculties={faculties} />
+    </>
   );
 }
 

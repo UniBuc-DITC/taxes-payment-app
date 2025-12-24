@@ -42,12 +42,25 @@ export default async function RootLayout({ children, params }: LayoutProps) {
   setRequestLocale(locale);
 
   return (
-    <html lang={locale} className="h-screen">
-      <body className={classNames(inter.className, "min-h-screen")}>
+    <html lang={locale}>
+      <body
+        className={classNames(
+          inter.className,
+          "grid grid-rows-[min-content_1fr]",
+        )}
+      >
         <NextIntlClientProvider>
-          <Header locale={locale} />
-          <main>{children}</main>
-          <Footer locale={locale} />
+          {/* Spacer. See https://www.smashingmagazine.com/2024/09/sticky-headers-full-height-elements-tricky-combination/ */}
+          <div className="h-screen col-span-full row-[1/span_3]"></div>
+          <Header
+            locale={locale}
+            className="sticky top-0 z-50 row-start-1 col-start-1"
+          />
+          <main className="row-start-2 col-start-1">{children}</main>
+          <Footer
+            locale={locale}
+            className="sticky bottom-0 z-50 row-start-3 col-start-1"
+          />
         </NextIntlClientProvider>
       </body>
     </html>

@@ -11,6 +11,9 @@
       "masters": "Master",
       "doctorate": "Doctorat",
       "postgraduate": "Postuniversitar"
+    },
+    "Forms": {
+      "faculty": "Facultate"
     }
   },
   "Header": {
@@ -29,7 +32,8 @@
     "accommodationTaxes": "Plată taxe cazare"
   },
   "AdmissionTaxes": {
-    "title": "Plată taxe admitere"
+    "title": "Plată taxe admitere",
+    "paymentFormPageTitle": "Plată taxe admitere {studyCycle}"
   },
   "Forms": {
     "BillingDetails": {
