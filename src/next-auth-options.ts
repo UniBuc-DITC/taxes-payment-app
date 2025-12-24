@@ -3,7 +3,7 @@ import { NextAuthOptions } from "next-auth";
 import NextAuth from "next-auth/next";
 import AzureAD from "next-auth/providers/azure-ad";
 import type { Provider } from "next-auth/providers/index";
-import prisma from "@/db/prisma";
+import prisma from "@/lib/prisma";
 
 const providers: Provider[] = [];
 
@@ -44,7 +44,7 @@ providers.push(
     profile(profile) {
       return {
         id: profile.sub,
-        azureAdObjectId: profile.oid,
+        entraIdObjectId: profile.oid,
         name: profile.name,
         email: profile.email,
         image: profile.picture ?? null,
@@ -63,7 +63,7 @@ export const authOptions: NextAuthOptions = {
     async signIn({ user }) {
       const dbUser = await prisma.user.findUnique({
         where: {
-          azureAdObjectId: user.azureAdObjectId,
+          entraIdObjectId: user.entraIdObjectId,
         },
       });
       if (dbUser) return true;
@@ -74,7 +74,7 @@ export const authOptions: NextAuthOptions = {
         token.accessToken = account.access_token;
         token.refreshToken = account.refresh_token;
       }
-      if (user) token.azureAdObjectId = user.azureAdObjectId;
+      if (user) token.entraIdObjectId = user.entraIdObjectId;
 
       if (trigger === "update" && session?.name) {
         token.name = session.name;
@@ -87,7 +87,7 @@ export const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       session.accessToken = token.accessToken;
-      session.user.azureAdObjectId = token.azureAdObjectId;
+      session.user.entraIdObjectId = token.entraIdObjectId;
 
       return session;
     },

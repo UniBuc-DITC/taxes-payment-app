@@ -1,7 +1,9 @@
+import { unstable_noStore } from "next/cache";
+
+import prisma from "@/lib/prisma";
+
 import EditTaxDormForm from "@/components/forms/admin/editDormTax";
 import Navbar from "@/components/navbar";
-import prisma from "@/db/prisma";
-import { unstable_noStore } from "next/cache";
 
 type Props = {
   searchParams: Promise<{

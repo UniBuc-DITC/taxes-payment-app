@@ -1,6 +1,6 @@
 import { FacultyWithTax } from "@/types/forms/faculties";
-import { FacultyTaxType, StudyCycle } from "@prisma/client";
-import prisma from "./prisma";
+import { FacultyTaxType, StudyCycle } from "@/generated/prisma/enums";
+import prisma from "@/lib/prisma";
 
 export async function getFacultiesWithTax(
   facultyTaxType: FacultyTaxType,

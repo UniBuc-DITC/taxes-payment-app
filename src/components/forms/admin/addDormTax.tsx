@@ -7,7 +7,7 @@ import { createTaxDorm } from "@/actions/actions";
 import { IoAddCircleOutline } from "react-icons/io5";
 
 import { dormTaxSchema } from "@/utils/forms/validationSchemas";
-import { StudentDorm } from "@prisma/client";
+import { StudentDorm } from "@/generated/prisma/client";
 import { useState } from "react";
 import Select from "react-select";
 import { Controller } from "react-hook-form";

@@ -1,7 +1,9 @@
-import prisma from "@/db/prisma";
-import { StudentDormTaxValue, StudentDorm } from "@prisma/client";
-import DormitoryTaxList from "@/components/admin/DormitoryTaxList.client";
 import { unstable_noStore } from "next/cache";
+
+import prisma from "@/lib/prisma";
+import { StudentDormTaxValue, StudentDorm } from "@/generated/prisma/client";
+
+import DormitoryTaxList from "@/components/admin/DormitoryTaxList.client";
 
 export default async function getAll() {
   unstable_noStore();

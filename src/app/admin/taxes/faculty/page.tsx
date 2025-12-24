@@ -1,8 +1,10 @@
-import prisma from "@/db/prisma";
-import Navbar from "@/components/navbar";
-import { FacultyTaxValue } from "@prisma/client";
-import FacultyTaxList from "@/components/admin/FacultyTaxList.client";
 import { unstable_noStore } from "next/cache";
+
+import prisma from "@/lib/prisma";
+import { FacultyTaxValue } from "@/generated/prisma/client";
+
+import Navbar from "@/components/navbar";
+import FacultyTaxList from "@/components/admin/FacultyTaxList.client";
 
 export default async function getAll() {
   unstable_noStore();

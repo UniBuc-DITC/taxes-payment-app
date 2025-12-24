@@ -1,4 +1,4 @@
-import { Transaction } from "@prisma/client";
+import { Transaction } from "@/generated/prisma/client";
 import { createColumnHelper } from "@tanstack/react-table";
 
 const columnHelper = createColumnHelper<Transaction>();

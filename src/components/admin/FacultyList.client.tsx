@@ -3,7 +3,7 @@
 import Navbar from "@/components/navbar";
 import Link from "next/link";
 import { deleteFaculty } from "@/actions/actions";
-import { Faculty } from "@prisma/client";
+import { Faculty } from "@/generated/prisma/client";
 import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 
 interface Props {

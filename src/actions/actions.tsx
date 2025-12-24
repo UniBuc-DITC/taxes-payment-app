@@ -3,8 +3,6 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { FacultyTaxType, Role, StudyCycle } from "@prisma/client";
-
 import { z } from "zod";
 
 import {
@@ -13,7 +11,8 @@ import {
 } from "@microsoft/microsoft-graph-client";
 import { Client, Options } from "@microsoft/microsoft-graph-client";
 
-import prisma from "@/db/prisma";
+import prisma from "@/lib/prisma";
+import { FacultyTaxType, Role, StudyCycle } from "@/generated/prisma/client";
 import {
   dormSchema,
   dormTaxSchema,
@@ -290,7 +289,7 @@ export async function filterUsers(data: Search) {
 export async function addAdmin(formData: FormData) {
   await prisma.user.create({
     data: {
-      azureAdObjectId: formData.get("userId") as string,
+      entraIdObjectId: formData.get("userId") as string,
       role: Role.appAdmin,
     },
   });
@@ -302,7 +301,7 @@ export async function deleteAdmin(formData: FormData) {
   const id = formData.get("userId") as string;
   await prisma.user.delete({
     where: {
-      azureAdObjectId: id,
+      entraIdObjectId: id,
     },
   });
   revalidatePath("/");

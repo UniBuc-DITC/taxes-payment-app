@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { EuPlatescAccount } from "@prisma/client";
+import { EuPlatescAccount } from "@/generated/prisma/client";
 import { setEuPlatescDidacticOnly } from "@/actions/actions";
 import Select from "react-select";
 

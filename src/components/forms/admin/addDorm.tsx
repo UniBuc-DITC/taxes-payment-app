@@ -4,7 +4,7 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { createDormitory } from "@/actions/actions";
-import { EuPlatescAccount } from "@prisma/client";
+import { EuPlatescAccount } from "@/generated/prisma/client";
 import { IoAddCircleOutline } from "react-icons/io5";
 import Select from "react-select";
 import { useState } from "react";

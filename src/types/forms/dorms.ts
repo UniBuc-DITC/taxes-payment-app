@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "@/generated/prisma/client";
 import { InputBaseTexts, OptionWithId, TaxField } from "./reusable";
 import { BillingFormFields, BillingFormTexts } from "./billingDetails";
 import { MonthSelectTexts } from "./month";

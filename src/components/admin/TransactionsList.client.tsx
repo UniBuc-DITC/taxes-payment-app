@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Transaction } from "@prisma/client";
+import { Transaction } from "@/generated/prisma/client";
 import {
   flexRender,
   getCoreRowModel,

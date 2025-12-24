@@ -2,7 +2,7 @@
 
 import Navbar from "@/components/navbar";
 import Link from "next/link";
-import { EuPlatescAccount } from "@prisma/client";
+import { EuPlatescAccount } from "@/generated/prisma/client";
 import { deleteEuPlatescAccount } from "@/actions/actions";
 import { FaPlus, FaTrash, FaEdit } from "react-icons/fa";
 

@@ -1,5 +1,5 @@
 import Navbar from "@/components/navbar";
-import prisma from "@/db/prisma";
+import prisma from "@/lib/prisma";
 import {
   AuthProvider,
   AuthProviderCallback,
@@ -26,7 +26,7 @@ export default async function Home() {
   const users = await prisma.user.findMany();
   const userCards = [];
   for (const user of users) {
-    let userDetails = await client.api(`/users/${user.azureAdObjectId}`).get();
+    let userDetails = await client.api(`/users/${user.entraIdObjectId}`).get();
     userDetails.role = user.role;
     userCards.push(
       <div

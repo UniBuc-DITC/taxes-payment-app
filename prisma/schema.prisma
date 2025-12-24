@@ -2,12 +2,12 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 enum Role {
@@ -16,7 +16,8 @@ enum Role {
 
 model User {
   id              Int    @id @default(autoincrement())
-  azureAdObjectId String @unique @map("azure_ad_object_id")
+  /// ID of corresponding user object in Microsoft Entra ID (in the University's MS365 tenant).
+  entraIdObjectId String @unique @map("entra_id_object_id")
   role            Role
 
   @@map("users")
@@ -35,13 +36,22 @@ model EuPlatescAccount {
   @@map("euplatesc_accounts")
 }
 
+/// Represents a college/faculty of the University of Bucharest.
 model Faculty {
-  id                 Int               @id @default(autoincrement())
-  nameRo             String            @unique @map("name_ro")
-  nameEn             String            @unique @map("name_en")
+  /// Unique internal numeric identifier for this faculty.
+  id     Int    @id @default(autoincrement())
+  /// Name of this faculty, in Romanian.
+  nameRo String @unique @map("name_ro")
+  /// Name of this faculty, in English.
+  nameEn String @unique @map("name_en")
+
+  /// ID of EuPlătesc account associated with this faculty's bank account.
   euplatescAccountId Int?              @map("euplatesc_account_id")
+  /// EuPlătesc account associated with this faculty's bank account.
   euPlatescAccount   EuPlatescAccount? @relation(fields: [euplatescAccountId], references: [id])
-  facultyTaxValues   FacultyTaxValue[]
+
+  /// Values of taxes configured for this faculty (admission/tuition taxes).
+  facultyTaxValues FacultyTaxValue[]
 
   @@map("faculties")
 }
@@ -78,7 +88,7 @@ model FacultyTaxValue {
   remarksEn      String?        @map("remarks_en")
   faculty        Faculty        @relation(fields: [facultyId], references: [id])
 
-  @@unique([studyCycle, facultyId, facultyTaxType], name: "facultyTaxIdentifier")
+  @@unique([studyCycle, facultyId, facultyTaxType], name: "facultyTaxValueIdentifier")
   @@map("faculty_tax_values")
 }
 

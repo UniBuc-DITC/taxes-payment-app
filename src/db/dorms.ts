@@ -1,5 +1,5 @@
 import { DormWithTax } from "@/types/forms/dorms";
-import prisma from "./prisma";
+import prisma from "@/lib/prisma";
 
 export async function getDormsWithTax(): Promise<DormWithTax[]> {
   return await prisma.studentDorm.findMany({

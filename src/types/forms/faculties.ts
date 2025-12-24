@@ -1,4 +1,4 @@
-import { Prisma, StudyCycle } from "@prisma/client";
+import { Prisma, StudyCycle } from "@/generated/prisma/client";
 import { InputBaseTexts, OptionWithId, TaxField } from "./reusable";
 import { BillingFormFields, BillingFormTexts } from "./billingDetails";
 import { SubmitButtonTexts } from "./submitBtn";

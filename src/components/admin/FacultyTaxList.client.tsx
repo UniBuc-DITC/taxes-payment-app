@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { deleteTaxFaculty } from "@/actions/actions";
 import { FaPlus, FaTrash, FaEdit } from "react-icons/fa";
-import { Faculty, FacultyTaxValue } from "@prisma/client";
+import { Faculty, FacultyTaxValue } from "@/generated/prisma/client";
 
 interface Props {
   taxFaculties: FacultyTaxValue[];

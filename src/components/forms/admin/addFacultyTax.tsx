@@ -3,7 +3,7 @@
 import Navbar from "@/components/navbar";
 import { IoAddCircle } from "react-icons/io5";
 import { createTaxFaculty } from "@/actions/actions";
-import { Faculty, FacultyTaxType, StudyCycle } from "@prisma/client";
+import { Faculty, FacultyTaxType, StudyCycle } from "@/generated/prisma/client";
 import { useState } from "react";
 import Select from "react-select";
 import { Controller } from "react-hook-form";

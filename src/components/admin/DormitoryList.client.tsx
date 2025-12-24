@@ -3,7 +3,7 @@
 import Navbar from "@/components/navbar";
 import Link from "next/link";
 import { deleteDormitory } from "@/actions/actions";
-import { StudentDorm } from "@prisma/client";
+import { StudentDorm } from "@/generated/prisma/client";
 import { FaPlus, FaTrash, FaEdit } from "react-icons/fa";
 
 interface Props {

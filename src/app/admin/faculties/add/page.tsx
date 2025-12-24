@@ -1,5 +1,5 @@
 import Navbar from "@/components/navbar";
-import prisma from "@/db/prisma";
+import prisma from "@/lib/prisma";
 import AddFacultyForm from "@/components/forms/admin/addFaculty";
 import { unstable_noStore } from "next/cache";
 

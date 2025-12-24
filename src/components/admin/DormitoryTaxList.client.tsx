@@ -4,7 +4,7 @@ import Navbar from "@/components/navbar";
 import Link from "next/link";
 import { deleteTaxDorm } from "@/actions/actions";
 import { FaPlus, FaTrash, FaEdit } from "react-icons/fa";
-import { StudentDorm, StudentDormTaxValue } from "@prisma/client";
+import { StudentDorm, StudentDormTaxValue } from "@/generated/prisma/client";
 
 export default function DormitoryTaxList({
   taxStudentDorm,

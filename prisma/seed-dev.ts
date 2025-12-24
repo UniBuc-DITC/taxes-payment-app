@@ -1,6 +1,5 @@
-import { PrismaClient, Role, StudyCycle, FacultyTaxType } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { FacultyTaxType, StudyCycle } from "@/generated/prisma/client";
+import prisma from "@/lib/prisma";
 
 async function main() {
   const euPlatescAccounts = [];
@@ -82,7 +81,7 @@ async function main() {
       ]) {
         const facultyTaxValue = await prisma.facultyTaxValue.upsert({
           where: {
-            facultyTaxIdentifier: {
+            facultyTaxValueIdentifier: {
               studyCycle,
               facultyId,
               facultyTaxType,

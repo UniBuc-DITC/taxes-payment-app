@@ -1,4 +1,4 @@
-import prisma from "@/db/prisma";
+import prisma from "@/lib/prisma";
 import AddTaxDormForm from "@/components/forms/admin/addDormTax";
 import Navbar from "@/components/navbar";
 import { unstable_noStore } from "next/cache";

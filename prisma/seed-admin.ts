@@ -4,11 +4,11 @@ import {
   AuthProviderCallback,
   Client,
 } from "@microsoft/microsoft-graph-client";
-import { PrismaClient, Role } from "@prisma/client";
 import { createInterface as readlineCreateInterface } from "readline";
 import { stdin as input, stdout as output } from "process";
 
-const prisma = new PrismaClient();
+import prisma from "@/lib/prisma";
+import { Role } from "@/generated/prisma/client";
 
 const MICROSOFT_GRAPH_ENDPOINT = "https://graph.microsoft.com/";
 
@@ -83,13 +83,13 @@ async function main() {
       try {
         const newUser = await prisma.user.create({
           data: {
-            azureAdObjectId: userInfo["id"],
+            entraIdObjectId: userInfo["id"],
             role: Role.appAdmin,
           },
         });
 
         console.log(
-          `Successfully created admin account associated to user with ID ${newUser.azureAdObjectId}, full name ${userInfo["displayName"]}`,
+          `Successfully created admin account associated to user with ID ${newUser.entraIdObjectId}, full name ${userInfo["displayName"]}`,
         );
       } catch (exception) {
         console.error(`Failed to create user in database: ${exception}`);
