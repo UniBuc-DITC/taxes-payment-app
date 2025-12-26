@@ -1,7 +1,11 @@
+"use server";
+
+import { unstable_noStore } from "next/cache";
+
 import prisma from "@/lib/prisma";
 import { StudentDorm } from "@/generated/prisma/client";
+
 import DormitoryList from "@/components/admin/DormitoryList.client";
-import { unstable_noStore } from "next/cache";
 
 export default async function getAllServer() {
   unstable_noStore();

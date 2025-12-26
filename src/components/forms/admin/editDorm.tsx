@@ -2,7 +2,7 @@
 
 import { IoAddCircleOutline } from "react-icons/io5";
 import { updateDormitory } from "@/actions/actions";
-import { EuPlatescAccount } from "@/generated/prisma/client";
+import { EuPlatescAccount } from "@/generated/prisma/browser";
 import { SubmitHandler, useForm, Controller } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";

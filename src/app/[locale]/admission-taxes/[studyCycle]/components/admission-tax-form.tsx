@@ -24,9 +24,11 @@ import { useTranslations } from "next-intl";
 import Decimal from "decimal.js-light";
 
 import { Locale } from "@/i18n/routing";
+
 import Select from "@/components/forms/common/select";
-import { Currency, StudyCycle } from "@/generated/prisma/enums";
 import Checkbox from "@/components/forms/common/checkbox";
+
+import { Currency, StudyCycle } from "@/generated/prisma/enums";
 
 import { initiateAdmissionTaxPaymentAction } from "../actions";
 import { InitiateAdmissionTaxPaymentInputSchema, inputSchema } from "../schema";

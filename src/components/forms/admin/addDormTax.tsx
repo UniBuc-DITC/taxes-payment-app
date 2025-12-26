@@ -1,16 +1,18 @@
 "use client";
 
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useState } from "react";
+
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { createTaxDorm } from "@/actions/actions";
+
+import Select from "react-select";
 import { IoAddCircleOutline } from "react-icons/io5";
 
+import { createTaxDorm } from "@/actions/actions";
+
 import { dormTaxSchema } from "@/utils/forms/validationSchemas";
-import { Currency, StudentDorm } from "@/generated/prisma/client";
-import { useState } from "react";
-import Select from "react-select";
-import { Controller } from "react-hook-form";
+import { Currency, StudentDorm } from "@/generated/prisma/browser";
 
 type Input = z.infer<typeof dormTaxSchema>;
 

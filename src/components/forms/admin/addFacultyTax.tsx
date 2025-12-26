@@ -1,15 +1,16 @@
 "use client";
 
-import { IoAddCircle } from "react-icons/io5";
-import { createTaxFaculty } from "@/actions/actions";
-import { Currency, Faculty } from "@/generated/prisma/client";
 import { useState } from "react";
-import Select from "react-select";
-import { Controller } from "react-hook-form";
 
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+
+import Select from "react-select";
+import { IoAddCircle } from "react-icons/io5";
+
+import { createTaxFaculty } from "@/actions/actions";
+import { Currency, Faculty } from "@/generated/prisma/browser";
 
 import { facultyTaxSchema } from "@/utils/forms/validationSchemas";
 
