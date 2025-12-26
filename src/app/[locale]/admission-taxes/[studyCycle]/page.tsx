@@ -8,7 +8,7 @@ import { FacultyTaxType, StudyCycle } from "@/generated/prisma/client";
 import { Locale } from "@/i18n/routing";
 import prisma from "@/lib/prisma";
 
-import AdmissionTaxForm from "@/components/forms/faculties/AdmissionTaxForm";
+import AdmissionTaxForm from "./components/admission-tax-form";
 
 type Props = {
   params: Promise<{ locale: Locale; studyCycle: StudyCycle }>;
@@ -35,6 +35,9 @@ export default async function AdmissionTaxPage(props: Props) {
     ...faculty,
     facultyTaxValues: faculty.facultyTaxValues.map((ftv) => ({
       ...ftv,
+      // The faculty taxes' values are stored in the database as PostgreSQL decimals,
+      // and since Next.js doesn't know how to serialize such objects,
+      // we have to manually convert them to strings and parse them back on the client component.
       value: ftv.value.toString(),
     })),
   }));
@@ -49,7 +52,11 @@ export default async function AdmissionTaxPage(props: Props) {
           studyCycle: studyCyclesT(studyCycle).toLocaleLowerCase(),
         })}
       />
-      <AdmissionTaxForm locale={locale} faculties={faculties} />
+      <AdmissionTaxForm
+        locale={locale}
+        studyCycle={studyCycle}
+        faculties={faculties}
+      />
     </>
   );
 }
