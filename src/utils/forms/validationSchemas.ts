@@ -1,4 +1,6 @@
 import { z } from "zod";
+import { Currency } from "@/generated/prisma/enums";
+
 export const billingFormSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
@@ -124,6 +126,7 @@ export const dormTaxSchema = z.object({
       /^\d+(\.\d{0,2})?$/,
       "Tax value must be a number with up to two decimal places",
     ),
+  currency: z.enum(Object.values(Currency)),
   studentDormId: z.number().int(),
   remarksRo: z.string().optional(),
   remarksEn: z.string().optional(),
@@ -137,6 +140,7 @@ export const facultyTaxSchema = z.object({
       /^\d+(\.\d{0,2})?$/,
       "Tax value must be a number with up to two decimal places",
     ),
+  currency: z.enum(Object.values(Currency)),
   studyCycle: z.string(),
   facultyId: z.number().int(),
   facultyTaxType: z.string(),

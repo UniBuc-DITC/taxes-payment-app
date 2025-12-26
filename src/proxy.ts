@@ -1,13 +1,16 @@
-import createMiddleware from "next-intl/middleware";
-import { routing } from "./i18n/routing";
-import { NextRequestWithAuth, withAuth } from "next-auth/middleware";
 import { NextFetchEvent, NextRequest } from "next/server";
+
+import createMiddleware from "next-intl/middleware";
+import { NextRequestWithAuth, withAuth } from "next-auth/middleware";
+
+import { routing } from "@/i18n/routing";
+import { Role } from "@/generated/prisma/enums";
 
 const intlMiddleware = createMiddleware(routing);
 
 const authMiddleware = withAuth({
   callbacks: {
-    authorized: ({ token }) => token != null,
+    authorized: ({ token }) => token != null && token.role == Role.AppAdmin,
   },
 });
 

@@ -4,6 +4,7 @@ import NextAuth from "next-auth/next";
 import AzureAD from "next-auth/providers/azure-ad";
 import type { Provider } from "next-auth/providers/index";
 import prisma from "@/lib/prisma";
+import { Role } from "./generated/prisma/enums";
 
 const providers: Provider[] = [];
 
@@ -66,15 +67,38 @@ export const authOptions: NextAuthOptions = {
           entraIdObjectId: user.entraIdObjectId,
         },
       });
+
       if (dbUser) return true;
+
       return false;
     },
+
     async jwt({ token, user, account, trigger, session }) {
-      if (account && account.access_token !== undefined) {
-        token.accessToken = account.access_token;
-        token.refreshToken = account.refresh_token;
+      if (!user) {
+        throw new Error("User profile data is missing");
       }
-      if (user) token.entraIdObjectId = user.entraIdObjectId;
+
+      const dbUser = await prisma.user.findUnique({
+        where: {
+          entraIdObjectId: user.entraIdObjectId,
+        },
+      });
+
+      if (!dbUser) {
+        throw new Error(
+          `Could not find user with Entra object ID '${user.entraIdObjectId}' in database`,
+        );
+      }
+
+      if (!account || account.access_token === undefined) {
+        throw new Error("Account data or access token are missing");
+      }
+
+      token.accessToken = account.access_token;
+      token.refreshToken = account.refresh_token;
+
+      token.entraIdObjectId = user.entraIdObjectId;
+      token.role = Role.AppAdmin;
 
       if (trigger === "update" && session?.name) {
         token.name = session.name;
@@ -82,12 +106,15 @@ export const authOptions: NextAuthOptions = {
 
       return token;
     },
+
     async redirect({ url, baseUrl }) {
       return url.startsWith(baseUrl) ? baseUrl + "/admin" : url;
     },
+
     async session({ session, token }) {
       session.accessToken = token.accessToken;
       session.user.entraIdObjectId = token.entraIdObjectId;
+      session.user.role = token.role;
 
       return session;
     },

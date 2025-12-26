@@ -2,7 +2,7 @@
 
 import { IoAddCircle } from "react-icons/io5";
 import { updateTaxFaculty } from "@/actions/actions";
-import { Faculty } from "@/generated/prisma/client";
+import { Currency, Faculty } from "@/generated/prisma/client";
 import { useState } from "react";
 import Select from "react-select";
 import { Controller } from "react-hook-form";
@@ -57,6 +57,11 @@ export default function EditFacultyTaxForm({ faculties, searchParams }: Props) {
     label: faculty.nameRo,
   }));
 
+  const selectCurrencies = Object.entries(Currency).map(([key, value]) => ({
+    value,
+    label: key,
+  }));
+
   const selectStudyCycles = [
     { value: "bachelors", label: "Licenta" },
     { value: "masters", label: "Masterat" },
@@ -94,6 +99,40 @@ export default function EditFacultyTaxForm({ faculties, searchParams }: Props) {
             {errors.value && (
               <p className="text-xs italic text-red-600">
                 {errors.value.message}
+              </p>
+            )}
+          </div>
+
+          <div className="flex flex-col">
+            <label className="text-gray-700 font-semibold text-center">
+              Valută
+            </label>
+            <Controller
+              control={control}
+              name="currency"
+              render={({ field: { onChange, onBlur, value, ref } }) => (
+                <Select
+                  ref={ref}
+                  onChange={(newValue) => onChange(newValue?.value)}
+                  onBlur={onBlur}
+                  value={selectCurrencies.find(
+                    (option) => option.value === value,
+                  )}
+                  className="basic-single w-full"
+                  classNamePrefix="select"
+                  isDisabled={isDisabled}
+                  isLoading={isLoading}
+                  isClearable={isClearable}
+                  isRtl={isRtl}
+                  isSearchable={isSearchable}
+                  required={false}
+                  options={selectCurrencies}
+                />
+              )}
+            />
+            {errors.currency && (
+              <p className="text-xs italic text-red-600 text-center">
+                {errors.currency.message}
               </p>
             )}
           </div>

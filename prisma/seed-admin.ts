@@ -84,7 +84,7 @@ async function main() {
         const newUser = await prisma.user.create({
           data: {
             entraIdObjectId: userInfo["id"],
-            role: Role.appAdmin,
+            role: Role.AppAdmin,
           },
         });
 

@@ -58,6 +58,7 @@ export async function createTaxFaculty(data: InputTaxFaculty) {
   await prisma.facultyTaxValue.create({
     data: {
       value: parseInt(data.value, 10),
+      currency: data.currency,
       studyCycle:
         data.studyCycle === "bachelors"
           ? StudyCycle.bachelors
@@ -290,7 +291,7 @@ export async function addAdmin(formData: FormData) {
   await prisma.user.create({
     data: {
       entraIdObjectId: formData.get("userId") as string,
-      role: Role.appAdmin,
+      role: Role.AppAdmin,
     },
   });
   revalidatePath("/");

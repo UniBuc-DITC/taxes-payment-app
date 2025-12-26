@@ -1,4 +1,8 @@
-import { FacultyTaxType, StudyCycle } from "@/generated/prisma/client";
+import {
+  Currency,
+  FacultyTaxType,
+  StudyCycle,
+} from "@/generated/prisma/client";
 import prisma from "@/lib/prisma";
 
 async function main() {
@@ -89,6 +93,7 @@ async function main() {
           },
           create: {
             value: 2000 + 500 * facultyIndex + 1000 * studyCycleIndex,
+            currency: Currency.RON,
             studyCycle,
             facultyId,
             facultyTaxType,
