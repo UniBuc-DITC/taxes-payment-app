@@ -16,7 +16,7 @@ async function main() {
       create: {
         name: accountName,
         description: `Description for EuPlatesc account ${i}`,
-        merchantId: 10000 + i,
+        merchantId: `${1000000 + i}`,
         secretKey: `Key ${i}`,
         didacticPremiumCardOnly: i % 2 === 0, // Alternate between true and false
       },

@@ -98,7 +98,7 @@ export async function createEuPlatescAccount(data: InputAccount) {
     data: {
       name: data.name,
       description: data.description,
-      merchantId: parseInt(data.merchantId, 10),
+      merchantId: data.merchantId.trim(),
       secretKey: data.secretKey,
       didacticPremiumCardOnly: false,
     },
@@ -240,7 +240,7 @@ export async function updateEuPlatescAccount(data: InputAccount, id: number) {
     data: {
       name: data.name,
       description: data.description,
-      merchantId: parseInt(data.merchantId, 10),
+      merchantId: data.merchantId.trim(),
       secretKey: data.secretKey,
       didacticPremiumCardOnly: false,
     },
