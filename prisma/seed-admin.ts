@@ -13,9 +13,9 @@ import { Role } from "@/generated/prisma/client";
 const MICROSOFT_GRAPH_ENDPOINT = "https://graph.microsoft.com/";
 
 async function acquireAccessToken() {
-  const tenantId = process.env.AZURE_AD_TENANT_ID;
-  const clientId = process.env.AZURE_AD_CLIENT_ID;
-  const clientSecret = process.env.AZURE_AD_CLIENT_SECRET;
+  const tenantId = process.env.ENTRA_ID_TENANT_ID;
+  const clientId = process.env.ENTRA_ID_CLIENT_ID;
+  const clientSecret = process.env.ENTRA_ID_CLIENT_SECRET;
 
   if (!tenantId) {
     throw Error("Entra ID tenant ID is missing");

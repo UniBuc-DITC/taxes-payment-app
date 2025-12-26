@@ -7,28 +7,28 @@ import prisma from "@/lib/prisma";
 
 const providers: Provider[] = [];
 
-const tenantId = process.env.AZURE_AD_TENANT_ID;
+const tenantId = process.env.ENTRA_ID_TENANT_ID;
 if (typeof tenantId !== "string" || !tenantId) {
   throw Error(
-    "Required environment variable `AZURE_AD_TENANT_ID` is not defined",
+    "Required environment variable `ENTRA_ID_TENANT_ID` is not defined",
   );
 }
 
-const clientId = process.env.AZURE_AD_CLIENT_ID;
+const clientId = process.env.ENTRA_ID_CLIENT_ID;
 if (typeof clientId !== "string" || !clientId) {
   throw Error(
-    "Required environment variable `AZURE_AD_CLIENT_ID` is not defined",
+    "Required environment variable `ENTRA_ID_CLIENT_ID` is not defined",
   );
 }
 
-let clientSecret = process.env.AZURE_AD_CLIENT_SECRET;
+let clientSecret = process.env.ENTRA_ID_CLIENT_SECRET;
 if (typeof clientSecret !== "string" || !clientSecret) {
   if (process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD) {
     // During build, we don't need to know the client secret
     clientSecret = "";
   } else {
     throw Error(
-      "Required environment variable `AZURE_AD_CLIENT_SECRET` is not defined",
+      "Required environment variable `ENTRA_ID_CLIENT_SECRET` is not defined",
     );
   }
 }

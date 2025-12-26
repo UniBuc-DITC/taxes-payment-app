@@ -3,9 +3,9 @@
  * and the resource owner flow.
  */
 export async function getAccessToken() {
-  const clientId = process.env.AZURE_AD_CLIENT_ID;
-  const clientSecret = process.env.AZURE_AD_CLIENT_SECRET;
-  const tokenEndpoint = `https://login.microsoftonline.com/${process.env.AZURE_AD_TENANT_ID}/oauth2/v2.0/token`;
+  const clientId = process.env.ENTRA_ID_CLIENT_ID;
+  const clientSecret = process.env.ENTRA_ID_CLIENT_SECRET;
+  const tokenEndpoint = `https://login.microsoftonline.com/${process.env.ENTRA_ID_TENANT_ID}/oauth2/v2.0/token`;
 
   const response = await fetch(tokenEndpoint, {
     method: "POST",

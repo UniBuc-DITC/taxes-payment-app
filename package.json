@@ -15,8 +15,8 @@
     "prisma:push": "npx prisma db push",
     "prisma:migrate": "npx prisma migrate dev",
     "prisma:generate": "npx prisma generate",
-    "seed:admin": "tsx --tsconfig tsconfig.seed.json prisma/seed-admin.ts",
-    "seed:dev": "tsx --tsconfig tsconfig.seed.json prisma/seed-dev.ts"
+    "seed:admin": "dotenvx run --convention nextjs -- tsx prisma/seed-admin.ts",
+    "seed:dev": "dotenvx run --convention nextjs -- tsx prisma/seed-dev.ts"
   },
   "dependencies": {
     "@azure/identity": "^4.13.0",
